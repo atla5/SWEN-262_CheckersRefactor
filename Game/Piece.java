@@ -1,11 +1,11 @@
-/**
- * Piece.java
+package Game; /**
+ * Game.Piece.java
  *
  * Version:
- *   $Id: Piece.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
+ *   $Id: Game.Piece.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
  *
  * Revisions:
- *   $Log: Piece.java,v $
+ *   $Log: Game.Piece.java,v $
  *   Revision 1.1  2002/10/22 21:12:53  se362
  *   Initial creation of case study
  *
@@ -43,7 +43,7 @@ public abstract class Piece {
     * 
     * @return the type of the piece
     */
-   abstract int getType();
+   public abstract int getType();
    
    /**
     * This method returns the color of this piece
@@ -55,4 +55,4 @@ public abstract class Piece {
 	   return color;
    }
 
-}// Piece
+}// Game.Piece

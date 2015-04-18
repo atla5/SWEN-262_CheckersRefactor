@@ -1,17 +1,16 @@
-/**
- * LocalPlayer.java
+package Controller; /**
+ * Controller.LocalPlayer.java
  *
  * Version:
- *   $Id: LocalPlayer.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
+ *   $Id: Controller.LocalPlayer.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
  *
  * Revisions:
- *   $Log: LocalPlayer.java,v $
+ *   $Log: Controller.LocalPlayer.java,v $
  *   Revision 1.1  2002/10/22 21:12:52  se362
  *   Initial creation of case study
  *
  */
 
-import java.awt.*;
 import javax.swing.*;
 
 /**
@@ -120,5 +119,5 @@ public class LocalPlayer extends Player {
 	System.exit( 0 );
     }
     
-}//LocalPlayer.java
+}//Controller.LocalPlayer.java
 

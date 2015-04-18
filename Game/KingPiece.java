@@ -1,17 +1,18 @@
-/**
- * KingPiece.java
+package Game; /**
+ * Game.KingPiece.java
  *
  * Version:
- *   $Id: KingPiece.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
+ *   $Id: Game.KingPiece.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
  *
  * Revisions:
- *   $Log: KingPiece.java,v $
+ *   $Log: Game.KingPiece.java,v $
  *   Revision 1.1  2002/10/22 21:12:52  se362
  *   Initial creation of case study
  *
  */
+import Game.Piece;
+
 import java.awt.*;
-import java.util.*;
 
 /**
  * This is a class representing a king piece (a piece that has been kinged)
@@ -47,4 +48,4 @@ public class KingPiece extends Piece {
 	   return type;
    }
    
-}//KingPiece
+}//Game.KingPiece

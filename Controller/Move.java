@@ -1,18 +1,17 @@
-/**
- * Move.java
+package Controller; /**
+ * Controller.Move.java
  *
  * Version:
- *    $Id: Move.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
+ *    $Id: Controller.Move.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
  *
  * Revisions:
- *    $Log: Move.java,v $
+ *    $Log: Controller.Move.java,v $
  *    Revision 1.1  2002/10/22 21:12:52  se362
  *    Initial creation of case study
  *
  */
 
-import java.util.*;
-import java.io.*;
+import Controller.Player;
 
 /**
  * An object representation of a move.
@@ -85,4 +84,4 @@ import java.io.*;
 		return endingLocation;
 	}
      
-} //Move.java
+} //Controller.Move.java

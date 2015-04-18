@@ -1,11 +1,11 @@
-/**
- * Player.java
+package Controller; /**
+ * Controller.Player.java
  *
  * Version:
- *    $Id: Player.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
+ *    $Id: Controller.Player.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
  *
  * Revisions:
- *    $Log: Player.java,v $
+ *    $Log: Controller.Player.java,v $
  *    Revision 1.1  2002/10/22 21:12:53  se362
  *    Initial creation of case study
  *
@@ -14,7 +14,7 @@
 import java.awt.*;
 		   
 /**
-*  A class representation of the Player object.  This object
+*  A class representation of the Controller.Player object.  This object
 *  contains the methods needed when one of the users clicks
 *  on one of the buttons within the GUI.
 *
@@ -29,13 +29,13 @@ public abstract class Player {
     // Instance of the rules class which will be used to
     // validate moves and check for game ending conditions
     // once a move has been made.
-    protected Rules  theRules;	
+    protected Rules theRules;
 
     protected Driver theDriver;
     
     // Instance of the move class which will be
     // created when a user makes a move.
-    protected Move   theMove;	
+    protected Move theMove;
     
     protected int    playerNumber;
     protected String playerName;
@@ -43,12 +43,12 @@ public abstract class Player {
     protected int    type;
     
     /**
-     * Create a new instance of a Player object to represent
+     * Create a new instance of a Controller.Player object to represent
      * one of the users.
      * 
      * @param num       The number of the player.
      * @param newRules  The rules used to validate moves.
-     * @param newDriver Driver which will control this.     
+     * @param newDriver Controller.Driver which will control this.
      */
     public Player( int num, Rules newRules, Driver newDriver ){
 	playerName   = null;
@@ -68,7 +68,7 @@ public abstract class Player {
     }
     
     /**
-     * Make an istance of a Move that was just made and pass it 
+     * Make an istance of a Controller.Move that was just made and pass it
      * to theRules by calling its validateMove method.
      *
      * @param start The starting spot of the move.  The legal 
@@ -193,7 +193,7 @@ public abstract class Player {
      * @return a String representation of this object.
      */
     public String toString(){
-        return ("Player.  name = " + playerName);
+        return ("Controller.Player.  name = " + playerName);
     }
     
-}//Player.java
+}//Game.Player.java

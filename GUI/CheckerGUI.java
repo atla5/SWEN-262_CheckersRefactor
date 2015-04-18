@@ -1,19 +1,22 @@
-/*
- * CheckerGUI.java
+package GUI;/*
+ * GUI.CheckerGUI.java
  * 
  * The actual board.
  *
  * Created on January 25, 2002, 2:34 PM
  * 
  * Version
- * $Id: CheckerGUI.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
+ * $Id: GUI.CheckerGUI.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
  * 
  * Revisions
- * $Log: CheckerGUI.java,v $
+ * $Log: GUI.CheckerGUI.java,v $
  * Revision 1.1  2002/10/22 21:12:52  se362
  * Initial creation of case study
  *
  */
+
+import Game.Board;
+import Controller.Facade;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -1072,7 +1075,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
         gridBagConstraints1.gridy = 8;
         getContentPane().add(jButton64, gridBagConstraints1);
         
-        PlayerOnelabel.setText("Player 1:     " + playerOnesName );
+        PlayerOnelabel.setText("Controller.Player 1:     " + playerOnesName );
         PlayerOnelabel.setForeground( Color.black );
         
         gridBagConstraints1 = new java.awt.GridBagConstraints();
@@ -1081,7 +1084,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
         gridBagConstraints1.gridwidth = 4;
         getContentPane().add(PlayerOnelabel, gridBagConstraints1);
         
-        playerTwoLabel.setText("Player 2:     " + playerTwosName );
+        playerTwoLabel.setText("Controller.Player 2:     " + playerTwosName );
         playerTwoLabel.setForeground( Color.black );
 		
         gridBagConstraints1 = new java.awt.GridBagConstraints();

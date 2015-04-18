@@ -1,15 +1,17 @@
-/**
- * Driver.java
+package Controller; /**
+ * Controller.Driver.java
  *
  * Version
- *    $Id: Driver.java,v 1.1 2002/10/22 21:12:52 se362 Exp $ 
+ *    $Id: Controller.Driver.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
  *
  * Revisions:
- *    $Log: Driver.java,v $
+ *    $Log: Controller.Driver.java,v $
  *    Revision 1.1  2002/10/22 21:12:52  se362
  *    Initial creation of case study
  *
  */
+
+import Game.*;
 
 import java.awt.*;
 import java.net.*;
@@ -29,15 +31,15 @@ import javax.swing.*;
 
 public class Driver {
     
-    private Player  playerOne;
-    private Player  playerTwo;
+    private Player playerOne;
+    private Player playerTwo;
     private int     gameType;
-    private Player  activePlayer;
-    private Player  passivePlayer;
+    private Player activePlayer;
+    private Player passivePlayer;
     private boolean runningTimer;
-    private Timer   theTimer;
-    private Facade  theFacade;
-    private Rules   theRules;
+    private Game.Timer theTimer;
+    private Facade theFacade;
+    private Rules theRules;
     
     /**
      * Constructor
@@ -90,7 +92,7 @@ public class Driver {
 	    if ( space < 0 ){
 		JOptionPane.showMessageDialog( null,
 	       	       activePlayer.getName() + " made an illegal move",
-      	       	       "Invalid Move", JOptionPane.INFORMATION_MESSAGE );
+      	       	       "Invalid Controller.Move", JOptionPane.INFORMATION_MESSAGE );
 	    } else {
 		JOptionPane.showMessageDialog( null,
 		       activePlayer.getName() + " please make" +
@@ -278,14 +280,14 @@ public class Driver {
      */
     public void setTimer( int time, int warning ){
    	// If values are negative, set runningTimer to false
-	// If they are positive values, create the Timer and 
+	// If they are positive values, create the Game.Timer and
 	// notifier with the times
 
 	if ( time < 0 ) {
 	    runningTimer = false;
 	} else {
 	    runningTimer = true;
-	    theTimer = new Timer();
+	    theTimer = new Game.Timer();
 	}
         
     }
@@ -322,9 +324,9 @@ public class Driver {
        
 	if ( gameType == theFacade.HOSTGAME ) {
 	    ( (NetworkPlayer)playerTwo).waitForConnect();
-	    //( (NetworkPlayer)playerTwo).waitForConnect();
+	    //( (Controller.NetworkPlayer)playerTwo).waitForConnect();
 	} else if ( gameType == theFacade.CLIENTGAME ) {
-	    //( (NetworkPlayer)playerOne).connectToHost();
+	    //( (Controller.NetworkPlayer)playerOne).connectToHost();
 	    ( (NetworkPlayer)playerOne).connectToHost();
 	}
 	
@@ -410,9 +412,9 @@ public class Driver {
     }
     
     /**
-     * Return the notifier of the Timer
+     * Return the notifier of the Game.Timer
      *
-     * @return the notifier for the Timer
+     * @return the notifier for the Game.Timer
      *
      * @pre  The game is running
      * @post This method has changed nothing
@@ -429,4 +431,4 @@ public class Driver {
 	return timer;
     }
     
-}//Driver.java
+}//Controller.Driver.java

@@ -1,24 +1,21 @@
-/**
- * TestingKernel.java
+package Controller; /**
+ * Controller.TestingKernel.java
  *
  * Created on February 8, 2002, 1:09 PM
  *
  * Version:
- *   $Id: TestingKernel.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
+ *   $Id: Controller.TestingKernel.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
  *
  * Revisions:
- *   $Log: TestingKernel.java,v $
+ *   $Log: Controller.TestingKernel.java,v $
  *   Revision 1.1  2002/10/22 21:12:53  se362
  *   Initial creation of case study
  *
  */
                                       
 // Not all of these are probably necessary.
-import java.awt.*;
-import java.util.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.net.*;
+
+import Game.Board;
 
 /**
  *  This class is the system's Testing Kernel.  For now it is hard 
@@ -40,7 +37,7 @@ public class TestingKernel extends java.lang.Object{
     public Driver theDriver;
     
     // The board that we will use to check the state of the pieces with.
-    public Board  testBoard;
+    public Board testBoard;
     
     // Initial values that will be used in this program.
     public int    testTime  = 250;
@@ -123,17 +120,17 @@ public class TestingKernel extends java.lang.Object{
         boolean passedTest = false;
         
         // Test that it correctly set the initial values correctly.
-        // Player One's Name
+        // Controller.Player One's Name
         passedTest = playerOne.equals( testFacade.getPlayerName( 1 ) );
-        report( passedTest, "Sets Player One name", 3 );
+        report( passedTest, "Sets Controller.Player One name", 3 );
   
-        // Player Two's Name
+        // Controller.Player Two's Name
         passedTest = playerTwo.equals( testFacade.getPlayerName( 2 ) );
-        report( passedTest, "Sets Player Two name", 3 );
+        report( passedTest, "Sets Controller.Player Two name", 3 );
         
-        // The Timer.
+        // The Game.Timer.
         passedTest = ( testTime == testFacade.getTimer() );
-        report( passedTest, "Sets Timer", 4 );
+        report( passedTest, "Sets Game.Timer", 4 );
                
         // These are intended to run in succession.  So pieces are assumed
         // to be positioned based on previous tests.  You must take note
@@ -248,7 +245,7 @@ public class TestingKernel extends java.lang.Object{
         
         testBoard = testFacade.stateOfBoard();
                 
-        // Piece should not have moved.  Control of the board should be
+        // Game.Piece should not have moved.  Control of the board should be
         // retained.  Check for those conditions.
         if( !testBoard.occupied( 46 ) ){ 
             System.out.println( "Incorrectly removed piece from 46." );
@@ -289,7 +286,7 @@ public class TestingKernel extends java.lang.Object{
         testFacade.selectSpace( 26 );
         testFacade.selectSpace( 35 );
         
-        // Piece should not have moved and control should be retained.
+        // Game.Piece should not have moved and control should be retained.
         simpleWait();
             
         testBoard = testFacade.stateOfBoard();
@@ -647,4 +644,4 @@ public class TestingKernel extends java.lang.Object{
         }
     }
     
-} // TestingKernel.java
+} // Controller.TestingKernel.java

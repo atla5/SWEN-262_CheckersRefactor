@@ -1,21 +1,20 @@
-/**
- * NetworkMove.java
+package Controller; /**
+ * Controller.NetworkMove.java
  *
  * Version:
- *    $Id: NetworkMove.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
+ *    $Id: Controller.NetworkMove.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
  *
  * Revisions:
- *    $Log: NetworkMove.java,v $
+ *    $Log: Controller.NetworkMove.java,v $
  *    Revision 1.1  2002/10/22 21:12:53  se362
  *    Initial creation of case study
  *
  */
 
-import java.util.*;
 import java.io.*;
 
 /**
- * An object representation of a move, without a reference to the Player who
+ * An object representation of a move, without a reference to the Controller.Player who
  * made the move.
  *
  * @author
@@ -42,9 +41,9 @@ public class NetworkMove implements Serializable {
     }
 
 	/**
-	 * Gets the start and end locations from an incoming Move.
+	 * Gets the start and end locations from an incoming Controller.Move.
 	 * 
-	 * @param aMove - the incoming Move object.
+	 * @param aMove - the incoming Controller.Move object.
 	 */
     public NetworkMove( Move aMove ) {
 
@@ -54,9 +53,9 @@ public class NetworkMove implements Serializable {
     }
 
 	/**
-	 * Makes a move from the NetworkPlayer.
+	 * Makes a move from the Controller.NetworkPlayer.
 	 *
-	 * @param parent - the NetworkPlayer.
+	 * @param parent - the Controller.NetworkPlayer.
 	 */
 	public void execute( NetworkPlayer parent ) {
 
@@ -95,10 +94,10 @@ public class NetworkMove implements Serializable {
 	 */
     public String toString() {
 
-        return ("Move.  startLoc = " + startingLocation + ", endLoc = "
+        return ("Controller.Move.  startLoc = " + startingLocation + ", endLoc = "
                    + endingLocation);
 
     }
 
 
-} //NetworkMove.java
+} //Controller.NetworkMove.java

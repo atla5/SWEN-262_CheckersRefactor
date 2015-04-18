@@ -1,6 +1,6 @@
-/*
+package Controller;/*
 
- * PlayCheckers.java
+ * Controller.PlayCheckers.java
 
  *
 
@@ -8,18 +8,21 @@
 
  * Version:
 
- *   $Id: PlayCheckers.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
+ *   $Id: Controller.PlayCheckers.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
 
  *
 
  * Revisions:
 
- *   $Log: PlayCheckers.java,v $
+ *   $Log: Controller.PlayCheckers.java,v $
  *   Revision 1.1  2002/10/22 21:12:53  se362
  *   Initial creation of case study
  *
  */
 
+
+import GUI.Firstscreen;
+import Controller.Driver;
 
 /**
  *
@@ -47,4 +50,4 @@ class PlayCheckers{
 	
     }
     
-}//PlayCheckers
+}//Controller.PlayCheckers

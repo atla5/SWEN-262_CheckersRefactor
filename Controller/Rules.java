@@ -1,15 +1,22 @@
-/**
- * Rules.java
+package Controller; /**
+ * Controller.Rules.java
  *
  * Version:
- *    $Id: Rules.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
+ *    $Id: Controller.Rules.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
  *
  * Revisions:
- *    $Log: Rules.java,v $
+ *    $Log: Controller.Rules.java,v $
  *    Revision 1.1  2002/10/22 21:12:53  se362
  *    Initial creation of case study
  *
  */
+
+import Controller.Driver;
+import Controller.Move;
+import Controller.Player;
+import Game.Board;
+import Game.Piece;
+import Game.SinglePiece;
 
 import java.util.*;
 import java.awt.*;
@@ -41,7 +48,7 @@ public class Rules {
 						   // wall spaces.
     
     /**
-     * The constructor for the Rules class.
+     * The constructor for the Controller.Rules class.
      *
      * @param board - the checker board.
      * @param driver - the main driver of the program.
@@ -122,7 +129,7 @@ public class Rules {
 		    possibleJumps = checkForPossibleJumps( start, pieceType, 
 							   player );
 		    if ( possibleJumps.contains( new Integer( end ) ) ) {
-			// Move the piece
+			// Controller.Move the piece
 			theBoard.movePiece( start, end ); 
 			// Remove the jumped piece
 			theBoard.removePiece( middle );
@@ -177,7 +184,7 @@ public class Rules {
 			}
 			
 		    } 
-                } // Move is either valid or not. 
+                } // Controller.Move is either valid or not.
 	    } // end if piece on start space is the correct color
 	    
 	    // If the move was not valid, tell the player. 
@@ -606,7 +613,7 @@ public class Rules {
 		if ( end == piecePosition + 7 || end == piecePosition - 7 ) {
 		    retval = true;
 		}
-		// Piece is not on left or right wall.
+		// Game.Piece is not on left or right wall.
 	    } else {
 		// Check if end position is valid.
 		if ( end == piecePosition - 7 || end == piecePosition - 9 ||
@@ -998,4 +1005,4 @@ public class Rules {
 	
     }
     
-}//Rules.java
+}//Controller.Rules.java

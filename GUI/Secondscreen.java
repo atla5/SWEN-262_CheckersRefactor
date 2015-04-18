@@ -1,16 +1,17 @@
-/*
- * Secondscreen.java
+package GUI;/*
+ * GUI.Secondscreen.java
  *
  * Version:
- *   $Id: Secondscreen.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
+ *   $Id: GUI.Secondscreen.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
  *
  * Revisions:
- *   $Log: Secondscreen.java,v $
+ *   $Log: GUI.Secondscreen.java,v $
  *   Revision 1.1  2002/10/22 21:12:53  se362
  *   Initial creation of case study
  *
  */
 
+import Controller.Facade;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -49,10 +50,10 @@ public class Secondscreen extends JFrame
 	
     /**
      * 
-     * Creates new Secondscreen 
+     * Creates new GUI.Secondscreen
      *
      *@param f the facade getting passed to to set options
-     *@param first the Firstscreen object that ceated this window
+     *@param first the GUI.Firstscreen object that ceated this window
      *@param type the type of game 
      * 
      */
@@ -116,7 +117,7 @@ public class Secondscreen extends JFrame
         playerOneLabel.setName("playerOneLabel");
         playerOneLabel.setBackground(new Color (204, 204, 204));
         playerOneLabel.setForeground(Color.black);
-        playerOneLabel.setText("Player 1:");
+        playerOneLabel.setText("Controller.Player 1:");
         
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 0;
@@ -128,7 +129,7 @@ public class Secondscreen extends JFrame
         playerTwoLabel.setName("playerTwoLabel");
         playerTwoLabel.setBackground(new Color (204, 204, 204));
         playerTwoLabel.setForeground(Color.black);
-        playerTwoLabel.setText("Player 2:");
+        playerTwoLabel.setText("Controller.Player 2:");
         
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 0;
@@ -306,7 +307,7 @@ public class Secondscreen extends JFrame
 			} catch ( Exception x ) {
 			    
 			    JOptionPane.showMessageDialog( null,
-							   "Invalid Timer value(s)",
+							   "Invalid Game.Timer value(s)",
 							   "Error",
 							   JOptionPane.INFORMATION_MESSAGE );
 			}
@@ -363,4 +364,4 @@ public class Secondscreen extends JFrame
 	System.exit(0);
     }
   
-}//Secondscreen
+}//GUI.Secondscreen

@@ -1,11 +1,11 @@
-/**
- * Notifier.java
+package Game; /**
+ * Game.Notifier.java
  *
  * Version:
- *     $Id: Notifier.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
+ *     $Id: Game.Notifier.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
  *
  * Revisions:
- *     $Log: Notifier.java,v $
+ *     $Log: Game.Notifier.java,v $
  *     Revision 1.1  2002/10/22 21:12:53  se362
  *     Initial creation of case study
  *
@@ -51,7 +51,7 @@ public class Notifier extends Component {
     }
 
     /**
-     * Timer calls this method to fire a Timer event
+     * Game.Timer calls this method to fire a Game.Timer event
      */
     public void generateActionPerformed() {
 	

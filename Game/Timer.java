@@ -1,15 +1,17 @@
-/**
- * Timer.java
+package Game; /**
+ * Game.Timer.java
  *
  * Version:
- *    $Id: Timer.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
+ *    $Id: Game.Timer.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
  *
  * Revisions:
- *    $Log: Timer.java,v $
+ *    $Log: Game.Timer.java,v $
  *    Revision 1.1  2002/10/22 21:12:53  se362
  *    Initial creation of case study
  *
  */
+
+import Game.Notifier;
 
 /**
  *  This timer runs on the separate thread and during
@@ -68,11 +70,11 @@ public class Timer extends Thread{
     /**
      * Get the notifier.
      * 
-     * @return Notifier
+     * @return Game.Notifier
      * @roseuid 3C5AE4FD00C1
      */
     public Notifier getNotifier(){
 	return notifier;
     }
     
-}// Timer.java
+}// Game.Timer.java

@@ -1,18 +1,19 @@
-/**
- * SinglePiece.java
+package Game; /**
+ * Game.SinglePiece.java
  *
  * Version:
- *   $Id: SinglePiece.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
+ *   $Id: Game.SinglePiece.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
  *
  * Revisions:
- *   $Log: SinglePiece.java,v $
+ *   $Log: Game.SinglePiece.java,v $
  *   Revision 1.1  2002/10/22 21:12:53  se362
  *   Initial creation of case study
  *
  */
 
+import Game.Piece;
+
 import java.awt.*;
-import java.util.*;
 
 /**
  * This is a class representing a single piece (a piece that has not been
@@ -50,4 +51,4 @@ public class SinglePiece extends Piece {
 	   return type;
    }
    
-}// SinglePiece
+}// Game.SinglePiece

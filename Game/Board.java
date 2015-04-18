@@ -1,15 +1,18 @@
-/**
- * Board.java
+package Game; /**
+ * Game.Board.java
  *
  * Version:
- *     $Id: Board.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
+ *     $Id: Game.Board.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
  *
  * Revisions:
- *     $Log: Board.java,v $
+ *     $Log: Game.Board.java,v $
  *     Revision 1.1  2002/10/22 21:12:52  se362
  *     Initial creation of case study
  *
  */
+import Game.KingPiece;
+import Game.Piece;
+
 import java.util.*;
 import java.awt.*;
 
@@ -73,7 +76,7 @@ public class Board {
    
 
    /**
-    * Move the piece at the start position to the end position
+    * Controller.Move the piece at the start position to the end position
     * 
     * @param start - current location of the piece
     * @param end - the position where piece is moved
@@ -314,5 +317,5 @@ public class Board {
       return whitePieces;
  }
  
-}//Board
+}//Game.Board
 

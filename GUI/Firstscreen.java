@@ -1,15 +1,17 @@
-/*
- * Firstscreen.java
+package GUI;/*
+ * GUI.Firstscreen.java
  *
  *  * Version:
- *   $Id: Firstscreen.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
+ *   $Id: GUI.Firstscreen.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
  *
  * Revisions:
- *   $Log: Firstscreen.java,v $
+ *   $Log: GUI.Firstscreen.java,v $
  *   Revision 1.1  2002/10/22 21:12:52  se362
  *   Initial creation of case study
  *
  */
+import Controller.Facade;
+
 import java.net.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -40,7 +42,7 @@ public class Firstscreen extends JFrame implements ActionListener{
 
 
     /** 
-     * Creates new form Firstscreen
+     * Creates new form GUI.Firstscreen
      *
      * @param facade a facade object for the GUI to interact with
      *     
@@ -227,7 +229,7 @@ public class Firstscreen extends JFrame implements ActionListener{
 			theFacade.createPlayer( 1, theFacade.LOCALGAME );
 			theFacade.createPlayer( 2, theFacade.LOCALGAME );
 			
-			//hide the Firstscreen, make a Secondscreen and show it
+			//hide the GUI.Firstscreen, make a GUI.Secondscreen and show it
 			this.hide();
 			next = new Secondscreen( theFacade, this, theFacade.LOCALGAME );
 			next.show();
@@ -241,7 +243,7 @@ public class Firstscreen extends JFrame implements ActionListener{
 			theFacade.createPlayer( 1, theFacade.HOSTGAME );
 			theFacade.createPlayer( 2, theFacade.HOSTGAME );
 			
-			//hide the Firstscreen, make the Secondscreen and show it
+			//hide the GUI.Firstscreen, make the GUI.Secondscreen and show it
 			this.hide();
 			next = new Secondscreen( theFacade, this, theFacade.HOSTGAME );
 			next.show();
@@ -263,7 +265,7 @@ public class Firstscreen extends JFrame implements ActionListener{
 			    //set the host
 			    theFacade.setHost( address );
 			    
-			    //hide the Firstscreen, make and show the Second screen
+			    //hide the GUI.Firstscreen, make and show the Second screen
 			    this.hide();
 			    next = new Secondscreen( theFacade, this, theFacade.CLIENTGAME );
 			    next.show();
@@ -291,4 +293,4 @@ public class Firstscreen extends JFrame implements ActionListener{
 
 	}//end of actionPerformed
 
-}//Firstscreen.java
+}//GUI.Firstscreen.java

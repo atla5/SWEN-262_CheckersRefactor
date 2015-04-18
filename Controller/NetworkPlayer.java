@@ -1,11 +1,11 @@
-/*
- * NetworkPlayer.java
+package Controller;/*
+ * Controller.NetworkPlayer.java
  *
  * Version:
- *   $Id: NetworkPlayer.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
+ *   $Id: Controller.NetworkPlayer.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
  *
  * Revisions:
- *   $Log: NetworkPlayer.java,v $
+ *   $Log: Controller.NetworkPlayer.java,v $
  *   Revision 1.1  2002/10/22 21:12:53  se362
  *   Initial creation of case study
  *
@@ -397,7 +397,7 @@ public class NetworkPlayer extends Player {
    /**
     * Wait for the other player to send us a move or command.  If there is a
     * timeout, we generate an actionEvent telling the GUI.  We must then
-    * send the move along to Rules, or call processCommand.
+    * send the move along to Controller.Rules, or call processCommand.
     *
     * @pre the game is in progress
     * @post we have recieved a move from the other player.
@@ -431,20 +431,20 @@ public class NetworkPlayer extends Player {
 					   + " over network stream:\n" + e);
                 }
 		
-                // this may conflict with Driver class
+                // this may conflict with Controller.Driver class
                 if ( outputObj.intValue() == ACCEPTDRAW ) {
                     cleanup();
                 }
-            } else if ( inputObj instanceof NetworkMove ) {
+            } else if ( inputObj instanceof NetworkMove) {
 		
 		NetworkMove remoteMove = ( NetworkMove ) inputObj;
 		
                 // If it's a move, send it off to be validated
-                theRules.validateMove( new Move( this, 
+                theRules.validateMove( new Move( this,
 		      remoteMove.startLocation(), remoteMove.endLocation() ) );
 
 		// DEBUG:
-                System.out.println( "Move received." );
+                System.out.println( "Controller.Move received." );
                 outputObj = new Integer( ROGER );
                 try {
                         out.writeObject( outputObj );

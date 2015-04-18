@@ -1,19 +1,23 @@
-/**
- * Facade.java
+package Controller; /**
+ * Controller.Facade.java
  *
  * Version	
- *   $Id: Facade.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
+ *   $Id: Controller.Facade.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
  *
  * Revisions:
- *   $Log: Facade.java,v $
+ *   $Log: Controller.Facade.java,v $
  *   Revision 1.1  2002/10/22 21:12:52  se362
  *   Initial creation of case study
  *
  */
 
+import Controller.Driver;
+import Controller.LocalPlayer;
+import Controller.Player;
+import Game.Board;
+
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
 import java.net.*;
 
 /**
@@ -32,9 +36,9 @@ public class Facade extends Component {
     public static String playerSwitch = "switch";
     public static String ID           = "facade";
     
-    public Driver      theDriver;
+    public Driver theDriver;
     public LocalPlayer theLocalPlayer;
-    public Board       theBoard;
+    public Board theBoard;
     public Player      passivePlayer;
     public Player      activePlayer;		
     
@@ -50,9 +54,9 @@ public class Facade extends Component {
     /**
      * Constructor for the facade.  Initializes the data members.
      * 
-     * @param newBoard  Board  object Facade will manipulate.
-     * @param newDriver Driver object that will communicate 
-     *                  with the Facade.
+     * @param newBoard  Game.Board  object Controller.Facade will manipulate.
+     * @param newDriver Controller.Driver object that will communicate
+     *                  with the Controller.Facade.
      */
     public Facade( Board newBoard, Driver newDriver ){
 	
@@ -97,7 +101,7 @@ public class Facade extends Component {
      *
      * This method should be called to select a space on the board, 
      * either as the starting point or the ending point for a move.  
-     * The Facade will interpret this selection and send a move on to 
+     * The Controller.Facade will interpret this selection and send a move on to
      * the kernel when two spaces have been selected.
      *
      * @param space an int indicating which space to move to, 
@@ -132,7 +136,7 @@ public class Facade extends Component {
     
     /**
      * Send a move on to the kernel, i.e. call makeMove() in 
-     * the LocalPlayer and inform it whose turn it is.
+     * the Controller.LocalPlayer and inform it whose turn it is.
      *
      * @pre startSpace is defined
      * @pre endSpace is defined
@@ -200,7 +204,7 @@ public class Facade extends Component {
 	try{
 	    // Checks to see that playerNum is valid
 	    if( playerNum == 1 || playerNum == 2 ){
-		// checks both Player objects to see which one is 
+		// checks both Controller.Player objects to see which one is
 		// associated with the legal number returns the name of 
                 // the player asscociated with the number
 		if( activePlayer.getNumber() == playerNum ){
@@ -375,7 +379,7 @@ public class Facade extends Component {
     /**
      * Notifies everything of the sta eof the board
      * 
-     * @return a Board object which is the state of the board
+     * @return a Game.Board object which is the state of the board
      * 
      */
     public Board stateOfBoard(){
@@ -431,4 +435,4 @@ public class Facade extends Component {
 	}
     }
 
-}// Facade.java
+}// Controller.Facade.java
