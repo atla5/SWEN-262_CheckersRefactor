@@ -28,6 +28,7 @@ public class Tile extends JButton implements ActionListener{
         this.setPreferredSize(new Dimension(80,80));
         this.setColor(id);
         this.isOccupied = false;
+        this.setActionCommand(Integer.toString(id));
     }
 
     @Override
