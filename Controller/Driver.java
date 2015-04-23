@@ -11,6 +11,7 @@ package Controller; /**
  *
  */
 
+import GUI.Firstscreen;
 import Game.*;
 
 import java.awt.*;
@@ -430,5 +431,19 @@ public class Driver {
 	
 	return timer;
     }
+
+	/**
+	 * main program
+	 * @param args
+	 */
+	public static void main( String args[] ){
+
+
+		Driver theDriver = new Driver();
+
+		Firstscreen first = new Firstscreen( theDriver.getFacade() );
+		first.show();
+
+	}
     
 }//Controller.Driver.java
