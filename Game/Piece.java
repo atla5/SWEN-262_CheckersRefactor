@@ -25,6 +25,7 @@ import java.awt.*;
 public abstract class Piece {
 	
    private Color color; // the color of the piece
+   private int type;
 
       
    /**
@@ -33,26 +34,20 @@ public abstract class Piece {
     * @param c - the color for this piece
     */
    public Piece( Color c ) {
-
-	   // set the color
 	   color = c;
    }
 
    /**
-    * The method which is abstract
-    * 
+    *
     * @return the type of the piece
     */
-   public abstract int getType();
+   public int getType(){ return type; }
    
    /**
     * This method returns the color of this piece
     * 
     * @return the color for this piece
     */
-   public Color getColor() {
-  
-	   return color;
-   }
+   public Color getColor() { return color; }
 
 }// Game.Piece

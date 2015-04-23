@@ -11,8 +11,6 @@ package Game; /**
  *
  */
 
-import Game.Piece;
-
 import java.awt.*;
 
 /**
@@ -39,16 +37,6 @@ public class SinglePiece extends Piece {
  
 	    super( c );
 		type = SINGLE;
-   }
-   
-   /**
-    * This method returns that the type of the checker is single
-    * 
-    * @return type which is 0 for single
-    */
-   public int getType() {
- 
-	   return type;
    }
    
 }// Game.SinglePiece
