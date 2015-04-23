@@ -410,7 +410,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 	}
     }
 
-    public static JPanel mkBoardPanel(){
+    public JPanel mkBoardPanel(){
         JPanel boardPanel = new JPanel(new GridLayout(8,8));
 
         //create and add all tiles.
@@ -419,6 +419,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
             for(int j=0;j<8;j++){
                 JButton tile = new Tile(id);
                 boardPanel.add(tile);
+				this.possibleSquares.add(tile);
                 id++;
             }
         }
