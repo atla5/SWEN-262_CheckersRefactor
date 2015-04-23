@@ -1433,3 +1433,5 @@ public class CheckerGUI extends JFrame implements ActionListener{
         }//checkEndConditions
 
 }//checkerGUI.java
+
+//bulb
