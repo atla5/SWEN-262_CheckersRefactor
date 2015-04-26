@@ -1,9 +1,9 @@
-package GUI;/*
+package GUI;
+
+/**
  * GUI.CheckerGUI.java
  * 
- * The actual board.
- *
- * Created on January 25, 2002, 2:34 PM
+ * GUI representation of the board
  * 
  * Version
  * $Id: GUI.CheckerGUI.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
@@ -46,25 +46,24 @@ public class CheckerGUI extends JFrame implements ActionListener{
      * @param name2 the second players name
      *
      */
-
     public CheckerGUI( Facade facade, String name1, String name2 ) {
 
 		//name window
         super("Checkers");
 
-//		//long names mess up the way the GUI displays
-//		//this code shortens the name if it is too long
-//        String nameOne="", nameTwo="";
-//        if(name1.length() > 7 ){
-//            nameOne = name1.substring(0,7);
-//        }else{
-//            nameOne = name1;
-//        }
-//        if(name2.length() > 7 ){
-//            nameTwo = name2.substring(0,7);
-//        }else{
-//            nameTwo = name2;
-//        }
+		//long names mess up the way the GUI displays
+		//this code shortens the name if it is too long
+        String nameOne="", nameTwo="";
+        if(name1.length() > 7 ){
+            nameOne = name1.substring(0,7);
+        }else{
+            nameOne = name1;
+        }
+        if(name2.length() > 7 ){
+            nameTwo = name2.substring(0,7);
+        }else{
+            nameTwo = name2;
+        }
 
 		//set player names
         theFacade = facade;
@@ -75,9 +74,10 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		getContentPane().add(mkSidePanel(), BorderLayout.EAST);
 		getContentPane().add(mkCenterPanel());
 
-		//show
+		//frame things
 		pack();
 		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 //        update();
         //updateTime();
@@ -259,7 +259,6 @@ public class CheckerGUI extends JFrame implements ActionListener{
      * Updates the GUI reading the pieces in the board
      * Puts pieces in correct spaces, updates whos turn it is
      */
-    
     private void update(){
 
 	if( checkEndConditions() ){
@@ -365,8 +364,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
      *           true if the game should end
      *           false if game needs to continue 
      */
- 
-        public boolean checkEndConditions(){
+	public boolean checkEndConditions(){
            
 	    //the return value
             boolean retVal = false;
@@ -409,7 +407,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
         }//checkEndConditions
 
 	public static void main(String[] args){
-		CheckerGUI checkerGUI = new CheckerGUI(null,"player1","player2");
+		CheckerGUI checkerGUI = new CheckerGUI(null,"player1 has a really long name","player2");
 	}
 
 }//checkerGUI.java

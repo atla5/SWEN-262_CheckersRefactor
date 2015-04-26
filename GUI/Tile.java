@@ -43,6 +43,9 @@ public class Tile extends JButton implements ActionListener{
      * @param id
      */
     public void setColor(int id){
+
+        if( (id/8) % 2 != 0 ){ id++; }
+
         if(id%2 == 0){
             this.setBackground(color1);
         }else{
