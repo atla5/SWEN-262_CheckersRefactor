@@ -19,8 +19,8 @@ package Controller;
  */
  public class Move {
 	 
-	private int startingLocation;	// the starting location
-	private int endingLocation;		// the ending location
+	private int startLocation;	// the starting location
+	private int endLocation;	// the ending location
 
 	/**
 	 *  The player that this move is intended for.
@@ -40,10 +40,8 @@ package Controller;
 	public Move( Player player, int startLoc, int endLoc ) {
 	
 		thePlayer = player;
-		startingLocation = startLoc;
-		endingLocation = endLoc;
-
-		//@todo validateMove()
+		startLocation = startLoc;
+		endLocation = endLoc;
 	}
 
      
@@ -62,8 +60,10 @@ package Controller;
 	 * Return the starting location of this move.
 	 *
 	 * @return The starting point of the move.
-	 */
-	public int startLocation() { return startingLocation; }
+	 * 
+	 * @post nothing has changed
+ 	 */
+	public int getStartLocation() { return startLocation; }
 
      
 	/**
@@ -73,7 +73,14 @@ package Controller;
 	 * 
 	 * @post Nothing has changed
 	 */
-	public int endLocation() { return endingLocation; }
+	public int getEndLocation() { return endLocation; }
 
+	/**
+	 *
+	 */
+	public String toString(){
+		return "Move: " + this.getPlayer() + "moves from " + this.getStartLocation() +
+				" to " + this.getEndLocation() + ".";
+	}
      
 } //Controller.Move.java

@@ -24,62 +24,63 @@ import java.awt.Color;
  */
 public class NetworkPlayer extends Player {
 
-   // The commands that can be send back and forth
-   private static int RESIGN = 0;
-   private static int DRAWOFFER = 1;
-   private static int ACCEPTDRAW = 2;
-   private static int REFUSEDRAW = 3;
-   private static int ENDOFGAME = 4;
-   private static int ROGER = 90;
-   private static int RESEND = 98;
-   private static int NETWORKPLAYER = 1;
+    // The commands that can be send back and forth
+    private static int RESIGN = 0;
+    private static int DRAWOFFER = 1;
+    private static int ACCEPTDRAW = 2;
+    private static int REFUSEDRAW = 3;
+    private static int ENDOFGAME = 4;
+    private static int ROGER = 90;
+    private static int RESEND = 98;
+    private static int NETWORKPLAYER = 1;
 
-   // The port number we will read from
-   private static int PORTNUM = 1051;
+    // The port number we will read from
+    private static int PORTNUM = 1051;
 
-   // Set timeout when waiting for client to connect (in milliseconds)
-   private static int TIMEOUT = 600000;
-   
-   // The host we'll connect to if we're a remote system
-   private URL host = null;
+    // Set timeout when waiting for client to connect (in milliseconds)
+    private static int TIMEOUT = 600000;
 
-   // The socket used for communication
-   private Socket clientSocket = null;
+    // The host we'll connect to if we're a remote system
+    private URL host = null;
 
-   // The socket that listens for a connect request
-   private ServerSocket serverSocket = null;
+    // The socket used for communication
+    private Socket clientSocket = null;
 
-   // Where we send our output; wraps clientSocket's outputStream
-   private ObjectOutputStream out = null;
+    // The socket that listens for a connect request
+    private ServerSocket serverSocket = null;
 
-   // Where we receive our input; wraps clientSocket's inputStream
-   private ObjectInputStream in = null;
+    // Where we send our output; wraps clientSocket's outputStream
+    private ObjectOutputStream out = null;
 
-   // Where we temporarily store input received and future output
-   private Object inputObj = null, outputObj = null;
+    // Where we receive our input; wraps clientSocket's inputStream
+    private ObjectInputStream in = null;
 
-   // The address to connect to when we are a remote computer
-   private URL IP = null;
+    // Where we temporarily store input received and future output
+    private Object inputObj = null, outputObj = null;
 
-    
-   /**
+    // The address to connect to when we are a remote computer
+    private URL IP = null;
+
+
+    /**
     *  Constructor that creates a default object of this class
     */
-   public NetworkPlayer( int playerNum, Rules rules, Driver theDriver ) {
+    public NetworkPlayer( int playerNum, Rules rules, Driver theDriver ) {
 
-    	// call super classes (player) constructor to give it starting info
-    	super( playerNum, rules, theDriver );
+        // call super classes (player) constructor to give it starting info
+        super( playerNum, rules, theDriver );
         type = Player.NETWORKPLAYER;
-    	// set values to correct initial state
-   }
+        // set values to correct initial state
+    }
 
-    
-   /**
+    /* -- Network Specific Functions -- */
+
+    /**
     * Set the host that we'll connect to if we're a remote system
     */
-   public void setHost( URL host ) {
+    public void setHost( URL host ) {
         this.host = host;
-   }
+    }
 
 
    /**
@@ -89,8 +90,7 @@ public class NetworkPlayer extends Player {
     * @pre this is a network game
     * @post the connection has been established
     */
-   public void waitForConnect()
-   {
+   public void waitForConnect() {
 
        // fire off an action even to tell the GUI to display the waiting for
        // client dialogue
@@ -159,13 +159,10 @@ public class NetworkPlayer extends Player {
    /**
     * This method establishes a connection to the host
     *
-    * @param host - the host to connect to
-    *
     * @pre the host specified exists
     * @post connection to the host has been established
     */
-   public void connectToHost()
-   {
+   public void connectToHost() {
    	// create the proper sockets and attempt to establish a connection
        try {
            // Connect to host
@@ -209,8 +206,7 @@ public class NetworkPlayer extends Player {
     * @pre name is null
     * @post the name is displayed at the other end of the connection
     */
-   public void takeName()
-   {
+   public void takeName() {
        Object inputObj = null;
        Integer outputObj = null;
        
@@ -266,8 +262,7 @@ public class NetworkPlayer extends Player {
     * @pre name is not null
     * @post the host has the proper name for the player
     */
-   public void sendName()
-   {
+   public void sendName() {
       Integer inputObj = null;
       // Keep looping until confirm is received
    	do {
@@ -302,8 +297,7 @@ public class NetworkPlayer extends Player {
     * @pre the color is null
     * @post this computer has the proper color for the player
     */
-   public void takeColor()
-   {
+   public void takeColor() {
        Object inputObj = null;
        Integer outputObj = null;
        // repeat until a Color is received and confirmation is sent
@@ -366,8 +360,7 @@ public class NetworkPlayer extends Player {
     * @pre the color is not null
     * @post the other computer has the proper color for the player
     */
-   public void sendColor()
-   {
+   public void sendColor() {
       Integer inputObj = null;
       // Keep looping until confirm is received
    	do {
@@ -402,8 +395,7 @@ public class NetworkPlayer extends Player {
     * @pre the game is in progress
     * @post we have recieved a move from the other player.
     */
-   public void waitForPlayer()
-   {
+   public void waitForPlayer() {
        //DEBUG
        System.out.println( "Entered waitForPlayer." );
        
@@ -435,13 +427,13 @@ public class NetworkPlayer extends Player {
                 if ( outputObj.intValue() == ACCEPTDRAW ) {
                     cleanup();
                 }
-            } else if ( inputObj instanceof NetworkMove) {
+            } else if ( inputObj instanceof Move) {
 		
-		NetworkMove remoteMove = ( NetworkMove ) inputObj;
+		Move remoteMove = ( Move ) inputObj;
 		
                 // If it's a move, send it off to be validated
                 theRules.validateMove( new Move( this,
-		      remoteMove.startLocation(), remoteMove.endLocation() ) );
+		      remoteMove.getStartLocation(), remoteMove.getEndLocation() ) );
 
 		// DEBUG:
                 System.out.println( "Controller.Move received." );
@@ -567,8 +559,7 @@ public class NetworkPlayer extends Player {
     * @pre type has to be a valid number for the command
     * @post command is sent to the local user
     */
-   public void sendCommand(int type)
-   {
+   public void sendCommand(int type){
        Integer inputObj = null;
        //try {
            do {
@@ -598,21 +589,18 @@ public class NetworkPlayer extends Player {
    /**
     * The move is sent to the remote player
     *
-    * @param move - move that was made by the local player
-    *
     * @pre move is a legal move
     * @post the move is sent to the network player
     */
-   public void sendMove()
-   {
+   public void sendMove() {
        Integer inputObj = new Integer( ROGER );
        do {
             // send the given move across the active socket
            try {
-                out.writeObject( new NetworkMove( theMove ) );
+                out.writeObject(theMove);
 		
 		//DEBUG
-		System.out.println( "Sent move." );
+		System.out.println("Sent move.");
            } catch ( IOException e ) {
                System.err.println( "IOException while sending move over"
                                        + " network stream: " + e);
@@ -629,44 +617,95 @@ public class NetworkPlayer extends Player {
        } while ( inputObj.intValue() == RESEND );
    }
 
-    
-   /**
+    /**
+     * Closes the streams & sockets
+     */
+    public void cleanup() {
+
+        // DEBUG
+        System.out.println( "Attempting to run cleanup." );
+
+        if ( out != null ) {
+            try {
+                out.close();
+            } catch( IOException e ) {
+                System.err.println( "Error:  " + playerName +
+                        " couldn't close output stream.\n"
+                        + e );
+            }
+        }
+
+        if ( in != null ) {
+            try {
+                in.close();
+            } catch( IOException e ) {
+                System.err.println( "Error:  " + playerName +
+                        " couldn't close input stream.\n"
+                        + e );
+            }
+        }
+
+        if ( clientSocket != null ) {
+            try {
+                clientSocket.close();
+            } catch ( IOException e ) {
+                System.err.println( "Error:  " + playerName +
+                        " couldn't close clientSocket.\n"
+                        + e );
+            }
+        }
+
+        if ( serverSocket != null ) {
+            try {
+                serverSocket.close();
+            } catch ( IOException e ) {
+                System.err.println( "Error:  " + playerName +
+                        " couldn't close clientSocket.\n"
+                        + e );
+            }
+        }
+
+        System.out.println( "Finished cleanup." );
+    }
+
+    /* -- /Player/ method implementations -- */
+
+    /**
     *  A DRAWOFFER message is sent to the remote player.  On this end, we will
     *  wait for a reply and generate an appropriate actionEvent based on it.
     *
     */
-   public void offerDraw( Player player )
-   {
-       
+    public void offerDraw( Player player ) {
+
        // send the draw offer over the network
        try {
            out.writeObject( new Integer( DRAWOFFER ) );
-           
+
            // DEBUG
-           System.out.println( "Sent DRAWOFFER" );
-           
+           System.out.println("Sent DRAWOFFER");
+
        } catch ( IOException e ) {
            System.err.println( "IOException while sending draw offer over"
                                + " network stream.");
        }
-       
+
        // get the answer; this is handled by waitForPlayer()
        // If the offer is accepted, the player will be informed, and the game
        // will end.
-       // If the offer is refuesed, again the player will be informed, and the 
+       // If the offer is refuesed, again the player will be informed, and the
        // game will continue as usual.
        waitForPlayer();
-   }
+    }
 
-    
-   /**
+
+    /**
     * When the current player accepts a draw, this method is called in the
     * opposite player to inform them that the draw has been accepted.
     * We're a networkPlayer, so we send the ACCEPTDRAW command over to the
     * remote player and waitForPlayer.
     *
     */
-   public void acceptDraw( Player player ) {
+    public void acceptDraw( Player player ) {
        // send the draw accept over the network
        try {
             out.writeObject( new Integer( ACCEPTDRAW ) );
@@ -680,20 +719,20 @@ public class NetworkPlayer extends Player {
                                + "\n\nClick OK to end the program.",
                                "End of game",
                                JOptionPane.WARNING_MESSAGE );
-       
+
        cleanup();
        //theDriver.endGame();
-   }
+    }
 
-    
-   /**
+
+    /**
     * Method that is invoked when the end of game conditions have been
     * met.  Send the ENDOFGAME command over to the remote player and then
     * send the message endMessage over.
     *
     * @param endMessage  Message indicating the end of the game.
     */
-   public void endOfGame(String endMessage){
+    public void endOfGame(String endMessage){
        try {
             out.writeObject( new Integer( ENDOFGAME ) );
             out.writeObject( endMessage );
@@ -702,80 +741,15 @@ public class NetworkPlayer extends Player {
             System.err.println( "IOException while sending end of game"
                                 + " message over network stream.");
        }
-   }
+    }
 
+    /** append "NetworkPlayer" to super's toString */
+    public String toString(){ return "NetworkPlayer" + super.toString(); }
     
-   /**
-    * Return the integer constant representing the networkPlayer class
-    *
-    * @pre instance of player exists
-    * @post this method has changed nothing
-    */
-   public int getPlayerType()
-   {
-   	// return the constant representing this class
-   	return NETWORKPLAYER;
-   }
+    // BELOW: TEMP METHODS FOR COMPILE
 
-    
-   /**
-    * Closes the streams & sockets
-    */
-   public void cleanup() {
-       
-       // DEBUG
-       System.out.println( "Attempting to run cleanup." );
-       
-       if ( out != null ) {
-           try {
-                out.close();
-           } catch( IOException e ) {
-               System.err.println( "Error:  " + playerName + 
-                                   " couldn't close output stream.\n" 
-                                   + e );
-           }
-       }
-       
-       if ( in != null ) {
-           try {
-                in.close();
-           } catch( IOException e ) {
-               System.err.println( "Error:  " + playerName + 
-                                   " couldn't close input stream.\n" 
-                                   + e );
-           }
-       }
-       
-       if ( clientSocket != null ) {
-           try {
-                clientSocket.close();
-           } catch ( IOException e ) {
-               System.err.println( "Error:  " + playerName + 
-                                   " couldn't close clientSocket.\n" 
-                                   + e );
-           }
-       }
-       
-       if ( serverSocket != null ) {
-           try {
-                serverSocket.close();
-           } catch ( IOException e ) {
-               System.err.println( "Error:  " + playerName + 
-                                   " couldn't close clientSocket.\n" 
-                                   + e );
-           }
-       }
-       
-       System.out.println( "Finished cleanup." );
-   }
+    public void endInDeclineDraw( Player player ){}
 
-    
-   // BELOW: TEMP METHODS FOR COMPILE
-   
-   public void endInDeclineDraw( Player player ) {
-   }
-   
-   public void endInDraw( Player player ) {
-   }
+    public void endInDraw( Player player ){}
    
 }

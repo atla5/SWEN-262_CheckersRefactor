@@ -27,8 +27,8 @@ public class LocalPlayer extends Player {
      * This is a default constructor for this object
      */
     public LocalPlayer( int num, Rules rules, Driver theDriver ){
-	super( num, rules, theDriver );
-	type = Player.LOCALPLAYER;
+		super( num, rules, theDriver );
+		type = Player.LOCALPLAYER;
     }
     
     /**
@@ -51,10 +51,7 @@ public class LocalPlayer extends Player {
 	
 	int selected = JOptionPane.showConfirmDialog( null, player.getName()
 		   	      + " has requested a draw."
-	       		      + "\n\nWill you agree to a"
-	      		      + " draw?",
-	       		      "Draw offer",
-	     	       	      JOptionPane.YES_NO_OPTION );
+	       		      + "\n\nWill you agree to a draw?", "Draw offer", JOptionPane.YES_NO_OPTION );
 	
 	if ( selected == JOptionPane.YES_OPTION ) {
 	    theDriver.endInDraw( player );
@@ -104,7 +101,6 @@ public class LocalPlayer extends Player {
      * players to notify them of this with a message.  Implementation 
      * differs for local player and network player.
      *
-     * @param endMessage  Message indicating the end of the game.
      */
     public void endInDraw( Player player ){
 	
@@ -118,6 +114,12 @@ public class LocalPlayer extends Player {
 	
 	System.exit( 0 );
     }
-    
+
+	/**
+	 * append "LocalPlayer" to super's toString()
+	 * @return
+	 */
+	public String toString(){ return "LocalPlayer" + super.toString(); }
+
 }//Controller.LocalPlayer.java
 
