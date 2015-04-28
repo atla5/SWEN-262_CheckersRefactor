@@ -28,6 +28,7 @@ public class Tile extends JButton implements ActionListener{
         this.setPreferredSize(new Dimension(80,80));
         this.setColor(id);
         this.isOccupied = false;
+        this.setActionCommand(Integer.toString(id));
     }
 
     @Override
@@ -37,11 +38,14 @@ public class Tile extends JButton implements ActionListener{
 
     /**
      * set Tile's background color given the int
-     *
-     * @todo switch to another algorithm for correct checkerboard pattern
      * @param id
      */
     public void setColor(int id){
+
+        //alternate starting color by row
+        if( (id/8) % 2 != 0 ){ id++; }
+
+        //alternate color by column
         if(id%2 == 0){
             this.setBackground(color1);
         }else{
