@@ -159,6 +159,8 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
 				JButton tile = new Tile(id);
+				tile.setActionCommand(Integer.toString(id));
+				tile.addActionListener(this);
 				boardPanel.add(tile);
 				this.possibleSquares.add(tile);
 				id++;
