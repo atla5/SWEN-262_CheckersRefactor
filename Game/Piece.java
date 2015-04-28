@@ -1,4 +1,6 @@
-package Game; /**
+package Game;
+
+/**
  * Game.Piece.java
  *
  * Version:
@@ -19,7 +21,6 @@ package Game; /**
  *
  */
 
-import java.util.*;
 import java.awt.*;
 
 public abstract class Piece {
@@ -42,7 +43,7 @@ public abstract class Piece {
     * @return the type of the piece
     */
    public int getType(){ return type; }
-   
+
    /**
     * This method returns the color of this piece
     * 

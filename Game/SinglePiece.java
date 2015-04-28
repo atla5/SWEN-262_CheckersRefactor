@@ -1,4 +1,6 @@
-package Game; /**
+package Game;
+
+/**
  * Game.SinglePiece.java
  *
  * Version:
@@ -22,7 +24,6 @@ import java.awt.*;
  */
 public class SinglePiece extends Piece {
 	
-	
    private static int SINGLE = 0; // this is a single type
    private int type; // the type of the piece
    
@@ -30,8 +31,6 @@ public class SinglePiece extends Piece {
     * This constructor creates a single piece checker object
     * 
     * @param c - the color of this single piece
-    * @param pc - the possible captures of this single piece
-    * @param pm - the possible moves of this single piece
     */
    public SinglePiece( Color c  ) {
  
