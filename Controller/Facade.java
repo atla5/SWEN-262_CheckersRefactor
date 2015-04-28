@@ -36,11 +36,10 @@ public class Facade extends Component {
     public static String playerSwitch = "switch";
     public static String ID           = "facade";
     
-    public Driver theDriver;
-    public LocalPlayer theLocalPlayer;
-    public Board theBoard;
-    public Player      passivePlayer;
-    public Player      activePlayer;		
+    public Driver   theDriver;
+    public Board    theBoard;
+    public Player   passivePlayer;
+    public Player   activePlayer;
     
     private int startSpace = 99; // Starting space for current move
     private int endSpace   = 99; // Ending space for current move
@@ -60,8 +59,8 @@ public class Facade extends Component {
      */
     public Facade( Board newBoard, Driver newDriver ){
 	
-	theBoard = newBoard;
-	theDriver = newDriver;
+        theBoard = newBoard;
+        theDriver = newDriver;
 	
     }
     
@@ -235,37 +234,7 @@ public class Facade extends Component {
     public void setPlayerName( int playerNum, String name ){
 	theDriver.setPlayerName( playerNum, name );
     }
-    
-    
-    /**
-     * Tell the kernel to set a time limit for each turn.  The time 
-     * limit, i.e. the amount of time a player has during his turn 
-     * before he is given a time warning, is specified by the parameter 
-     * called time, in minutes.
-     *
-     * Tell the kernel to set a time limit for each turn.   The warning 
-     * time, i.e. the amount of time a player has during his turn after 
-     * he is given a time warning, is specified by the parameter called 
-     * time, in minutes.
-     * 
-     * @param time the time limit for each turn, in seconds.
-     *
-     * @pre   10 <= time <= 300.
-     */
-    public void setTimer( int time, int warning ) throws Exception{
-	// Checks to see that time is in between the necessary frame
-	// Sets time(class variable) to time(param value)
-	if( ( time == -1 ) || ( ( time >= 10 || time <= 300 ) 
-				&& ( warning >= 10 || warning <= 300 ) ) ){
-	    
-	    timer       = time;
-	    warningTime = warning;
-	    theDriver.setTimer( time, warning );
-	
-	} else {
-	    throw new Exception( "Invalid timer settings" );
-	}	   
-    }
+
     
     /**
      * Tell the kernel to connect to the specified host to 
@@ -300,7 +269,7 @@ public class Facade extends Component {
     /**
      * Set the game mode: a local game or a network game
      * 
-     * @param the mode of the game
+     * @param mode the mode of the game
      * 
      * @pre we are in the setup for a game
      * 

@@ -1,4 +1,6 @@
-package Controller; /**
+package Controller;
+
+/**
  * Controller.Driver.java
  *
  * Version
@@ -258,36 +260,9 @@ public class Driver {
      * @param player the player who quit
      */
     public void endInQuit( Player player ){
-	playerOne.endOfGame( player.getName() + " quit the game" );
-	playerTwo.endOfGame( player.getName() + " quit the game" );
+		playerOne.endOfGame( player.getName() + " quit the game" );
+		playerTwo.endOfGame( player.getName() + " quit the game" );
     }
-    
-//    /**
-//     * This method creates the timer to be used, if one is desired
-//     * to be used. It will also set the number of seconds for each
-//     * turn.
-//     *
-//     * @param   time    : the number of seconds for each turn
-//     * @param   warning : whether or not a player will be warned
-//     *                    that their turn is going to end
-//     *
-//     * @pre  It has been selected to use a timer in the game setup
-//     * @post The timer has been created and the appropriate time
-//     *       restraints are in place
-//     */
-//    public void setTimer( int time, int warning ){
-//   	// If values are negative, set runningTimer to false
-//	// If they are positive values, create the Game.Timer and
-//	// notifier with the times
-//
-//	if ( time < 0 ) {
-//	    runningTimer = false;
-//	} else {
-//	    runningTimer = true;
-//	    theTimer = new Game.Timer();
-//	}
-        
-//    }
         
     /**
      * This method sets the colors of pieces that each player 
@@ -368,21 +343,7 @@ public class Driver {
    	// Returns the player whos getTurnStatus is false
    	return passivePlayer;
     }
-    
-//    /**
-//     * Whether the current game uses a timer
-//     *
-//     * @return true if a timer is being sed in the game, otherwise
-//     *         false
-//     *
-//     * @pre the game has started
-//     * @post this method has not altered anything
-//     */
-//    public boolean timerRunning(){
-//   	return runningTimer;
-//    }
-    
-   
+
     /**
      * Select the type of game
      *
@@ -407,26 +368,7 @@ public class Driver {
     public int getGameMode(){
    	return gameType;
     }
-    
-//    /**
-//     * Return the notifier of the Game.Timer
-//     *
-//     * @return the notifier for the Game.Timer
-//     *
-//     * @pre  The game is running
-//     * @post This method has changed nothing
-//     */
-//    public Notifier getTimerNotifier(){
-//   	// Return the timers notifier, by asking the timer
-//	// for its notifier
-//	Notifier timer = null;
-//
-//	if ( theTimer != null ) {
-//	    timer = theTimer.getNotifier();
-//	}
-//
-//	return timer;
-//    }
+
 
 	/**
 	 * main program
