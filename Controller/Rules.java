@@ -311,7 +311,7 @@ public class Rules {
      *
      *  @return possibleJumps which contains end positions of possible jumps.
      */	
-    private Vector checkForPossibleJumps( int piecePosition, int pieceType, 
+    private Vector checkForPossibleJumps( int piecePosition, int pieceType,
 					  Player aPlayer ) {
 	
 	Vector possibleJumps = new Vector();
@@ -329,7 +329,7 @@ public class Rules {
 					      true, pieceType, player ) );
 	
 	// If the piece is a king.
-	if ( pieceType == theBoard.KING ) {       
+	if ( pieceType == theBoard.KING ) {
 	    
 	    // King is on top wall.
             if ( piecePosition <= 7 ) {
