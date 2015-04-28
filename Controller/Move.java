@@ -51,9 +51,7 @@ package Controller;
 	 * @return the player who made this move
 	 *
 	 */
-	public Player getPlayer() {
-		return thePlayer;
-	}
+	public Player getPlayer() { return thePlayer; }
 
      
 	/**
@@ -76,10 +74,11 @@ package Controller;
 	public int getEndLocation() { return endLocation; }
 
 	/**
-	 *
+	 * Allows printing of /Move/'s in the form
+	 * 		"Move: [Player.toString] moves from [startLoc] to [endLoc]."
 	 */
 	public String toString(){
-		return "Move: " + this.getPlayer() + "moves from " + this.getStartLocation() +
+		return "Move: " + this.getPlayer() + " moves from " + this.getStartLocation() +
 				" to " + this.getEndLocation() + ".";
 	}
      

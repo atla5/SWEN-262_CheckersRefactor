@@ -39,8 +39,8 @@ public class Tile extends JButton implements ActionListener{
      * @param id
      */
     public void setTileColor(int id){
-        
-        
+
+        //alternate starting color by row
         if( (id/8) % 2 != 0 ){ id++; }
 
         //alternate color by column
