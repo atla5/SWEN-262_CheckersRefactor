@@ -268,9 +268,9 @@ public class Secondscreen extends JFrame
     
     /**
      * This takes care of when an action takes place. It will check the 
-     * action command of all components and then deicde what needs to be done.
+     * action command of all components and then decide what needs to be done.
      * 
-     * @param the event fired
+     * @param e the event fired
      */
     
     public void actionPerformed( ActionEvent e ){
@@ -295,31 +295,31 @@ public class Secondscreen extends JFrame
 		theFacade.setPlayerName( 2, playerTwoField.getText() );
 		
 		//if a timer is desired
-		if ( timedGameBox.isEnabled() ) {
-		    if( timedGameBox.getState() ){
-			
-			//set the 2 timer values
-			try {
-			   
-			    theFacade.setTimer( turnLengthField.getValue(),
-						warningLengthField.getValue() );
-			    
-			} catch ( Exception x ) {
-			    
-			    JOptionPane.showMessageDialog( null,
-							   "Invalid Game.Timer value(s)",
-							   "Error",
-							   JOptionPane.INFORMATION_MESSAGE );
-			}
-			//else set timer values to a no timer constant
-		    } else {
-			theFacade.setTimer( -1, -1 );
-			
-		    }
-		} else {
-		    theFacade.setTimer( -1, -1 );
-		   
-		}
+//		if ( timedGameBox.isEnabled() ) {
+//		    if( timedGameBox.getState() ){
+//
+//			//set the 2 timer values
+//			try {
+//
+//			    theFacade.setTimer( turnLengthField.getValue(),
+//						warningLengthField.getValue() );
+//
+//			} catch ( Exception x ) {
+//
+//			    JOptionPane.showMessageDialog( null,
+//							   "Invalid Game.Timer value(s)",
+//							   "Error",
+//							   JOptionPane.INFORMATION_MESSAGE );
+//			}
+//			//else set timer values to a no timer constant
+//		    } else {
+//			theFacade.setTimer( -1, -1 );
+//
+//		    }
+//		} else {
+//		    theFacade.setTimer( -1, -1 );
+//
+//		}
 		
 		//start the game
 		theFacade.startGame();

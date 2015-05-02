@@ -35,7 +35,6 @@ public class Board {
    /**
     * This constructor creates a new board at the beginning of the game
     */
-
    public Board() {
   
 	   // create a array of size 64, generate piece objects and

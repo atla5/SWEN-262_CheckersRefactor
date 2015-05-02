@@ -1,4 +1,6 @@
-package Controller; /**
+package Controller;
+
+/**
  * Controller.Driver.java
  *
  * Version
@@ -11,6 +13,7 @@ package Controller; /**
  *
  */
 
+import GUI.Firstscreen;
 import Game.*;
 
 import java.awt.*;
@@ -25,8 +28,6 @@ import javax.swing.*;
  * functions include knowing whose turn it is, remembering multiple 
  * jumps, relaying end of game conditions and ending the game.
  *
- * @author
- *
  */
 
 public class Driver {
@@ -36,8 +37,6 @@ public class Driver {
     private int     gameType;
     private Player activePlayer;
     private Player passivePlayer;
-    private boolean runningTimer;
-    private Game.Timer theTimer;
     private Facade theFacade;
     private Rules theRules;
     
@@ -48,14 +47,14 @@ public class Driver {
      * the system.
      */
     public Driver(){
-	// Create the board       
-	Board theBoard = new Board();
-	
-	// Create the rules passing in the board
-	theRules = new Rules( theBoard, this );
-	
-	// Create the facade and GUI
-	theFacade = new Facade( theBoard, this );	
+		// Create the board
+		Board theBoard = new Board();
+
+		// Create the rules passing in the board
+		theRules = new Rules( theBoard, this );
+
+		// Create the facade and GUI
+		theFacade = new Facade( theBoard, this );
     }
     
     /**
@@ -113,8 +112,8 @@ public class Driver {
 	    // If game is networked, tell networked player to send move
 	    if ( gameType == theFacade.HOSTGAME 
 		 || gameType == theFacade.CLIENTGAME ) {
-		((NetworkPlayer)activePlayer).sendMove();
-		((NetworkPlayer)activePlayer).waitForPlayer();
+			((NetworkPlayer)activePlayer).sendMove();
+			((NetworkPlayer)activePlayer).waitForPlayer();
 	    }
 	    
 	    // Inform the other player to make a move and
@@ -226,7 +225,7 @@ public class Driver {
     /**
      * This method is called if a draw has been offered
      * 
-     * @param the player who offered the draw
+     * @param player the player who offered the draw
      * 
      */    
     public void drawOffered( Player player ){
@@ -258,38 +257,11 @@ public class Driver {
      * Ends the game as a result of a player quitting, notifying 
      * each player
      * 
-     * @param the player who quit
+     * @param player the player who quit
      */
     public void endInQuit( Player player ){
-	playerOne.endOfGame( player.getName() + " quit the game" );
-	playerTwo.endOfGame( player.getName() + " quit the game" );
-    }
-    
-    /**
-     * This method creates the timer to be used, if one is desired 
-     * to be used. It will also set the number of seconds for each 
-     * turn.
-     *
-     * @param   time    : the number of seconds for each turn
-     * @param   warning : whether or not a player will be warned 
-     *                    that their turn is going to end
-     *
-     * @pre  It has been selected to use a timer in the game setup
-     * @post The timer has been created and the appropriate time 
-     *       restraints are in place
-     */
-    public void setTimer( int time, int warning ){
-   	// If values are negative, set runningTimer to false
-	// If they are positive values, create the Game.Timer and
-	// notifier with the times
-
-	if ( time < 0 ) {
-	    runningTimer = false;
-	} else {
-	    runningTimer = true;
-	    theTimer = new Game.Timer();
-	}
-        
+		playerOne.endOfGame( player.getName() + " quit the game" );
+		playerTwo.endOfGame( player.getName() + " quit the game" );
     }
         
     /**
@@ -371,25 +343,11 @@ public class Driver {
    	// Returns the player whos getTurnStatus is false
    	return passivePlayer;
     }
-    
-    /**
-     * Whether the current game uses a timer
-     *
-     * @return true if a timer is being sed in the game, otherwise 
-     *         false
-     *
-     * @pre the game has started 
-     * @post this method has not altered anything
-     */
-    public boolean timerRunning(){
-   	return runningTimer;
-    }
-    
-   
+
     /**
      * Select the type of game
      *
-     * @param mode the mode (0 local, 1 host, 2 client) of the game
+     * @param newMode mode the mode (0 local, 1 host, 2 client) of the game
      *
      * @pre  Players have not been created
      * @post Mode is set
@@ -410,25 +368,20 @@ public class Driver {
     public int getGameMode(){
    	return gameType;
     }
-    
-    /**
-     * Return the notifier of the Game.Timer
-     *
-     * @return the notifier for the Game.Timer
-     *
-     * @pre  The game is running
-     * @post This method has changed nothing
-     */
-    public Notifier getTimerNotifier(){
-   	// Return the timers notifier, by asking the timer 
-	// for its notifier
-	Notifier timer = null;
-	
-	if ( theTimer != null ) {
-	    timer = theTimer.getNotifier();
+
+
+	/**
+	 * main program
+	 * @param args
+	 */
+	public static void main( String args[] ){
+
+
+		Driver theDriver = new Driver();
+
+		Firstscreen first = new Firstscreen( theDriver.getFacade() );
+		first.show();
+
 	}
-	
-	return timer;
-    }
     
 }//Controller.Driver.java

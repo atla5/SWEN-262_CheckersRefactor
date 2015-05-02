@@ -1,4 +1,6 @@
-package Controller; /**
+package Controller;
+
+/**
  * Controller.Move.java
  *
  * Version:
@@ -11,17 +13,14 @@ package Controller; /**
  *
  */
 
-import Controller.Player;
-
 /**
  * An object representation of a move.
  *
- * @author
  */
  public class Move {
 	 
-	private int startingLocation;	// the starting location
-	private int endingLocation;	// the ending location
+	private int startLocation;	// the starting location
+	private int endLocation;	// the ending location
 
 	/**
 	 *  The player that this move is intended for.
@@ -41,8 +40,8 @@ import Controller.Player;
 	public Move( Player player, int startLoc, int endLoc ) {
 	
 		thePlayer = player;
-		startingLocation = startLoc;
-		endingLocation = endLoc;
+		startLocation = startLoc;
+		endLocation = endLoc;
 	}
 
      
@@ -50,13 +49,9 @@ import Controller.Player;
 	 * Return the player who made this move
 	 * 
 	 * @return the player who made this move
-	 * 
-	 * @post nothing has changed 
-	 * 
+	 *
 	 */
-	public Player getPlayer() {
-		return thePlayer;
-	}
+	public Player getPlayer() { return thePlayer; }
 
      
 	/**
@@ -66,10 +61,7 @@ import Controller.Player;
 	 * 
 	 * @post nothing has changed
  	 */
-	public int startLocation() {
-	
-		return startingLocation;
-	}
+	public int getStartLocation() { return startLocation; }
 
      
 	/**
@@ -79,9 +71,15 @@ import Controller.Player;
 	 * 
 	 * @post Nothing has changed
 	 */
-	public int endLocation() {
-		
-		return endingLocation;
+	public int getEndLocation() { return endLocation; }
+
+	/**
+	 * Allows printing of /Move/'s in the form
+	 * 		"Move: [Player.toString] moves from [startLoc] to [endLoc]."
+	 */
+	public String toString(){
+		return "Move: " + this.getPlayer() + " moves from " + this.getStartLocation() +
+				" to " + this.getEndLocation() + ".";
 	}
      
 } //Controller.Move.java

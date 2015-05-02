@@ -16,7 +16,7 @@ public class Tile extends JButton implements ActionListener{
     //@todo consider moving to other class
     private static Color color1 = Color.white;
     private static Color color2 = new Color(204, 204, 153);
-    private boolean isOccupied;
+    private static Dimension size = new Dimension(80,80);
 
     /**
      * construct tile with ID
@@ -25,14 +25,12 @@ public class Tile extends JButton implements ActionListener{
     public Tile(int newId){
         this.id = newId;
         this.addActionListener(this);
-        this.setPreferredSize(new Dimension(80,80));
-        this.setColor(id);
-        this.isOccupied = false;
-        this.setActionCommand(Integer.toString(id));
+        this.setPreferredSize(size);
+        this.setTileColor(id);
     }
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+    public void actionPerformed(ActionEvent e) {
         //getID();
     }
 
@@ -40,7 +38,7 @@ public class Tile extends JButton implements ActionListener{
      * set Tile's background color given the int
      * @param id
      */
-    public void setColor(int id){
+    public void setTileColor(int id){
 
         //alternate starting color by row
         if( (id/8) % 2 != 0 ){ id++; }

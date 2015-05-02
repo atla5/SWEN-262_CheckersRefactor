@@ -68,7 +68,7 @@ public class Firstscreen extends JFrame implements ActionListener{
         LocalGameButton = new JRadioButton();
         HostGameButton = new JRadioButton();
         JoinGameButton = new JRadioButton();
-	gameModes = new ButtonGroup();
+	    gameModes = new ButtonGroup();
         IPField = new JTextField();
         IPLabel = new JLabel();
         OKButton = new JButton();
@@ -183,7 +183,7 @@ public class Firstscreen extends JFrame implements ActionListener{
      *  
      * Exit the Application
      * 
-     * @param the event to close the window
+     * @param evt the event to close the window
      * 
      */
 

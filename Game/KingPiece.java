@@ -29,23 +29,11 @@ public class KingPiece extends Piece {
     * This constructor creates a king piece object
     * 
     * @param c - the color of this king piece
-    * @param pc - the possible captures of this king piece
-    * @param pm - the possible moves of this king piece
     */
    public KingPiece( Color c ) {
-   
-	   super( c ); 
-	   type = KING;
-   }
-   
-   /**
-    * This method returns the type of piece that this object is 
-    * 
-    * @return 1 for the king piece representation
-    */
-   public int getType() {
-  
-	   return type;
+
+      super(c);
+      type = KING;
    }
    
 }//Game.KingPiece

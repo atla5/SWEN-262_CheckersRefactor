@@ -1,4 +1,6 @@
-package Controller; /**
+package Controller;
+
+/**
  * Controller.Player.java
  *
  * Version:
@@ -51,20 +53,11 @@ public abstract class Player {
      * @param newDriver Controller.Driver which will control this.
      */
     public Player( int num, Rules newRules, Driver newDriver ){
-	playerName   = null;
-	playerColor  = null;
-	playerNumber = num;
-	theRules     = newRules;
-	theDriver    = newDriver;
-    }
-    
-    /**
-     * Return the type of player.
-     *
-     * @return The type of player.
-     */
-    public int getType() {
-	return type;
+        playerName   = null;
+        playerColor  = null;
+        playerNumber = num;
+        theRules     = newRules;
+        theDriver    = newDriver;
     }
     
     /**
@@ -79,19 +72,18 @@ public abstract class Player {
      * @return true If move was made, false otherwise
      */
     public boolean makeMove( int start, int end ){
-	boolean retval = false;
-	
-	theMove = new Move(this, start, end );
-	retval  = theRules.validateMove( theMove );
-      
-	return retval;
+        boolean retval = false;
+
+        theMove = new Move(this, start, end );
+        retval  = theRules.validateMove( theMove );
+
+        return retval;
     }
     
     /**
      * This method is used for when a user has clicked on the 
      * "Quit" button on the GUI.  It handles exiting  the game.
-     * 
-     * @param the player who quit
+     *
      * @pre  game is in progress
      * @post message is sent to driver to end the game
      */
@@ -103,7 +95,7 @@ public abstract class Player {
      * has been offered.  This method is implemented differently for 
      * localPlayer and networkPlayer. 
      * 
-     * @param the player who offered the draw
+     * @param player the player who offered the draw
      * @pre a game is in progress
      * @pre a draw has been offered
      */
@@ -125,7 +117,15 @@ public abstract class Player {
      *  It displays the dialog box for the decline of draw
      */
     public abstract void endInDeclineDraw( Player player );
-    
+
+    /**
+     * A string representation of this object.
+     *
+     * @return a String representation of this object.
+     */
+    public String toString(){
+        return this.getNumber() + ": " + this.getName();
+    }
     
     /**
      * Method that is invoked when the end of game conditions have 
@@ -133,10 +133,16 @@ public abstract class Player {
      * players to notify them of this with a message.  Implementation 
      * differs for local player and network player.
      *
-     * @param endMessage Message indicating the end of the game.
+     * @param player
      */
-    public abstract void endInDraw( Player player ); 
-   
+    public abstract void endInDraw( Player player );
+
+    /* -- getters and setters --  */
+
+    /**
+     * Returns whether the ConcretePlayer is LOCAL=0 or NETWORK=1
+     */
+    public int getType(){ return this.type; }
 
     /**
      * Returns the number for this player
@@ -145,9 +151,7 @@ public abstract class Player {
      * 
      * @return playerNumber
      */
-    public int getNumber(){
-	return playerNumber;
-    }
+    public int getNumber(){ return playerNumber; }
     
     /**
      * Returns the players name
@@ -156,44 +160,28 @@ public abstract class Player {
      * 
      * @return the players name
      */
-    public String getName(){
-	return playerName;
-    }
+    public String getName(){ return playerName; }
     
     /**
      * Sets the players name
      * 
-     * @param the name to be set
+     * @param name the name to be set
      */
-    public void setName( String name ){
-	playerName = name;
-    }
+    public void setName( String name ){ playerName = name; }
     
     /**
      * Return the color of this player
      * 
      * @return the color of this player
      */
-    public Color getColor() {
-	return playerColor;
-    }
+    public Color getColor() { return playerColor; }
     
     /**
      * Set the color for this player.
      * 
      * @param newColor The new color for this player.
      */
-    public void setColor( Color newColor ){
-	playerColor = newColor;
-    }
-    
-    /**
-     * A string representation of this object.
-     * 
-     * @return a String representation of this object.
-     */
-    public String toString(){
-        return ("Controller.Player.  name = " + playerName);
-    }
+    public void setColor( Color newColor ){ playerColor = newColor; }
+
     
 }//Game.Player.java

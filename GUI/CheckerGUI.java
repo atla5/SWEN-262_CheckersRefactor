@@ -121,10 +121,12 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		whosTurnLabel.setForeground( new Color( 0, 100 , 0 ) );
 
 		//drawButton
+		//@toDo add 'Draw' functionality
 		JButton drawButton = new JButton("Draw");
 
 
 		//resignButton
+		//@toDo add 'resign' functionality
 		JButton resignButton = new JButton("Resign");
 
 
@@ -157,6 +159,8 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
 				JButton tile = new Tile(id);
+				tile.setActionCommand(Integer.toString(id));
+				tile.addActionListener(this);
 				boardPanel.add(tile);
 				this.possibleSquares.add(tile);
 				id++;
@@ -280,7 +284,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		if( board.colorAt( i ) == Color.blue ){
 
 		    //if there is a  single piece there
-		    if((board.getPieceAt(i)).getType() == board.SINGLE){
+		    if((board.getPieceAt(i)).getType() == Board.SINGLE){
 
 			//show a blue single piece in that spot board
 			temp = (JButton)possibleSquares.get(i);
@@ -294,7 +298,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 			}
 
 			//if there is a kinged piece there
-		    }else if((board.getPieceAt(i)).getType() == board.KING ){
+		    }else if((board.getPieceAt(i)).getType() == Board.KING){
 
 			//show a blue king piece in that spot board
 			temp= (JButton)possibleSquares.get(i);
@@ -311,7 +315,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		}else if( board.colorAt( i ) == Color.white ){
 
 		    //if there is a single piece there
-		    if((board.getPieceAt(i)).getType() == board.SINGLE){
+		    if((board.getPieceAt(i)).getType() == Board.SINGLE){
 
 			//show a blue single piece in that spot board
 			temp = (JButton)possibleSquares.get(i);
@@ -323,7 +327,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 			}catch( Exception e ){}
 			
 			//if there is a kinged piece there
-		    }else if((board.getPieceAt(i)).getType() == board.KING ){
+		    }else if((board.getPieceAt(i)).getType() == Board.KING){
 
 			//show a blue king piece in that spot board
 			temp = (JButton)possibleSquares.get(i);
