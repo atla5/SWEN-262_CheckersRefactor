@@ -15,20 +15,18 @@ package GUI;
  *
  */
 
-import Game.Board;
-import Controller.Facade;
-
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
 import java.net.*;
+import Controller.Facade;
+import Game.Board;
 
 /**
  * Main screen for play.
  *  -includes board with tiles, side panel for turn notification and 'draw' and 'resign' buttons
  */
-
 public class CheckerGUI extends JFrame implements ActionListener{
     
     //the facade for the game
@@ -36,15 +34,6 @@ public class CheckerGUI extends JFrame implements ActionListener{
     private static Facade theFacade; //the facade
     private Vector possibleSquares = new Vector();//a vector of the squares
     private int timeRemaining;//the time remaining
-    
-    private JLabel PlayerOnelabel;
-    private JLabel playerTwoLabel;
-    private JLabel timeRemainingLabel;
-    private JLabel secondsLeftLabel;
-    private JButton ResignButton;
-    private JButton DrawButton;
-    private JLabel warningLabel, whosTurnLabel;
-    
     //the names and time left
     private static String playerOnesName="", playerTwosName="", timeLeft="";
 
@@ -62,10 +51,11 @@ public class CheckerGUI extends JFrame implements ActionListener{
      */
     public CheckerGUI( Facade facade, String name1, String name2 ) {
 
+		//name window
         super("Checkers");
 
-	//long names mess up the way the GUI displays
-	//this code shortens the name if it is too long
+		//long names mess up the way the GUI displays
+		//this code shortens the name if it is too long
         String nameOne="", nameTwo="";
         if(name1.length() > 7 ){
             nameOne = name1.substring(0,7);
@@ -95,138 +85,16 @@ public class CheckerGUI extends JFrame implements ActionListener{
 //        update();
         //updateTime();
     }
-    
-    
-    /*
-     * This method handles setting up the timer
-     */
-    
-    private void register() {
-	
-        try{
-	    theFacade.addActionListener( this );
-	  
-        }catch( Exception e ){
-            
-            System.err.println( e.getMessage() );
-         
-        }
-    }
-    
-    /**
-     * This method is called from within the constructor to
-     * initialize the form. It initializes the components
-     * adds the buttons to the Vecotr of squares and adds
-     * an action listener to the components 
-     *
-     */
-    private void initComponents() {
 
-        getContentPane().add(mkBoardPanel());
+	public JPanel mkTopPanel(){
 
-	    this.setResizable( false );
+		JPanel topPanel = new JPanel();
+		playerOneLabel  = new JLabel("Player:       " + player1 );
+		playerOneLabel.setForeground( Color.black );
+		topPanel.add(playerOneLabel);
+		return topPanel;
 
-        PlayerOnelabel = new JLabel();
-        playerTwoLabel = new JLabel();
-	    whosTurnLabel = new JLabel();
-        
-        warningLabel = new JLabel( );
-        timeRemainingLabel = new JLabel();
-        secondsLeftLabel = new JLabel();
-	
-        ResignButton = new JButton();
-        ResignButton.addActionListener( this );
-		
-        DrawButton = new JButton();
-        DrawButton.addActionListener( this );
-	      
-        //sets the layout and adds listener for closing window
-        getContentPane().setLayout(new GridBagLayout());
-	    GridBagConstraints gridBagConstraints1;
-    
-	    //add window listener
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
-                exitForm(evt);
-            }
-        });
-        
-        PlayerOnelabel.setText("Player 1:     " + playerOnesName );
-        PlayerOnelabel.setForeground( Color.black );
-        
-        gridBagConstraints1 = new java.awt.GridBagConstraints();
-        gridBagConstraints1.gridx = 2;
-        gridBagConstraints1.gridy = 0;
-        gridBagConstraints1.gridwidth = 4;
-        getContentPane().add(PlayerOnelabel, gridBagConstraints1);
-        
-        playerTwoLabel.setText("Player 2:     " + playerTwosName );
-        playerTwoLabel.setForeground( Color.black );
-		
-        gridBagConstraints1 = new java.awt.GridBagConstraints();
-        gridBagConstraints1.gridx = 2;
-        gridBagConstraints1.gridy = 9;
-        gridBagConstraints1.gridwidth = 4;
-        getContentPane().add(playerTwoLabel, gridBagConstraints1);
-        
-        whosTurnLabel.setText("");
-        whosTurnLabel.setForeground( new Color( 0, 100 , 0 ) );
-        
-        gridBagConstraints1.gridx=8;
-        gridBagConstraints1.gridy=1;
-        getContentPane().add(whosTurnLabel, gridBagConstraints1 );
-        
-        warningLabel.setText( "" );
-        warningLabel.setForeground( Color.red );
-		
-        gridBagConstraints1.gridx = 8;
-        gridBagConstraints1.gridy = 2;
-        getContentPane().add( warningLabel, gridBagConstraints1 );
-        
-        timeRemainingLabel.setText("Time Remaining:");
-        timeRemainingLabel.setForeground( Color.black );
-		
-        gridBagConstraints1 = new java.awt.GridBagConstraints();
-        gridBagConstraints1.gridx = 8;
-        gridBagConstraints1.gridy = 3;
-        getContentPane().add(timeRemainingLabel, gridBagConstraints1);
-        
-        secondsLeftLabel.setText( timeLeft + " sec.");
-        secondsLeftLabel.setForeground( Color.black );
-        
-        gridBagConstraints1 = new java.awt.GridBagConstraints();
-        gridBagConstraints1.gridx = 8;
-        gridBagConstraints1.gridy = 4;
-        getContentPane().add(secondsLeftLabel, gridBagConstraints1);
-        
-        ResignButton.setActionCommand("resign");
-        ResignButton.setText("Resign");
-        
-	gridBagConstraints1 = new java.awt.GridBagConstraints();
-        gridBagConstraints1.gridx = 8;
-        gridBagConstraints1.gridy = 7;
-        getContentPane().add(ResignButton, gridBagConstraints1);
-        
-        DrawButton.setActionCommand("draw");
-        DrawButton.setText("Draw");
-        
-        gridBagConstraints1 = new java.awt.GridBagConstraints();
-        gridBagConstraints1.gridx = 8;
-        gridBagConstraints1.gridy = 6;
-        getContentPane().add(DrawButton, gridBagConstraints1);
-	
-    }
-    
-    /** 
-     * 
-     * Exit the Application
-     * 
-     * @param evt the window event
-     * 
-     */
-    private void exitForm(java.awt.event.WindowEvent evt) {
-        theFacade.pressQuit();
-    }
+	}
 
 	public JPanel mkBottomPanel(){
 		JPanel bottomPanel = new JPanel();
@@ -310,13 +178,13 @@ public class CheckerGUI extends JFrame implements ActionListener{
      *
      * @param e  the event that has occured
      */
-
+    
     public void actionPerformed( ActionEvent e ) {
-
+        
 	try{
 	    //if a square gets clicked
 	    if( e.getActionCommand().equals(  "1" ) ||
-		e.getActionCommand().equals(  "3" ) ||
+		e.getActionCommand().equals(  "3" ) || 
 		e.getActionCommand().equals(  "5" ) ||
 		e.getActionCommand().equals(  "7" ) ||
 		e.getActionCommand().equals(  "8" ) ||
@@ -368,7 +236,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		//if its a player switch event
 		if ( (e.getActionCommand()).equals(theFacade.playerSwitch) ) {
 		    //set a new time
-		    timeRemaining = theFacade.getTimer();
+//		    timeRemaining = theFacade.getTimer();
 		    //if it is an update event
 		} else if ( (e.getActionCommand()).equals(theFacade.update) ) {
 		    //update the GUI
@@ -397,15 +265,11 @@ public class CheckerGUI extends JFrame implements ActionListener{
     /**
      * Updates the GUI reading the pieces in the board
      * Puts pieces in correct spaces, updates whos turn it is
-     *
-     * @param the board
      */
-    
     private void update(){
-	
-	
-	if( checkEndConditions() ){
 
+	if( checkEndConditions() ){
+	    
 	    theFacade.showEndGame(" ");
 	}
 	//the board to read information from
@@ -429,12 +293,15 @@ public class CheckerGUI extends JFrame implements ActionListener{
 			temp = (JButton)possibleSquares.get(i);
 
 			//get the picture from the web
-			try{
-			    temp.setIcon(
-			      new ImageIcon( new URL("images/file:BlueSingle.gif") ));
-			}catch( MalformedURLException e ){
-			    System.out.println(e.getMessage());
-			}
+			//try{
+                System.out.println("We made it");
+                ImageIcon iI = new ImageIcon("GUI/BlueSingle.gif");
+                board.getPieceAt(i);
+
+                temp.setIcon(iI);
+			//}//catch( MalformedURLException e ){
+			    //System.out.println(e.getMessage());
+			//}
 
 			//if there is a kinged piece there
 		    }else if((board.getPieceAt(i)).getType() == Board.KING){
@@ -445,13 +312,13 @@ public class CheckerGUI extends JFrame implements ActionListener{
 			//get the picture formt the web
 			try{
 			    temp.setIcon(
-			      new ImageIcon(new URL("images/file:BlueKing.gif") ) );
+			      new ImageIcon(new URL("file:BlueKing.gif") ) );
 			}catch( Exception e ){}
 			
 		    }
 
-		    //check to see if the color is white
-		}else if( board.colorAt( i ) == Color.white ){
+		    //check to see if the color is white        
+		}else if( board.colorAt(i) == Color.white ){
 
 		    //if there is a single piece there
 		    if((board.getPieceAt(i)).getType() == Board.SINGLE){
@@ -462,9 +329,9 @@ public class CheckerGUI extends JFrame implements ActionListener{
 			//get the picture from the web
 			try{
 			    temp.setIcon(
-			      new ImageIcon(new URL("/images/file:WhiteSingle.gif")));
+			      new ImageIcon(new URL("file:WhiteSingle.gif")));
 			}catch( Exception e ){}
-
+			
 			//if there is a kinged piece there
 		    }else if((board.getPieceAt(i)).getType() == Board.KING){
 
@@ -474,7 +341,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 			//get the picture from the web
 			try{
 			    temp.setIcon(
-			      new ImageIcon(new URL("/images/file:WhiteKing.gif") ) );
+			      new ImageIcon(new URL("file:WhiteKing.gif") ) );
 			}catch( Exception e ){}
 		    }
                                 //if there isnt a piece there        
@@ -514,10 +381,10 @@ public class CheckerGUI extends JFrame implements ActionListener{
             try{
 		//the number of each piece left
 		int whitesGone = 0 , bluesGone = 0;
-
+		
 		//the board to work with
 		Board temp = theFacade.stateOfBoard();
-
+		
 		//go through all the spots on the board
 		for( int i=1; i<temp.sizeOf(); i++ ){
 		    //if there is a piece there
@@ -534,19 +401,19 @@ public class CheckerGUI extends JFrame implements ActionListener{
 			}
 		    }
 		}//end of for loop
-
+		
 		//if either of the number are 0
 		if( whitesGone == 0 || bluesGone == 0 ){
 		    retVal = true;
 		}
 
             }catch( Exception e ){
-
-                System.err.println( e.getMessage() );
-
+                
+                System.err.println( e.getMessage() );            
+                
             }
             return retVal;
-
+            
         }//checkEndConditions
 
 	public static void main(String[] args){

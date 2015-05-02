@@ -183,13 +183,14 @@ public class Secondscreen extends JFrame
         gridBagConstraints1.gridy = 8;
         gridBagConstraints1.anchor = GridBagConstraints.WEST;
         getContentPane().add(WarningLengthLabel, gridBagConstraints1);
-        
-        okButton.setText("OK");
-        okButton.setName("button1");
-        okButton.setBackground(new Color (212, 208, 200));
-        okButton.setForeground(Color.black);
-        okButton.setActionCommand("ok");
-        okButton.addActionListener( this );
+
+
+        //okButton.setText("OK");
+        //okButton.setName("button1");
+        //okButton.setBackground(new Color (212, 208, 200));
+        //okButton.setForeground(Color.black);
+        //okButton.setActionCommand("ok");
+        //okButton.addActionListener( this );
 		
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 0;
@@ -222,7 +223,6 @@ public class Secondscreen extends JFrame
        
         warningLengthField.setName("textfield4");
         warningLengthField.addChangeListener( this );
-        
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 1;
         gridBagConstraints1.gridy = 8;
@@ -264,7 +264,22 @@ public class Secondscreen extends JFrame
 				       + " seconds )");
         }
     }
-    
+
+    class BtnOk extends JButton implements Command{
+
+        Mediator2 med2;
+
+        BtnOk(ActionListener al, Mediator2 m){
+            super("Ok");
+            addActionListener(al);
+            med2 = m;
+            med2.registerOk(this);
+        }
+
+        public void execute(){
+            med2.Ok();
+        }
+    }
     
     /**
      * This takes care of when an action takes place. It will check the 
