@@ -29,22 +29,22 @@ import javax.swing.event.*;
 public class Secondscreen extends JFrame
     implements ActionListener, ChangeListener {
     
-    private Facade theFacade;
-    private Firstscreen theFirst;
-    private int gameType;
+    public Facade theFacade;
+    public Firstscreen theFirst;
+    public int gameType;
     
     // Variables declaration
-    private Checkbox timedGameBox;
-    private JLabel playerOneLabel;
-    private JLabel playerTwoLabel;
-    private JTextField playerOneField;
-    private JTextField playerTwoField;
-    private JLabel turnLengthLabel;
-    private JLabel WarningLengthLabel;
-    private JButton okButton;
-    private JButton cancelButton;
-    private JSlider turnLengthField;
-    private JSlider warningLengthField;
+    public Checkbox timedGameBox;
+    public JLabel playerOneLabel;
+    public JLabel playerTwoLabel;
+    public JTextField playerOneField;
+    public JTextField playerTwoField;
+    public JLabel turnLengthLabel;
+    public JLabel WarningLengthLabel;
+    public JButton okButton;
+    public JButton cancelButton;
+    public JSlider turnLengthField;
+    public JSlider warningLengthField;
     // End of variables declaration
 	
 	
@@ -69,7 +69,10 @@ public class Secondscreen extends JFrame
         pack ();
     }
 
-
+    public void actionPerformed(ActionEvent ae){
+        Command comd = (Command) ae.getSource();
+        comd.execute();
+    }
     /** 
      * This method is called from within the constructor to
      * initialize the form.
@@ -77,6 +80,7 @@ public class Secondscreen extends JFrame
 	
     private void initComponents() {
 
+        Mediator m = new MediatorOne(this.theFacade);
         timedGameBox = new Checkbox();
         playerOneLabel = new JLabel();
         playerTwoLabel = new JLabel();
@@ -84,7 +88,7 @@ public class Secondscreen extends JFrame
         playerTwoField = new JTextField();
         turnLengthLabel = new JLabel();
         WarningLengthLabel = new JLabel();
-        okButton = new JButton();
+        okButton = new BtnSSOk(this,m);
         cancelButton = new JButton();
         turnLengthField = new JSlider( 10, 300, 120 );
         warningLengthField = new JSlider( 10, 300, 120 );
@@ -215,7 +219,7 @@ public class Secondscreen extends JFrame
         
         turnLengthField.setName("textfield3");
         turnLengthField.addChangeListener( this );
-     
+
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 1;
         gridBagConstraints1.gridy = 6;
@@ -265,19 +269,19 @@ public class Secondscreen extends JFrame
         }
     }
 
-    class BtnOk extends JButton implements Command{
+    class BtnSSOk extends JButton implements Command{
 
-        Mediator2 med2;
+        Mediator med;
 
-        BtnOk(ActionListener al, Mediator2 m){
+        BtnSSOk(ActionListener al, Mediator m){
             super("Ok");
             addActionListener(al);
-            med2 = m;
-            med2.registerOk(this);
+            med = m;
+            med.registerSSOk(this);
         }
 
         public void execute(){
-            med2.Ok();
+            med.SSOk();
         }
     }
     
@@ -288,10 +292,12 @@ public class Secondscreen extends JFrame
      * @param e the event fired
      */
     
-    public void actionPerformed( ActionEvent e ){
+    /**public void actionPerformed( ActionEvent e ){
 	try{
 	    
 	    if ( (e.getActionCommand()).equals( "ok" ) ) {
+
+            BtnSSOk.
 		
 		//take note of all selections and go to game startup
 		if ( playerOneField.isEnabled() ) {
@@ -374,7 +380,6 @@ public class Secondscreen extends JFrame
      * @param evt the action that tells the window to close
      * 
      */
-    
     private void exitForm(java.awt.event.WindowEvent evt) {
 	System.exit(0);
     }

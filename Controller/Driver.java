@@ -14,6 +14,7 @@ package Controller;
  */
 
 import GUI.Firstscreen;
+import GUI.MediatorOne;
 import GUI.Secondscreen;
 import Game.*;
 
@@ -379,9 +380,9 @@ public class Driver {
 
 
 		Driver theDriver = new Driver();
-
-		Firstscreen first = new Firstscreen( theDriver.getFacade() );
-		first.setEnabled(true);
+        MediatorOne med = new MediatorOne(theDriver.getFacade());
+		Firstscreen first = new Firstscreen( theDriver.getFacade(),med);
+		first.show();
 
 	}
     

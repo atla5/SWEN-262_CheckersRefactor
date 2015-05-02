@@ -26,18 +26,19 @@ import java.awt.*;
 public class Firstscreen extends JFrame implements ActionListener{
 
     Facade theFacade;
+    Mediator theMediator;
     Secondscreen next;
   
     // Variables declaration - do not modify
-    private JRadioButton LocalGameButton;
-    private JRadioButton HostGameButton;
-    private JRadioButton JoinGameButton;
-    private JTextField IPField;
-    private JLabel IPLabel;
-    private JButton OKButton;
-    private JButton CancelButton;
-    private JLabel IPExampleLabel;
-    private ButtonGroup gameModes;
+    public JRadioButton LocalGameButton;
+    public JRadioButton HostGameButton;
+    public JRadioButton JoinGameButton;
+    public JTextField IPField;
+    public JLabel IPLabel;
+    public JButton OKButton;
+    public JButton CancelButton;
+    public JLabel IPExampleLabel;
+    public ButtonGroup gameModes;
     // End of variables declaration
 
 
@@ -48,10 +49,11 @@ public class Firstscreen extends JFrame implements ActionListener{
      *     
      */
 
-    public Firstscreen( Facade facade ) {
+    public Firstscreen( Facade facade,Mediator med ) {
 
 	super( "First screen" );
         theFacade = facade;
+        theMediator = med;
         initComponents();
         pack();
     }
@@ -71,7 +73,7 @@ public class Firstscreen extends JFrame implements ActionListener{
 	    gameModes = new ButtonGroup();
         IPField = new JTextField();
         IPLabel = new JLabel();
-        OKButton = new JButton();
+        OKButton = new BtnFSOk(this,theMediator);
         CancelButton = new JButton();
         IPExampleLabel = new JLabel();
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -97,7 +99,7 @@ public class Firstscreen extends JFrame implements ActionListener{
         gridBagConstraints1.gridy = 0;
         getContentPane().add(LocalGameButton, gridBagConstraints1);
         
-        
+
         HostGameButton.setActionCommand("host");
         HostGameButton.setText("Host game");
         HostGameButton.addActionListener(this);
@@ -140,12 +142,12 @@ public class Firstscreen extends JFrame implements ActionListener{
         gridBagConstraints1.gridy = 3;
         getContentPane().add(IPLabel, gridBagConstraints1);
         
-        OKButton.setText("OK");
-        OKButton.setActionCommand("ok");
-        OKButton.setName("button6");
-        OKButton.setBackground(new Color (212, 208, 200));
-        OKButton.setForeground(Color.black);
-        OKButton.addActionListener(this);
+        //OKButton.setText("OK");
+        //OKButton.setActionCommand("ok");
+        //OKButton.setName("button6");
+        //OKButton.setBackground(new Color (212, 208, 200));
+        //OKButton.setForeground(Color.black);
+        //OKButton.addActionListener(this);
         
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 2;
@@ -198,8 +200,14 @@ public class Firstscreen extends JFrame implements ActionListener{
 	 * @param e the event that has been fired
 	 * 
 	 */
-	
-	public void actionPerformed( ActionEvent e ){
+
+    public void actionPerformed(ActionEvent e){
+        Command comd = (Command) e.getSource();
+        comd.execute();
+    }
+
+
+	/**public void actionPerformed( ActionEvent e ){
 		
 	    try{
 		//this code handles disabling the IP field unless
@@ -292,5 +300,19 @@ public class Firstscreen extends JFrame implements ActionListener{
 	    }//end of general catch statement
 
 	}//end of actionPerformed
+**/
+    class BtnFSOk extends JButton implements Command{
+
+        Mediator med;
+        BtnFSOk(ActionListener al, Mediator m){
+            super("Ok");
+            addActionListener(al);
+            med = m;
+            med.registerFSOk(this);
+        }
+        public void execute(){
+            med.FSOk();
+        }
+    }
 
 }//GUI.Firstscreen.java
