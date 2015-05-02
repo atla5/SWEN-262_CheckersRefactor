@@ -33,6 +33,9 @@ public class CheckerGUI extends JFrame implements ActionListener{
     
     private static Facade theFacade; //the facade
     private Vector possibleSquares = new Vector();//a vector of the squares
+    private int timeRemaining;//the time remaining
+    //the names and time left
+    private static String playerOnesName="", playerTwosName="", timeLeft="";
 
     private JLabel whosTurnLabel, playerOneLabel, playerTwoLabel;
 	private String player1, player2;
@@ -290,12 +293,15 @@ public class CheckerGUI extends JFrame implements ActionListener{
 			temp = (JButton)possibleSquares.get(i);
 
 			//get the picture from the web
-			try{
-			    temp.setIcon(
-			      new ImageIcon( new URL("images/file:BlueSingle.gif") ));
-			}catch( MalformedURLException e ){
-			    System.out.println(e.getMessage());
-			}
+			//try{
+                System.out.println("We made it");
+                ImageIcon iI = new ImageIcon("GUI/BlueSingle.gif");
+                board.getPieceAt(i);
+
+                temp.setIcon(iI);
+			//}//catch( MalformedURLException e ){
+			    //System.out.println(e.getMessage());
+			//}
 
 			//if there is a kinged piece there
 		    }else if((board.getPieceAt(i)).getType() == Board.KING){
@@ -306,13 +312,13 @@ public class CheckerGUI extends JFrame implements ActionListener{
 			//get the picture formt the web
 			try{
 			    temp.setIcon(
-			      new ImageIcon(new URL("images/file:BlueKing.gif") ) );
+			      new ImageIcon(new URL("file:BlueKing.gif") ) );
 			}catch( Exception e ){}
 			
 		    }
 
 		    //check to see if the color is white        
-		}else if( board.colorAt( i ) == Color.white ){
+		}else if( board.colorAt(i) == Color.white ){
 
 		    //if there is a single piece there
 		    if((board.getPieceAt(i)).getType() == Board.SINGLE){
@@ -323,7 +329,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 			//get the picture from the web
 			try{
 			    temp.setIcon(
-			      new ImageIcon(new URL("/images/file:WhiteSingle.gif")));
+			      new ImageIcon(new URL("file:WhiteSingle.gif")));
 			}catch( Exception e ){}
 			
 			//if there is a kinged piece there
@@ -335,7 +341,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 			//get the picture from the web
 			try{
 			    temp.setIcon(
-			      new ImageIcon(new URL("/images/file:WhiteKing.gif") ) );
+			      new ImageIcon(new URL("file:WhiteKing.gif") ) );
 			}catch( Exception e ){}
 		    }
                                 //if there isnt a piece there        

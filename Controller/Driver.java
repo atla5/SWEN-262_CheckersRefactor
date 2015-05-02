@@ -14,6 +14,7 @@ package Controller;
  */
 
 import GUI.Firstscreen;
+import GUI.Secondscreen;
 import Game.*;
 
 import java.awt.*;
@@ -276,10 +277,10 @@ public class Driver {
 	// setColor() method of each
 	if ( Math.random() > .5 ) {
 	    playerOne.setColor( Color.blue );
-	    playerTwo.setColor( Color.white );
+	    playerTwo.setColor(Color.white);
 	} else {
-	    playerOne.setColor( Color.white );
-	    playerTwo.setColor( Color.blue );
+	    playerOne.setColor(Color.white);
+	    playerTwo.setColor(Color.blue);
 	}
     }
     
@@ -311,7 +312,7 @@ public class Driver {
 	    passivePlayer = playerOne;
 	}
 	
-	theFacade.setPlayerModes( activePlayer, passivePlayer );
+	theFacade.setPlayerModes(activePlayer, passivePlayer);
     }
     
     /**
@@ -380,7 +381,7 @@ public class Driver {
 		Driver theDriver = new Driver();
 
 		Firstscreen first = new Firstscreen( theDriver.getFacade() );
-		first.show();
+		first.setEnabled(true);
 
 	}
     
