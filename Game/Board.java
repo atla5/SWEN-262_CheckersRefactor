@@ -42,7 +42,8 @@ public class Board {
 	   // Set the values of numWhites and numBlues to 12 each
 	   pieces = new Piece[64];
 
-	   // create blue pices
+	   // create blue pieces
+       /**
 	   pieces[1] = new SinglePiece( Color.blue );
 	   pieces[3] = new SinglePiece( Color.blue );
 	   pieces[5] = new SinglePiece( Color.blue );
@@ -55,8 +56,10 @@ public class Board {
 	   pieces[19] = new SinglePiece( Color.blue );
 	   pieces[21] = new SinglePiece( Color.blue );
 	   pieces[23] = new SinglePiece( Color.blue );
+        */
 
 	   // create the white pieces
+       /**
 	   pieces[40] = new SinglePiece( Color.white );
 	   pieces[42] = new SinglePiece( Color.white );
 	   pieces[44] = new SinglePiece( Color.white );
@@ -69,6 +72,7 @@ public class Board {
 	   pieces[58] = new SinglePiece( Color.white );
 	   pieces[60] = new SinglePiece( Color.white );
 	   pieces[62] = new SinglePiece( Color.white );
+        */
 
    }
 

@@ -31,7 +31,7 @@ public abstract class Piece {
       
    /**
     * The constructor for this piece
-    * 
+
     * @param c - the color for this piece
     */
    public Piece( Color c ) {
