@@ -75,7 +75,7 @@ public class Firstscreen extends JFrame implements ActionListener{
         IPField = new JTextField();
         IPLabel = new JLabel();
         OKButton = new BtnFSOk(this,theMediator, this);
-        CancelButton = new JButton();
+        CancelButton = new BtnFCancel(this, theMediator);
         IPExampleLabel = new JLabel();
         getContentPane().setLayout(new java.awt.GridBagLayout());
         java.awt.GridBagConstraints gridBagConstraints1;
@@ -203,8 +203,10 @@ public class Firstscreen extends JFrame implements ActionListener{
 	 */
 
     public void actionPerformed(ActionEvent e){
-        Command comd = (Command) e.getSource();
-        comd.execute();
+            try {
+                Command comd = (Command) e.getSource();
+                comd.execute();
+            }catch(ClassCastException c){}
     }
 
 
@@ -305,6 +307,7 @@ public class Firstscreen extends JFrame implements ActionListener{
     public Secondscreen getNext(){
         return this.next;
     }
+
     class BtnFSOk extends JButton implements Command{
 
         Mediator med;
@@ -319,6 +322,17 @@ public class Firstscreen extends JFrame implements ActionListener{
         public void execute(){
             med.FSOk(myScreen, myScreen.getNext());
         }
+    }
+
+    class BtnFCancel extends JButton implements Command{
+        Mediator med;
+        BtnFCancel(ActionListener al, Mediator m){
+            super("Cancel");
+            addActionListener(al);
+            med = m;
+            med.registerFCancel(this);
+        }
+        public void execute(){med.FCancel();}
     }
 
 }//GUI.Firstscreen.java

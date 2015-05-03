@@ -32,6 +32,7 @@ public class Secondscreen extends JFrame
     public Facade theFacade;
     public Mediator med;
     public int gameType;
+    Firstscreen prev;
     
     // Variables declaration
     public Checkbox timedGameBox;
@@ -89,7 +90,7 @@ public class Secondscreen extends JFrame
         turnLengthLabel = new JLabel();
         WarningLengthLabel = new JLabel();
         okButton = new BtnSSOk(this,m,this);
-        cancelButton = new JButton();
+        cancelButton = new BtnSCancel(this, this.med, this);
         turnLengthField = new JSlider( 10, 300, 120 );
         warningLengthField = new JSlider( 10, 300, 120 );
         getContentPane().setLayout(new GridBagLayout());
@@ -286,10 +287,28 @@ public class Secondscreen extends JFrame
         }
     }
 
+    class BtnSCancel extends JButton implements Command{
+        Mediator med;
+        Secondscreen myScreen;
+
+        BtnSCancel(ActionListener al, Mediator m, Secondscreen second){
+            super("Cancel");
+            addActionListener(al);
+            med = m;
+            med.registerSCancel(this);
+            myScreen = second;
+        }
+        public void execute(){
+            med.SCancel(myScreen.getPrevious(), myScreen);}
+    }
+
     public void changeGameType(int gameType){
         this.gameType = gameType;
     }
 
+    public void setFirstScreen(Firstscreen first){this.prev = first;}
+
+    public Firstscreen getPrevious(){return this.prev;}
     /**
      * This takes care of when an action takes place. It will check the 
      * action command of all components and then decide what needs to be done.
