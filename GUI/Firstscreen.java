@@ -49,11 +49,12 @@ public class Firstscreen extends JFrame implements ActionListener{
      *     
      */
 
-    public Firstscreen( Facade facade,Mediator med ) {
+    public Firstscreen( Facade facade,Mediator med, Secondscreen second ) {
 
 	super( "First screen" );
         theFacade = facade;
         theMediator = med;
+        next = second;
         initComponents();
         pack();
     }
@@ -73,7 +74,7 @@ public class Firstscreen extends JFrame implements ActionListener{
 	    gameModes = new ButtonGroup();
         IPField = new JTextField();
         IPLabel = new JLabel();
-        OKButton = new BtnFSOk(this,theMediator);
+        OKButton = new BtnFSOk(this,theMediator, this);
         CancelButton = new JButton();
         IPExampleLabel = new JLabel();
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -301,17 +302,22 @@ public class Firstscreen extends JFrame implements ActionListener{
 
 	}//end of actionPerformed
 **/
+    public Secondscreen getNext(){
+        return this.next;
+    }
     class BtnFSOk extends JButton implements Command{
 
         Mediator med;
-        BtnFSOk(ActionListener al, Mediator m){
+        Firstscreen myScreen;
+        BtnFSOk(ActionListener al, Mediator m, Firstscreen first){
             super("Ok");
             addActionListener(al);
             med = m;
             med.registerFSOk(this);
+            myScreen = first;
         }
         public void execute(){
-            med.FSOk();
+            med.FSOk(myScreen, myScreen.getNext());
         }
     }
 

@@ -30,7 +30,7 @@ public class Secondscreen extends JFrame
     implements ActionListener, ChangeListener {
     
     public Facade theFacade;
-    public Firstscreen theFirst;
+    public Mediator med;
     public int gameType;
     
     // Variables declaration
@@ -58,11 +58,11 @@ public class Secondscreen extends JFrame
      * 
      */
     
-    public Secondscreen( Facade f, Firstscreen first, int type ) {
+    public Secondscreen( Facade f, Mediator med, int type ) {
 
         super( "Second Screen" );
         theFacade = f;
-        theFirst = first;
+        this.med = med;
         gameType = type;
         
         initComponents ();

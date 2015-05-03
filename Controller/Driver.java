@@ -381,8 +381,10 @@ public class Driver {
 
 		Driver theDriver = new Driver();
         MediatorOne med = new MediatorOne(theDriver.getFacade());
-		Firstscreen first = new Firstscreen( theDriver.getFacade(),med);
-		first.show();
+        Secondscreen second = new Secondscreen(theDriver.getFacade(), med, 0);
+        Firstscreen first = new Firstscreen( theDriver.getFacade(),med, second);
+		first.setVisible(true);
+
 
 	}
     

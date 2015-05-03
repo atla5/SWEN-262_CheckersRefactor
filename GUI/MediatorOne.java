@@ -28,8 +28,6 @@ public class MediatorOne implements Mediator{
 
     public MediatorOne(Facade f){
         theFacade = f;
-        firstscreen = new Firstscreen(theFacade,this);
-        secondscreen = new Secondscreen(f, firstscreen, 0);
     }
     /**
      * Create a player with the given type and player number.
@@ -50,23 +48,23 @@ public class MediatorOne implements Mediator{
     }
     public void registerFSOk(BtnFSOk fsOk){btnFSOk = fsOk;}
 
-    public void FSOk(){
+    public void FSOk(Firstscreen first, Secondscreen second){
 
         //a temporary button to use for determining the game type
-        ButtonModel tempButton = firstscreen.gameModes.getSelection();
+        ButtonModel tempButton = first.gameModes.getSelection();
         try {
             //if check to see of the local radio button is selected
                if (tempButton.getActionCommand().equals("local")) {
 
                 //set up a local game
-                firstscreen.theFacade.setGameMode(theFacade.LOCALGAME);
+                first.theFacade.setGameMode(theFacade.LOCALGAME);
 
                 theFacade.createPlayer(1, theFacade.LOCALGAME);
                 theFacade.createPlayer(2, theFacade.LOCALGAME);
 
                 //hide the GUI.Firstscreen, make a GUI.Secondscreen and show it
-                firstscreen.hide();
-                secondscreen.show();
+                first.setVisible(false);
+                second.setVisible(true);
                 }
             }catch( Exception x ) {
                 System.err.println( x.getMessage() );
