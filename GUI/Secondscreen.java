@@ -88,7 +88,7 @@ public class Secondscreen extends JFrame
         playerTwoField = new JTextField();
         turnLengthLabel = new JLabel();
         WarningLengthLabel = new JLabel();
-        okButton = new BtnSSOk(this,m);
+        okButton = new BtnSSOk(this,m,this);
         cancelButton = new JButton();
         turnLengthField = new JSlider( 10, 300, 120 );
         warningLengthField = new JSlider( 10, 300, 120 );
@@ -272,19 +272,24 @@ public class Secondscreen extends JFrame
     class BtnSSOk extends JButton implements Command{
 
         Mediator med;
-
-        BtnSSOk(ActionListener al, Mediator m){
+        Secondscreen myScreen;
+        BtnSSOk(ActionListener al, Mediator m, Secondscreen second){
             super("Ok");
             addActionListener(al);
             med = m;
             med.registerSSOk(this);
+            myScreen = second;
         }
 
         public void execute(){
-            med.SSOk();
+            med.SSOk(myScreen);
         }
     }
-    
+
+    public void changeGameType(int gameType){
+        this.gameType = gameType;
+    }
+
     /**
      * This takes care of when an action takes place. It will check the 
      * action command of all components and then decide what needs to be done.

@@ -6,7 +6,7 @@ import GUI.Firstscreen.BtnFSOk;
  */
 interface Mediator {
 
-    void SSOk();
+    void SSOk(Secondscreen second);
     void FSOk(Firstscreen first, Secondscreen second);
     void registerSSOk(BtnSSOk ssOk);
     void registerFSOk(BtnFSOk ssOk);

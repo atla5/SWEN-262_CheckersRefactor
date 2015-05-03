@@ -62,7 +62,7 @@ public class MediatorOne implements Mediator{
                 theFacade.createPlayer(1, theFacade.LOCALGAME);
                 theFacade.createPlayer(2, theFacade.LOCALGAME);
 
-                //hide the GUI.Firstscreen, make a GUI.Secondscreen and show it
+                //hide the GUI.Firstscreen, make second screen visible
                 first.setVisible(false);
                 second.setVisible(true);
                 }
@@ -70,21 +70,21 @@ public class MediatorOne implements Mediator{
                 System.err.println( x.getMessage() );
             }
     }
-    public void SSOk() {
-        if (secondscreen.playerOneField.isEnabled()) {
-            if ((secondscreen.playerOneField.getText()).equalsIgnoreCase("")) {
-                secondscreen.playerOneField.setText("player1");
+    public void SSOk(Secondscreen second) {
+        if (second.playerOneField.isEnabled()) {
+            if ((second.playerOneField.getText()).equalsIgnoreCase("")) {
+                second.playerOneField.setText("player1");
             }
         }
 
-        if (secondscreen.playerTwoField.isEnabled()) {
-            if ((secondscreen.playerTwoField.getText()).equalsIgnoreCase("")) {
-                secondscreen.playerTwoField.setText("player2");
+        if (second.playerTwoField.isEnabled()) {
+            if ((second.playerTwoField.getText()).equalsIgnoreCase("")) {
+                second.playerTwoField.setText("player2");
             }
         }
 
-        theFacade.setPlayerName(1, secondscreen.playerOneField.getText());
-        theFacade.setPlayerName(2, secondscreen.playerTwoField.getText());
+        theFacade.setPlayerName(1, second.playerOneField.getText());
+        theFacade.setPlayerName(2, second.playerTwoField.getText());
 
         //if a timer is desired
 //		if ( timedGameBox.isEnabled() ) {
@@ -116,9 +116,9 @@ public class MediatorOne implements Mediator{
         //start the game
         theFacade.startGame();
         //hide this screen, make and show the GUI
-        secondscreen.hide();
+        second.setVisible(false);
         CheckerGUI GUI = new CheckerGUI(theFacade, theFacade.getPlayerName(1),
                 theFacade.getPlayerName(2));
-        GUI.show();
+        GUI.setVisible(true);
     }
 }
