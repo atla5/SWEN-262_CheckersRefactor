@@ -135,33 +135,6 @@ public class MediatorOne implements Mediator{
         theDriver.setPlayerName(1, second.playerOneField.getText());
         theDriver.setPlayerName(2, second.playerTwoField.getText());
 
-        //if a timer is desired
-//		if ( timedGameBox.isEnabled() ) {
-//		    if( timedGameBox.getState() ){
-//
-//			//set the 2 timer values
-//			try {
-//
-//			    theDriver.setTimer( turnLengthField.getValue(),
-//					warningLengthField.getValue() );
-//
-//			} catch ( Exception x ) {
-//
-//			    JOptionPane.showMessageDialog( null,
-//							   "Invalid Game.Timer value(s)",
-//							   "Error",
-//							   JOptionPane.INFORMATION_MESSAGE );
-//			}
-//			//else set timer values to a no timer constant
-//		    } else {
-//			theDriver.setTimer( -1, -1 );
-//
-//		    }
-//		} else {
-//		    theDriver.setTimer( -1, -1 );
-//
-//		}
-
         //start the game
         theDriver.startGame();
         //hide this screen, make and show the GUI
