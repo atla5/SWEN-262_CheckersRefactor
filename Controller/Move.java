@@ -31,9 +31,10 @@ package Controller;
 	/**
 	 * Create a move with the starting location and 
 	 * ending location passed in as paremeters.
-	 *	
-	 * @param startLoc The starting point of the move
-	 * @param endLoc   The ending point of the move
+	 *
+	 * @param player 	The player who is making the turn
+	 * @param startLoc 	The starting point of the move
+	 * @param endLoc   	The ending point of the move
 	 * 
 	 * @pre startLoc and endLoc are valid locations
 	 */

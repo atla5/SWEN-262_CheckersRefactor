@@ -127,10 +127,6 @@ public class TestingKernel extends java.lang.Object{
         // Controller.Player Two's Name
         passedTest = playerTwo.equals( testFacade.getPlayerName( 2 ) );
         report( passedTest, "Sets Controller.Player Two name", 3 );
-        
-        // The Game.Timer.
-        passedTest = ( testTime == testFacade.getTimer() );
-        report( passedTest, "Sets Game.Timer", 4 );
                
         // These are intended to run in succession.  So pieces are assumed
         // to be positioned based on previous tests.  You must take note

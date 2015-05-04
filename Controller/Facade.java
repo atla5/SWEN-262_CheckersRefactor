@@ -287,65 +287,6 @@ public class Facade extends Component {
     }
     
     /**
-     * Returns the timer value, how long each player get to take a turn
-     * 
-     * @return the amount of time each player has for a turn 
-     * 
-     * @pre there has been a timer set for the current game
-     * 
-     */
-    public int getTimer(){
-	int retval = 0;
-
-	// Makes sure there is a timer for this game
-	if( timer != 999 ){
-	    retval = timer;
-	}
-
-	// Returns the timer value (clas variable: time )
-	return retval;
-    }
-    
-    /**
-     * Returns the amount of time chosen for a warning that a player is 
-     * near the end of his/her turn.
-     * 
-     * @return the amount of warning time a player has
-     * 
-     * @pre there has been a timer set for the current game  
-     */
-    public int getTimerWarning(){
-	int retval = -1;
-
-	// Makes sure there is a timer for this game
-	if( warningTime != 999 ){
-	    retval = warningTime;
-	}
-
-	// Returns the timer value (clas variable: warningTime )
-	return retval;
-    }
-   
-    /**
-     * Adds an action listener to the facade
-     */
-    public void addActionListener( ActionListener a ){
-	actionListener = AWTEventMulticaster.add( actionListener, a );
-	//Adds an action listener to the facade
-    }
-    
-    /**
-     * Called when both players have clicked OK on the end game dialog box
-     * 
-     * @post the game has ended 
-     */
-    public void endGameAccepted(){
-	
-	//waits until both players have accepted the end of the game 
-	//end the game
-    }
-    
-    /**
      * Notifies everything of the sta eof the board
      * 
      * @return a Game.Board object which is the state of the board
