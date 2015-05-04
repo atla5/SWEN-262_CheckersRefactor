@@ -18,8 +18,6 @@ package GUI;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.util.*;
-import java.net.*;
 import Controller.Facade;
 import Game.Board;
 
@@ -30,14 +28,9 @@ import Game.Board;
 public class CheckerGUI extends JFrame implements ActionListener{
     
     //the facade for the game
-    
     private static Facade theFacade; //the facade
-    private Vector possibleSquares = new Vector();//a vector of the squares
-    private int timeRemaining;//the time remaining
-    //the names and time left
-    private static String playerOnesName="", playerTwosName="", timeLeft="";
-
-    private JLabel whosTurnLabel, playerOneLabel, playerTwoLabel;
+    private Tile[] tiles;
+    private JLabel whoseTurnLabel, playerOneLabel, playerTwoLabel;
 	private String player1, player2;
 
 	/**
@@ -54,36 +47,25 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		//name window
         super("Checkers");
 
-		//long names mess up the way the GUI displays
-		//this code shortens the name if it is too long
-        String nameOne="", nameTwo="";
-        if(name1.length() > 7 ){
-            nameOne = name1.substring(0,7);
-        }else{
-            nameOne = name1;
-        }
-        if(name2.length() > 7 ){
-            nameTwo = name2.substring(0,7);
-        }else{
-            nameTwo = name2;
-        }
+		//initialize list of tiles
+		tiles = new Tile[64];
 
 		//set player names
         theFacade = facade;
 		player1 = name1;
 		player2 = name2;
 
-        //register();
+		//add panel components
 		getContentPane().add(mkSidePanel(), BorderLayout.EAST);
 		getContentPane().add(mkCenterPanel());
+
+        update();
+        //updateTime();
 
 		//frame things
 		pack();
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-//        update();
-        //updateTime();
     }
 
 	public JPanel mkTopPanel(){
@@ -119,26 +101,36 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		JPanel sidePanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		//whosTurnLabel: notifies user of whose turn it is
-		whosTurnLabel = new JLabel("Player1's Turn");
-		whosTurnLabel.setForeground( new Color( 0, 100 , 0 ) );
+		//whoseTurnLabel: notifies user of whose turn it is
+		whoseTurnLabel = new JLabel("Player1's Turn");
+		whoseTurnLabel.setForeground(new Color(0, 100, 0));
 
 		//drawButton
 		//@toDo add 'Draw' functionality
 		JButton drawButton = new JButton("Draw");
-
+		drawButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				theFacade.pressDraw();
+			}
+		});
 
 		//resignButton
 		//@toDo add 'resign' functionality
 		JButton resignButton = new JButton("Resign");
+		resignButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				theFacade.pressQuit();
+			}
+		});
 
 
+		// -- add components to side panel -- //
 
-		// -- add components to panel -- //
-
-		//whosTurnLabel
+		//whoseTurnLabel
 		c.gridy = 1;
-		sidePanel.add(whosTurnLabel, c);
+		sidePanel.add(whoseTurnLabel, c);
 
 		//drawButton
 		c.gridy = 2;
@@ -161,11 +153,17 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		int id = 0;
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
-				JButton tile = new Tile(id);
-				tile.setActionCommand(Integer.toString(id));
-				tile.addActionListener(this);
+				final Tile tile = new Tile(id);
+				tile.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent actionEvent) {
+						JOptionPane.showMessageDialog(null,"tile " + tile.getID() + "pressed.");
+						theFacade.selectSpace(tile.getID());
+
+					}
+				});
 				boardPanel.add(tile);
-				this.possibleSquares.add(tile);
+				tiles[id] = tile;
 				id++;
 			}
 		}
@@ -182,56 +180,9 @@ public class CheckerGUI extends JFrame implements ActionListener{
     public void actionPerformed( ActionEvent e ) {
         
 	try{
-	    //if a square gets clicked
-	    if( e.getActionCommand().equals(  "1" ) ||
-		e.getActionCommand().equals(  "3" ) || 
-		e.getActionCommand().equals(  "5" ) ||
-		e.getActionCommand().equals(  "7" ) ||
-		e.getActionCommand().equals(  "8" ) ||
-		e.getActionCommand().equals( "10" ) ||
-		e.getActionCommand().equals( "12" ) ||
-		e.getActionCommand().equals( "14" ) ||
-		e.getActionCommand().equals( "17" ) ||
-		e.getActionCommand().equals( "19" ) ||
-		e.getActionCommand().equals( "21" ) ||
-		e.getActionCommand().equals( "23" ) ||
-		e.getActionCommand().equals( "24" ) ||
-		e.getActionCommand().equals( "26" ) ||
-		e.getActionCommand().equals( "28" ) ||
-		e.getActionCommand().equals( "30" ) ||
-		e.getActionCommand().equals( "33" ) ||
-		e.getActionCommand().equals( "35" ) ||
-		e.getActionCommand().equals( "37" ) ||
-		e.getActionCommand().equals( "39" ) ||
-		e.getActionCommand().equals( "40" ) ||
-		e.getActionCommand().equals( "42" ) ||
-		e.getActionCommand().equals( "44" ) ||
-		e.getActionCommand().equals( "46" ) ||
-		e.getActionCommand().equals( "49" ) ||
-		e.getActionCommand().equals( "51" ) ||
-		e.getActionCommand().equals( "53" ) ||
-		e.getActionCommand().equals( "55" ) ||
-		e.getActionCommand().equals( "56" ) ||
-		e.getActionCommand().equals( "58" ) ||
-		e.getActionCommand().equals( "60" ) ||
-		e.getActionCommand().equals( "62" ) ) {
-		
-		//call selectSpace with the button pressed
-		theFacade.selectSpace(
-				   Integer.parseInt( e.getActionCommand() ) );
-		
-		//if draw is pressed
-	    }else if( e.getActionCommand().equals( "draw" ) ){
-		//does sequence of events for a draw
-		theFacade.pressDraw();
-		
-		//if resign is pressed
-	    }else if( e.getActionCommand().equals( "resign" ) ) {
-		//does sequence of events for a resign
-		theFacade.pressQuit();
 		
 		//if the source came from the facade
-	    }else if( e.getSource().equals( theFacade ) ) {
+	    if( e.getSource().equals( theFacade ) ) {
 		
 		//if its a player switch event
 		if ( (e.getActionCommand()).equals(theFacade.playerSwitch) ) {
@@ -274,94 +225,85 @@ public class CheckerGUI extends JFrame implements ActionListener{
 	}
 	//the board to read information from
 	Board board = theFacade.stateOfBoard();
+
 	//a temp button to work with
-	JButton temp =  new JButton();
-	
+	Tile t;
+
 	//go through the board
-	for( int i = 1; i < board.sizeOf(); i++ ){
-	    
-	    // if there is a piece there
-	    if( board.occupied( i ) ){
-		
-		//check to see if color is blue
-		if( board.colorAt( i ) == Color.blue ){
+	for( int id = 0; id < board.sizeOf(); id++ ){
 
-		    //if there is a  single piece there
-		    if((board.getPieceAt(i)).getType() == Board.SINGLE){
+		t = tiles[id];
 
-			//show a blue single piece in that spot board
-			temp = (JButton)possibleSquares.get(i);
+		if(t != null) {
 
-			//get the picture from the web
-			//try{
-                System.out.println("We made it");
-                ImageIcon iI = new ImageIcon("GUI/BlueSingle.gif");
-                board.getPieceAt(i);
+			// if there is a piece there
+			if (board.occupied(id)) {
 
-                temp.setIcon(iI);
-			//}//catch( MalformedURLException e ){
-			    //System.out.println(e.getMessage());
-			//}
 
-			//if there is a kinged piece there
-		    }else if((board.getPieceAt(i)).getType() == Board.KING){
+				//check to see if color is blue
+				if (board.colorAt(id) != null && board.colorAt(id) == Color.blue) {
 
-			//show a blue king piece in that spot board
-			temp= (JButton)possibleSquares.get(i);
+					//if there is a  single piece there
+					if ((board.getPieceAt(id)).getType() == Board.SINGLE) {
 
-			//get the picture formt the web
-			try{
-			    temp.setIcon(
-			      new ImageIcon(new URL("file:BlueKing.gif") ) );
-			}catch( Exception e ){}
-			
-		    }
+						//get the picture from the web
+						try {
+							t.setIcon(
+									new ImageIcon("BlueSingle.gif"));
+						} catch (Exception e) {
+							System.out.println(e.getMessage());
+						}
 
-		    //check to see if the color is white        
-		}else if( board.colorAt(i) == Color.white ){
+						//if there is a kinged piece there
+					} else if ((board.getPieceAt(id)).getType() == Board.KING) {
 
-		    //if there is a single piece there
-		    if((board.getPieceAt(i)).getType() == Board.SINGLE){
+						//get the picture formt the web
+						try {
+							t.setIcon(new ImageIcon("BlueKing.gif"));
+						} catch (Exception e) {
+						}
 
-			//show a blue single piece in that spot board
-			temp = (JButton)possibleSquares.get(i);
+					}
 
-			//get the picture from the web
-			try{
-			    temp.setIcon(
-			      new ImageIcon(new URL("file:WhiteSingle.gif")));
-			}catch( Exception e ){}
-			
-			//if there is a kinged piece there
-		    }else if((board.getPieceAt(i)).getType() == Board.KING){
+					//check to see if the color is white
+				} else if (board.colorAt(id) != null && board.colorAt(id) == Color.white) {
 
-			//show a blue king piece in that spot board
-			temp = (JButton)possibleSquares.get(i);
+					//if there is a single piece there
+					if ((board.getPieceAt(id)).getType() == Board.SINGLE) {
 
-			//get the picture from the web
-			try{
-			    temp.setIcon(
-			      new ImageIcon(new URL("file:WhiteKing.gif") ) );
-			}catch( Exception e ){}
-		    }
-                                //if there isnt a piece there        
+						//get the picture from the web
+						try {
+							t.setIcon(new ImageIcon("WhiteSingle.gif"));
+						} catch (Exception e) {
+						}
+
+						//if there is a kinged piece there
+					} else if ((board.getPieceAt(id)).getType() == Board.KING) {
+
+						//get the picture from the web
+						try {
+							t.setIcon(new ImageIcon("WhiteKing.gif"));
+						} catch (Exception e) {
+						}
+					}
+				}
+
+				//if there isnt a piece there
+			} else {
+				//show no picture
+			}
 		}
-	    }else {
-		//show no picture
-		temp = (JButton)possibleSquares.get(i);
-		temp.setIcon( null );
-	    }
 	}
 	
 	//this code updates whos turn it is
 	if(theFacade.whosTurn() == 2 ){
 	    playerTwoLabel.setForeground( Color.red );
 	    playerOneLabel.setForeground(Color.black );
-		whosTurnLabel.setText( player2 + "'s turn");
+		whoseTurnLabel.setText(player2 + "'s turn");
 	}else if(theFacade.whosTurn() == 1 ){
 	    playerOneLabel.setForeground( Color.red );
 	    playerTwoLabel.setForeground(Color.black );
-	    whosTurnLabel.setText( player1 + "'s turn" );
+	    whoseTurnLabel.setText(player1 + "'s turn");
 	}
     }
 
