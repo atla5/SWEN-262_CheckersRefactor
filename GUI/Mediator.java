@@ -8,10 +8,10 @@ import GUI.Secondscreen.BtnSCancel;
  */
 interface Mediator {
 
-    void SSOk(Secondscreen second);
-    void FSOk(Firstscreen first, Secondscreen second);
+    void SSOk();
+    void FSOk();
     void FCancel();
-    void SCancel(Firstscreen first, Secondscreen second);
+    void SCancel();
     void registerSSOk(BtnSSOk ssOk);
     void registerFSOk(BtnFSOk ssOk);
     void registerFCancel(BtnFCancel cancel);

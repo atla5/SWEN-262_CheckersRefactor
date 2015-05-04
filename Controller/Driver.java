@@ -346,6 +346,14 @@ public class Driver {
    	return passivePlayer;
     }
 
+    public Player getPlayerOne(){
+        return this.playerOne;
+    }
+
+    public Player getPlayerTwo(){
+        return this.playerTwo;
+    }
+
     /**
      * Select the type of game
      *
@@ -380,10 +388,11 @@ public class Driver {
 
 
 		Driver theDriver = new Driver();
-        MediatorOne med = new MediatorOne(theDriver.getFacade());
-        Secondscreen second = new Secondscreen(theDriver.getFacade(), med, 0);
-        Firstscreen first = new Firstscreen( theDriver.getFacade(),med, second);
-        second.setFirstScreen(first);
+        MediatorOne med = new MediatorOne(theDriver);
+        Secondscreen second = new Secondscreen(med, 0);
+        Firstscreen first = new Firstscreen(med);
+        med.setFirstScreen(first);
+        med.setSecondScreen(second);
 		first.setVisible(true);
 
 

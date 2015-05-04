@@ -23,15 +23,17 @@ public class MediatorOne implements Mediator{
     public static int HOSTGAME   = 20000;
     public static int CLIENTGAME = 30000;
 
-    public Driver theDriver;
-    public Facade theFacade;
+    private Driver theDriver;
+    private Firstscreen first;
+    private  Secondscreen second;
     BtnSSOk btnSSOk;
     BtnFSOk btnFSOk;
     BtnFCancel btnFCancel;
     BtnSCancel btnSCancel;
 
-    public MediatorOne(Facade f){
-        theFacade = f;
+    public MediatorOne(Driver d){
+        this.theDriver = d;
+
     }
     /**
      * Create a player with the given type and player number.
@@ -52,7 +54,7 @@ public class MediatorOne implements Mediator{
     public void registerFCancel(BtnFCancel cancel){btnFCancel = cancel;}
     public void registerSCancel(BtnSCancel cancel){btnSCancel = cancel;}
 
-    public void FSOk(Firstscreen first, Secondscreen second){
+    public void FSOk(){
 
         //a temporary button to use for determining the game type
         ButtonModel tempButton = first.gameModes.getSelection();
@@ -61,24 +63,27 @@ public class MediatorOne implements Mediator{
                if (tempButton.getActionCommand().equals("local")) {
 
                    //set up a local game
-                   theFacade.setGameMode(theFacade.LOCALGAME);
+                   theDriver.setGameMode(LOCALGAME);
+                   second.changeGameType(LOCALGAME);
+                   theDriver.createPlayer(1, Player.LOCALPLAYER, "UnNamedPlayer" );
+                   theDriver.createPlayer(2, Player.LOCALPLAYER, "UnNamedPlayer" );
 
-                   theFacade.createPlayer(1, theFacade.LOCALGAME);
-                   theFacade.createPlayer(2, theFacade.LOCALGAME);
+
                }
                 else if(tempButton.getActionCommand().equals("host")){
-                   first.theFacade.setGameMode(theFacade.HOSTGAME);
+                   theDriver.setGameMode(HOSTGAME);
+                   second.changeGameType(HOSTGAME);
+                   theDriver.createPlayer(1, Player.NETWORKPLAYER, "UnNamedPlayer" );
+                   theDriver.createPlayer(2, Player.NETWORKPLAYER, "UnNamedPlayer" );
 
-                   theFacade.createPlayer(1, theFacade.HOSTGAME);
-                   theFacade.createPlayer(2, theFacade.HOSTGAME);
                }
                else if( tempButton.getActionCommand().equals( "join" ) ){
 
                    //set up to join a game
-                   theFacade.setGameMode( theFacade.CLIENTGAME );
+                   theDriver.setGameMode(CLIENTGAME);
 
-                   theFacade.createPlayer( 1, theFacade.CLIENTGAME );
-                   theFacade.createPlayer( 2, theFacade.CLIENTGAME );
+                   theDriver.createPlayer(1, Player.NETWORKPLAYER, "UnNamedPlayer" );
+                   theDriver.createPlayer(2, Player.NETWORKPLAYER, "UnNamedPlayer" );
 
                    //try to connect
                    try {
@@ -86,10 +91,10 @@ public class MediatorOne implements Mediator{
                        //create a URL from the IP address in the IPfield
                        URL address = new URL( "http://" + first.IPField.getText() );
                        //set the host
-                       theFacade.setHost( address );
+                       theDriver.setHost( address );
 
                        //hide the GUI.Firstscreen, make and show the Second screen
-                       second.changeGameType(theFacade.CLIENTGAME );
+                       second.changeGameType(CLIENTGAME );
                        //catch any exceptions
                    } catch ( MalformedURLException x ) {
                        JOptionPane.showMessageDialog( null,
@@ -103,8 +108,8 @@ public class MediatorOne implements Mediator{
             //if they hit cancel exit the game
                }
                 //hide the GUI.Firstscreen, make second screen visible
-                first.setVisible(false);
-                second.setVisible(true);
+                this.first.setVisible(false);
+                this.second.setVisible(true);
             }catch( Exception x ) {
                 System.err.println( x.getMessage() );
             }
@@ -114,7 +119,7 @@ public class MediatorOne implements Mediator{
         System.exit( 0 );
     }
 
-    public void SSOk(Secondscreen second) {
+    public void SSOk() {
         if (second.playerOneField.isEnabled()) {
             if ((second.playerOneField.getText()).equalsIgnoreCase("")) {
                 second.playerOneField.setText("player1");
@@ -127,8 +132,8 @@ public class MediatorOne implements Mediator{
             }
         }
 
-        theFacade.setPlayerName(1, second.playerOneField.getText());
-        theFacade.setPlayerName(2, second.playerTwoField.getText());
+        theDriver.setPlayerName(1, second.playerOneField.getText());
+        theDriver.setPlayerName(2, second.playerTwoField.getText());
 
         //if a timer is desired
 //		if ( timedGameBox.isEnabled() ) {
@@ -137,7 +142,7 @@ public class MediatorOne implements Mediator{
 //			//set the 2 timer values
 //			try {
 //
-//			    theFacade.setTimer( turnLengthField.getValue(),
+//			    theDriver.setTimer( turnLengthField.getValue(),
 //					warningLengthField.getValue() );
 //
 //			} catch ( Exception x ) {
@@ -149,26 +154,34 @@ public class MediatorOne implements Mediator{
 //			}
 //			//else set timer values to a no timer constant
 //		    } else {
-//			theFacade.setTimer( -1, -1 );
+//			theDriver.setTimer( -1, -1 );
 //
 //		    }
 //		} else {
-//		    theFacade.setTimer( -1, -1 );
+//		    theDriver.setTimer( -1, -1 );
 //
 //		}
 
         //start the game
-        theFacade.startGame();
+        theDriver.startGame();
         //hide this screen, make and show the GUI
         second.setVisible(false);
-        CheckerGUI GUI = new CheckerGUI(theFacade, theFacade.getPlayerName(1),
-                theFacade.getPlayerName(2));
+        CheckerGUI GUI = new CheckerGUI(theDriver.getFacade(), theDriver.getPlayerOne().getName(),
+                theDriver.getPlayerTwo().getName());
         GUI.setVisible(true);
     }
 
     @Override
-    public void SCancel(Firstscreen first, Secondscreen second) {
-        second.setVisible(false);
-        first.setVisible(true);
+    public void SCancel() {
+        this.second.setVisible(false);
+        this.first.setVisible(true);
+    }
+
+    public void setFirstScreen(Firstscreen f){
+        this.first = f;
+    }
+
+    public void setSecondScreen(Secondscreen s){
+        this.second = s;
     }
 }

@@ -28,11 +28,9 @@ import javax.swing.event.*;
  */
 public class Secondscreen extends JFrame
     implements ActionListener, ChangeListener {
-    
-    public Facade theFacade;
+
     public Mediator med;
     public int gameType;
-    Firstscreen prev;
     
     // Variables declaration
     public Checkbox timedGameBox;
@@ -59,10 +57,9 @@ public class Secondscreen extends JFrame
      * 
      */
     
-    public Secondscreen( Facade f, Mediator med, int type ) {
+    public Secondscreen(Mediator med, int type ) {
 
         super( "Second Screen" );
-        theFacade = f;
         this.med = med;
         gameType = type;
         
@@ -81,7 +78,6 @@ public class Secondscreen extends JFrame
 	
     private void initComponents() {
 
-        Mediator m = new MediatorOne(this.theFacade);
         timedGameBox = new Checkbox();
         playerOneLabel = new JLabel();
         playerTwoLabel = new JLabel();
@@ -89,8 +85,8 @@ public class Secondscreen extends JFrame
         playerTwoField = new JTextField();
         turnLengthLabel = new JLabel();
         WarningLengthLabel = new JLabel();
-        okButton = new BtnSSOk(this,m,this);
-        cancelButton = new BtnSCancel(this, this.med, this);
+        okButton = new BtnSSOk(this, this.med);
+        cancelButton = new BtnSCancel(this, this.med);
         turnLengthField = new JSlider( 10, 300, 120 );
         warningLengthField = new JSlider( 10, 300, 120 );
         getContentPane().setLayout(new GridBagLayout());
@@ -235,11 +231,11 @@ public class Secondscreen extends JFrame
        
 	//determine what components should be disabled
 	//depending on the game mode
-	if ( gameType == theFacade.LOCALGAME ) {
-	} else if ( gameType == theFacade.HOSTGAME ) {
+	if ( gameType == MediatorOne.LOCALGAME ) {
+	} else if ( gameType == MediatorOne.HOSTGAME ) {
 	    playerTwoLabel.setEnabled( false );
 	    playerTwoField.setEnabled( false );
-	} else if ( gameType == theFacade.CLIENTGAME ) {
+	} else if ( gameType == MediatorOne.CLIENTGAME ) {
 	    playerOneLabel.setEnabled( false );
 	    playerOneField.setEnabled( false );
 	    
@@ -273,42 +269,37 @@ public class Secondscreen extends JFrame
     class BtnSSOk extends JButton implements Command{
 
         Mediator med;
-        Secondscreen myScreen;
-        BtnSSOk(ActionListener al, Mediator m, Secondscreen second){
+
+        BtnSSOk(ActionListener al, Mediator m){
             super("Ok");
             addActionListener(al);
             med = m;
             med.registerSSOk(this);
-            myScreen = second;
+
         }
 
         public void execute(){
-            med.SSOk(myScreen);
+            med.SSOk();
         }
     }
 
     class BtnSCancel extends JButton implements Command{
         Mediator med;
-        Secondscreen myScreen;
 
-        BtnSCancel(ActionListener al, Mediator m, Secondscreen second){
+        BtnSCancel(ActionListener al, Mediator m){
             super("Cancel");
             addActionListener(al);
             med = m;
             med.registerSCancel(this);
-            myScreen = second;
+
         }
         public void execute(){
-            med.SCancel(myScreen.getPrevious(), myScreen);}
+            med.SCancel();}
     }
 
     public void changeGameType(int gameType){
         this.gameType = gameType;
     }
-
-    public void setFirstScreen(Firstscreen first){this.prev = first;}
-
-    public Firstscreen getPrevious(){return this.prev;}
     /**
      * This takes care of when an action takes place. It will check the 
      * action command of all components and then decide what needs to be done.

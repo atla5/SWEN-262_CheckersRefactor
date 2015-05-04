@@ -25,9 +25,7 @@ import java.awt.*;
 
 public class Firstscreen extends JFrame implements ActionListener{
 
-    Facade theFacade;
     Mediator theMediator;
-    Secondscreen next;
   
     // Variables declaration - do not modify
     public JRadioButton LocalGameButton;
@@ -45,16 +43,13 @@ public class Firstscreen extends JFrame implements ActionListener{
     /** 
      * Creates new form GUI.Firstscreen
      *
-     * @param facade a facade object for the GUI to interact with
      *     
      */
 
-    public Firstscreen( Facade facade,Mediator med, Secondscreen second ) {
+    public Firstscreen(Mediator med) {
 
 	super( "First screen" );
-        theFacade = facade;
         theMediator = med;
-        next = second;
         initComponents();
         pack();
     }
@@ -74,7 +69,7 @@ public class Firstscreen extends JFrame implements ActionListener{
 	    gameModes = new ButtonGroup();
         IPField = new JTextField();
         IPLabel = new JLabel();
-        OKButton = new BtnFSOk(this,theMediator, this);
+        OKButton = new BtnFSOk(this,theMediator);
         CancelButton = new BtnFCancel(this, theMediator);
         IPExampleLabel = new JLabel();
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -304,23 +299,18 @@ public class Firstscreen extends JFrame implements ActionListener{
 
 	}//end of actionPerformed
 **/
-    public Secondscreen getNext(){
-        return this.next;
-    }
-
     class BtnFSOk extends JButton implements Command{
 
         Mediator med;
-        Firstscreen myScreen;
-        BtnFSOk(ActionListener al, Mediator m, Firstscreen first){
+
+        BtnFSOk(ActionListener al, Mediator m){
             super("Ok");
             addActionListener(al);
             med = m;
             med.registerFSOk(this);
-            myScreen = first;
         }
         public void execute(){
-            med.FSOk(myScreen, myScreen.getNext());
+            med.FSOk();
         }
     }
 
