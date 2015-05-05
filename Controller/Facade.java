@@ -1,4 +1,6 @@
-package Controller; /**
+package Controller;
+
+/**
  * Controller.Facade.java
  *
  * Version	
@@ -15,7 +17,6 @@ import Game.Board;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.net.*;
 
 /**
  * An interface between the GUI and the kernel classes in a checkers game.
@@ -25,26 +26,12 @@ import java.net.*;
 
 public class Facade extends Component {
 
-    public static int LOCALGAME  = 10000;
-    public static int HOSTGAME   = 20000;
-    public static int CLIENTGAME = 30000;
-
-    public static String update       = "update";
-    public static String playerSwitch = "switch";
-    public static String ID           = "facade";
-    
     public Driver   theDriver;
     public Board    theBoard;
     public Player   passivePlayer;
     public Player   activePlayer;
-    
-    private int startSpace = 99; // Starting space for current move
-    private int endSpace   = 99; // Ending space for current move
-    
-    // The numbers associated with the timer
-    private int timer       = 999;
-    private int warningTime = 999;
-    
+
+
     private ActionListener actionListener;
       
     /**
@@ -73,7 +60,7 @@ public class Facade extends Component {
 	passivePlayer = passive;
 	
 	// Tell GUI to update
-	generateActionPerformed( update );
+	generateActionPerformed( "update" );
     }
 
     /**
