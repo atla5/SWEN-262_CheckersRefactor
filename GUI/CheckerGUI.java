@@ -27,11 +27,14 @@ import Game.Board;
  */
 public class CheckerGUI extends JFrame implements ActionListener{
     
-    //the facade for the game
-    private static Facade theFacade; //the facade
     private Tile[] tiles;
     private JLabel whoseTurnLabel, playerOneLabel, playerTwoLabel;
 	private String player1, player2;
+    private Mediator theMediator;
+    public Board    theBoard;
+
+    private int startSpace = 99; // Starting space for current move
+    private int endSpace   = 99; // Ending space for current move
 
 	/**
      *
@@ -42,7 +45,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
      * @param name2 the second players name
      *
      */
-    public CheckerGUI( Facade facade, String name1, String name2 ) {
+    public CheckerGUI( GUIMediator med, String name1, String name2) {
 
 		//name window
         super("Checkers");
@@ -51,9 +54,10 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		tiles = new Tile[64];
 
 		//set player names
-        theFacade = facade;
+        theMediator = med;
 		player1 = name1;
 		player2 = name2;
+        theBoard = new Board();
 
 		//add panel components
 		getContentPane().add(mkSidePanel(), BorderLayout.EAST);
@@ -111,7 +115,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		drawButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
-				theFacade.pressDraw();
+				theMediator.pressDraw();
 			}
 		});
 
@@ -121,7 +125,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		resignButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
-				theFacade.pressQuit();
+                theMediator.endInQuit();
 			}
 		});
 
@@ -157,8 +161,8 @@ public class CheckerGUI extends JFrame implements ActionListener{
 				tile.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent actionEvent) {
-						theFacade.selectSpace(tile.getID());
-						update();
+
+						selectSpace(tile.getID());
 
 					}
 				});
@@ -167,7 +171,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 				id++;
 			}
 		}
-
+    
 		return boardPanel;
 	}
 
@@ -180,16 +184,12 @@ public class CheckerGUI extends JFrame implements ActionListener{
     public void actionPerformed( ActionEvent e ) {
         
 	try{
-
+		
 		//if the source came from the facade
-	    if( e.getSource().equals( theFacade ) ) {
+	    if( e.getSource().equals( theMediator ) ) {
 		
 		//if its a player switch event
-		if ( (e.getActionCommand()).equals(theFacade.playerSwitch) ) {
-		    //set a new time
-//		    timeRemaining = theFacade.getTimer();
-		    //if it is an update event
-		} else if ( (e.getActionCommand()).equals(theFacade.update) ) {
+		if( (e.getActionCommand()).equals("update") ) {
 		    //update the GUI
 		    update();
 		} else {
@@ -221,30 +221,28 @@ public class CheckerGUI extends JFrame implements ActionListener{
 
 	if( checkEndConditions() ){
 	    
-	    theFacade.showEndGame(" ");
+	    theMediator.showEndGame(" ");
 	}
-	//the board to read information from
-	Board board = theFacade.getBoard();
 
 	//a temp button to work with
 	Tile t;
 
 	//go through the board
-	for( int id = 0; id < board.sizeOf(); id++ ){
+	for( int id = 0; id < theBoard.sizeOf(); id++ ){
 
 		t = tiles[id];
 
-		if(t != null && board.getPieceAt(id) != null) {
+		if(t != null && theBoard.getPieceAt(id) != null) {
 
 			// if there is a piece there
-			if (board.occupied(id)) {
+			if (theBoard.occupied(id)) {
 
 
 				//check to see if color is blue
-				if (board.colorAt(id) != null && board.colorAt(id) == Color.blue) {
+				if (theBoard.colorAt(id) != null && theBoard.colorAt(id) == Color.blue) {
 
 					//if there is a  single piece there
-					if ((board.getPieceAt(id)).getType() == Board.SINGLE) {
+					if ((theBoard.getPieceAt(id)).getType() == Board.SINGLE) {
 
 						//get the picture from the web
 						try {
@@ -254,7 +252,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 						}
 
 						//if there is a kinged piece there
-					} else if ((board.getPieceAt(id)).getType() == Board.KING) {
+					} else if ((theBoard.getPieceAt(id)).getType() == Board.KING) {
 
 						//get the picture formt the web
 						try {
@@ -265,10 +263,10 @@ public class CheckerGUI extends JFrame implements ActionListener{
 					}
 
 					//check to see if the color is white
-				} else if (board.colorAt(id) != null && board.colorAt(id) == Color.white) {
+				} else if (theBoard.colorAt(id) != null && theBoard.colorAt(id) == Color.white) {
 
 					//if there is a single piece there
-					if ((board.getPieceAt(id)).getType() == Board.SINGLE) {
+					if ((theBoard.getPieceAt(id)).getType() == Board.SINGLE) {
 
 						//get the picture from the web
 						try {
@@ -277,7 +275,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 						}
 
 						//if there is a kinged piece there
-					} else if ((board.getPieceAt(id)).getType() == Board.KING) {
+					} else if ((theBoard.getPieceAt(id)).getType() == Board.KING) {
 
 						//get the picture from the web
 						try {
@@ -296,11 +294,11 @@ public class CheckerGUI extends JFrame implements ActionListener{
 	}
 	
 	//this code updates whos turn it is
-	if(theFacade.whosTurn() == 2 ){
+	if(theMediator.whosTurn() == 2 ){
 	    playerTwoLabel.setForeground( Color.red );
 	    playerOneLabel.setForeground(Color.black );
 		whoseTurnLabel.setText(player2 + "'s turn");
-	}else if(theFacade.whosTurn() == 1 ){
+	}else if(theMediator.whosTurn() == 1 ){
 	    playerOneLabel.setForeground( Color.red );
 	    playerTwoLabel.setForeground(Color.black );
 	    whoseTurnLabel.setText(player1 + "'s turn");
@@ -324,19 +322,16 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		//the number of each piece left
 		int whitesGone = 0 , bluesGone = 0;
 		
-		//the board to work with
-		Board temp = theFacade.getBoard();
-		
 		//go through all the spots on the board
-		for( int i=1; i<temp.sizeOf(); i++ ){
+		for( int i=1; i<theBoard.sizeOf(); i++ ){
 		    //if there is a piece there
-		    if( temp.occupied( i  ) ){
+		    if( theBoard.occupied( i  ) ){
 			//if its a blue piece there
-			if( (temp.getPieceAt( i )).getColor() == Color.blue ){
+			if( (theBoard.getPieceAt( i )).getColor() == Color.blue ){
 			    // increment number of blues
 			    bluesGone++;
 			    //if the piece is white
-			}else if( (temp.getPieceAt( i )).getColor()
+			}else if( (theBoard.getPieceAt( i )).getColor()
 				  == Color.white ){
 			    //increment number of whites
 			    whitesGone++;
@@ -357,6 +352,42 @@ public class CheckerGUI extends JFrame implements ActionListener{
             return retVal;
             
         }//checkEndConditions
+
+    /**
+     *
+     * This method should be called to select a space on the board,
+     * either as the starting point or the ending point for a move.
+     * The Controller.Facade will interpret this selection and send a move on to
+     * the kernel when two spaces have been selected.
+     *
+     * @param space an int indicating which space to move to,
+     *              according to the standard checkers numbering
+     *              scheme, left to right and top to bottom.
+     */
+    public void selectSpace( int space ){
+
+        // When button is click, take info from the GUI
+        if( startSpace == 99 ){
+
+            // Set startSpace to space
+            startSpace = space;
+
+        }else if( startSpace != 99 && endSpace == 99 ){
+            if( space == startSpace ){
+
+                // Viewed as un-selecting the space selected
+                // Set startSpace to predetermined unselected value
+                startSpace = 99;
+
+            }else{
+                // The endSpace will be set to space
+                endSpace = space;
+                theMediator.makeLocalMove();
+            }
+        }
+        this.update();
+
+    }
 
 	public static void main(String[] args){
 		CheckerGUI checkerGUI = new CheckerGUI(null,"player1 has a really long name","player2");

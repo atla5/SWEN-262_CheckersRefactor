@@ -14,7 +14,7 @@ package Controller;
  */
 
 import GUI.Firstscreen;
-import GUI.MediatorOne;
+import GUI.GUIMediator;
 import GUI.Secondscreen;
 import Game.*;
 
@@ -36,7 +36,7 @@ public class Driver {
     private Player playerOne;
     private Player playerTwo;
     private int    gameType;
-    private Player activePlayer;
+    public Player activePlayer;
     private Player passivePlayer;
     private Facade theFacade;
     private Rules  theRules;
@@ -51,7 +51,6 @@ public class Driver {
 
 		// Create the board
 		Board theBoard = new Board();
-//		theBoard = new Board(playerOne, playerTwo);
 
 		// Create the rules passing in the board
 		theRules = new Rules( theBoard, this );
@@ -389,7 +388,7 @@ public class Driver {
 
 
 		Driver theDriver = new Driver();
-        MediatorOne med = new MediatorOne(theDriver);
+        GUIMediator med = new GUIMediator(theDriver);
         Secondscreen second = new Secondscreen(med, 0);
         Firstscreen first = new Firstscreen(med);
         med.setFirstScreen(first);

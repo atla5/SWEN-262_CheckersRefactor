@@ -145,45 +145,11 @@ public class Facade extends Component {
 	    // in a localPlayer
 	    boolean result = activePlayer.makeMove( startSpace, endSpace );
 	}
-	
 	// Reset startSpace and endSpace to 99
 	startSpace = 99;
 	endSpace   = 99;
-	
     }
-    
-    /**
-     * Tell the kernel that the user has quit/resigned the game 
-     * or quit the program
-     */
-    public void pressQuit(){
 
-	// Alert players and the kernel that one person 
-	// has quit calls quitGame() for both players
-	theDriver.endInQuit( activePlayer );
-	
-    }
-    
-    /**
-     * Tell the kernel that the user has requested a draw.
-     */
-    public void pressDraw(){
-
-	// Alerts both players and the kernel that one person 
-	// has offered a draw calls offerDraw() on both players
-	activePlayer.offerDraw( activePlayer );
-
-    }
-    
-    /**
-     * Tell the kernel that the user has accepted a draw.
-     *
-     */
-    public void pressAcceptDraw(){
-	
-	//calls acceptDraw() in teh driver
-	theDriver.endInDraw( activePlayer );
-    }
     
     /**
      * Given a player number, returns the name associated 
@@ -248,21 +214,7 @@ public class Facade extends Component {
 	    theDriver.setHost( host );
 	}
     }
-    
-    /**
-     * Display to local players that the game has ended with 
-     * the message provided.
-     * 
-     * @param message
-     * 
-     * @post the game ends
-     */
-    public void showEndGame( String message ){
-	//make sure game is over
-	//calls endGame in driver object
-	theDriver.endGame( message );
-    }
-    
+
     /**
      * Set the game mode: a local game or a network game
      * 
