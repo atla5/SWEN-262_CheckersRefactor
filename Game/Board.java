@@ -38,49 +38,49 @@ public class Board {
     * This constructor creates a new board at the beginning of the game
     */
    public Board() {
-  
-	   // create a array of size 64, generate piece objects and
-	   // put them in the correct location in the array
-	   // Set the values of numWhites and numBlues to 12 each
-	   pieces = new Piece[64];
 
-	   //create an empty "piece" object
-//	   for(int i= 0; i < 64; i++){ pieces[i] = null; }
+       // create a array of size 64, generate piece objects and
+       // put them in the correct location in the array
+       // Set the values of numWhites and numBlues to 12 each
+       pieces = new Piece[64];
 
-	   // create blue pieces
-	   pieces[1]  = new Piece( Color.blue );
-	   pieces[3]  = new Piece( Color.blue );
-	   pieces[5]  = new Piece( Color.blue );
-	   pieces[7]  = new Piece( Color.blue );
-	   pieces[8]  = new Piece( Color.blue );
-	   pieces[10] = new Piece( Color.blue );
-	   pieces[12] = new Piece( Color.blue );
-	   pieces[14] = new Piece( Color.blue );
-	   pieces[17] = new Piece( Color.blue );
-	   pieces[19] = new Piece( Color.blue );
-	   pieces[21] = new Piece( Color.blue );
-	   pieces[23] = new Piece( Color.blue );
 
-	   // create the white pieces
-	   pieces[40] = new Piece( Color.white );
-	   pieces[42] = new Piece( Color.white );
-	   pieces[44] = new Piece( Color.white );
-	   pieces[46] = new Piece( Color.white );
-	   pieces[49] = new Piece( Color.white );
-	   pieces[51] = new Piece( Color.white );
-	   pieces[53] = new Piece( Color.white );
-	   pieces[55] = new Piece( Color.white );
-	   pieces[56] = new Piece( Color.white );
-	   pieces[58] = new Piece( Color.white );
-	   pieces[60] = new Piece( Color.white );
-	   pieces[62] = new Piece( Color.white );
+       // create blue pieces
+       int value;
+       boolean odd = true;
 
+       for (int x = 1; x < 24;) {
+           for (int y = 0; y < 4; y++) {
+               value = (x + 2 * y);
+               pieces[value] = new Piece(Color.blue);
+           }
+           if (odd) {
+               x += 7;
+               odd = false;
+           } else {
+               x += 9;
+               odd = true;
+           }
+       }
+           // create the white pieces
+       for ( int x = 40; x < 64;) {
+               for (int y = 0; y < 4; y++) {
+                   value = (x + 2 * y);
+                   pieces[value] = new Piece(Color.white);
+               }
+               if (odd) {
+                   x+=7;
+                   odd = false;
+               } else {
+                   x+=9;
+                   odd = true;
+               }
+       }
    }
-
 
    /**
     * Controller.Move the piece at the start position to the end position
-    * 
+    *
     * @param start - current location of the piece
     * @param end - the position where piece is moved
     * 
