@@ -35,11 +35,11 @@ public class Driver {
     
     private Player playerOne;
     private Player playerTwo;
-    private int     gameType;
+    private int    gameType;
     private Player activePlayer;
     private Player passivePlayer;
     private Facade theFacade;
-    private Rules theRules;
+    private Rules  theRules;
     
     /**
      * Constructor

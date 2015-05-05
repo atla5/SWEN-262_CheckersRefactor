@@ -48,11 +48,11 @@ public class Board {
 //	   for(int i= 0; i < 64; i++){ pieces[i] = null; }
 
 	   // create blue pieces
-	   pieces[1] = new Piece( Color.blue );
-	   pieces[3] = new Piece( Color.blue );
-	   pieces[5] = new Piece( Color.blue );
-	   pieces[7] = new Piece( Color.blue );
-	   pieces[8] = new Piece( Color.blue );
+	   pieces[1]  = new Piece( Color.blue );
+	   pieces[3]  = new Piece( Color.blue );
+	   pieces[5]  = new Piece( Color.blue );
+	   pieces[7]  = new Piece( Color.blue );
+	   pieces[8]  = new Piece( Color.blue );
 	   pieces[10] = new Piece( Color.blue );
 	   pieces[12] = new Piece( Color.blue );
 	   pieces[14] = new Piece( Color.blue );
@@ -88,11 +88,11 @@ public class Board {
 	   for(int i= 0; i < 64; i++){ pieces[i] = null; }
 
 	   // create blue pieces
-	   pieces[1] = new Piece( p1 );
-	   pieces[3] = new Piece( p1 );
-	   pieces[5] = new Piece( p1 );
-	   pieces[7] = new Piece( p1 );
-	   pieces[8] = new Piece( p1 );
+	   pieces[1]  = new Piece( p1 );
+	   pieces[3]  = new Piece( p1 );
+	   pieces[5]  = new Piece( p1 );
+	   pieces[7]  = new Piece( p1 );
+	   pieces[8]  = new Piece( p1 );
 	   pieces[10] = new Piece( p1 );
 	   pieces[12] = new Piece( p1 );
 	   pieces[14] = new Piece( p1 );
