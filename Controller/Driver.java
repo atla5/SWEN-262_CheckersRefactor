@@ -51,7 +51,6 @@ public class Driver {
 
 		// Create the board
 		Board theBoard = new Board();
-//		theBoard = new Board(playerOne, playerTwo);
 
 		// Create the rules passing in the board
 		theRules = new Rules( theBoard, this );
