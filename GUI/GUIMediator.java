@@ -17,7 +17,7 @@ import java.net.URL;
 /**
  * Created by Aaron on 5/2/2015.
  */
-public class MediatorOne implements Mediator{
+public class GUIMediator implements Mediator{
 
     public static int LOCALGAME  = 10000;
     public static int HOSTGAME   = 20000;
@@ -31,7 +31,10 @@ public class MediatorOne implements Mediator{
     BtnFCancel btnFCancel;
     BtnSCancel btnSCancel;
 
-    public MediatorOne(Driver d){
+    private int startSpace = 99; // Starting space for current move
+    private int endSpace   = 99; // Ending space for current move
+
+    public GUIMediator(Driver d){
         this.theDriver = d;
 
     }
@@ -139,7 +142,7 @@ public class MediatorOne implements Mediator{
         theDriver.startGame();
         //hide this screen, make and show the GUI
         second.setVisible(false);
-        CheckerGUI GUI = new CheckerGUI(theDriver.getFacade(), theDriver.getPlayerOne().getName(),
+        CheckerGUI GUI = new CheckerGUI(this, theDriver.getPlayerOne().getName(),
                 theDriver.getPlayerTwo().getName());
         GUI.setVisible(true);
     }
@@ -156,5 +159,45 @@ public class MediatorOne implements Mediator{
 
     public void setSecondScreen(Secondscreen s){
         this.second = s;
+    }
+
+    /**
+     * Send a move on to the kernel, i.e. call makeMove() in
+     * the Controller.LocalPlayer and inform it whose turn it is.
+     *
+     * @pre startSpace is defined
+     * @pre endSpace is defined
+     */
+    public void makeLocalMove(){
+
+        //make sure startSpace and endSpace are defined
+        if( startSpace != 99 && endSpace!= 99 ){
+            // Takes the information of a move and calls makeMove()
+            // in a localPlayer
+            boolean result = theDriver.activePlayer.makeMove( startSpace, endSpace );
+        }
+        // Reset startSpace and endSpace to 99
+        startSpace = 99;
+        endSpace   = 99;
+    }
+
+    public void pressDraw(){
+
+        // Alerts both players and the kernel that one person
+        // has offered a draw calls offerDraw() on both players
+        theDriver.drawOffered(theDriver.activePlayer);
+
+    }
+
+    public void endInQuit(){
+        theDriver.endInQuit( theDriver.activePlayer );
+    }
+
+    public void showEndGame(String message){
+        theDriver.endGame( message );
+    }
+
+    public int whosTurn(){
+        return theDriver.activePlayer.getNumber();
     }
 }

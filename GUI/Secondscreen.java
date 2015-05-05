@@ -11,7 +11,6 @@ package GUI;/*
  *
  */
 
-import Controller.Facade;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -231,11 +230,11 @@ public class Secondscreen extends JFrame
        
 	//determine what components should be disabled
 	//depending on the game mode
-	if ( gameType == MediatorOne.LOCALGAME ) {
-	} else if ( gameType == MediatorOne.HOSTGAME ) {
+	if ( gameType == GUIMediator.LOCALGAME ) {
+	} else if ( gameType == GUIMediator.HOSTGAME ) {
 	    playerTwoLabel.setEnabled( false );
 	    playerTwoField.setEnabled( false );
-	} else if ( gameType == MediatorOne.CLIENTGAME ) {
+	} else if ( gameType == GUIMediator.CLIENTGAME ) {
 	    playerOneLabel.setEnabled( false );
 	    playerOneField.setEnabled( false );
 	    

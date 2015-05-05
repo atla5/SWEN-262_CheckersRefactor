@@ -16,6 +16,11 @@ interface Mediator {
     void registerFSOk(BtnFSOk ssOk);
     void registerFCancel(BtnFCancel cancel);
     void registerSCancel(BtnSCancel cancel);
+    void makeLocalMove();
+    void pressDraw();
+    void endInQuit();
+    void showEndGame(String s);
+    int whosTurn();
 
 }
 
