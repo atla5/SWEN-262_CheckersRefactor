@@ -112,13 +112,13 @@ public class Secondscreen extends JFrame
         gridBagConstraints1.ipady = 7;
         gridBagConstraints1.insets = new Insets(31, 0, 1, 0);
         gridBagConstraints1.anchor = GridBagConstraints.WEST;
-        getContentPane().add(timedGameBox, gridBagConstraints1);
+//        getContentPane().add(timedGameBox, gridBagConstraints1);
 
 	
         playerOneLabel.setName("playerOneLabel");
         playerOneLabel.setBackground(new Color (204, 204, 204));
         playerOneLabel.setForeground(Color.black);
-        playerOneLabel.setText("Controller.Player 1:");
+        playerOneLabel.setText("Player 1:");
         
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 0;
@@ -130,7 +130,7 @@ public class Secondscreen extends JFrame
         playerTwoLabel.setName("playerTwoLabel");
         playerTwoLabel.setBackground(new Color (204, 204, 204));
         playerTwoLabel.setForeground(Color.black);
-        playerTwoLabel.setText("Controller.Player 2:");
+        playerTwoLabel.setText("Player 2:");
         
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 0;
@@ -172,18 +172,18 @@ public class Secondscreen extends JFrame
         gridBagConstraints1.gridx = 0;
         gridBagConstraints1.gridy = 6;
         gridBagConstraints1.anchor = GridBagConstraints.WEST;
-        getContentPane().add(turnLengthLabel, gridBagConstraints1);
+//        getContentPane().add(turnLengthLabel, gridBagConstraints1);
      
         WarningLengthLabel.setName("label4");
         WarningLengthLabel.setBackground(new Color (204, 204, 204));
         WarningLengthLabel.setForeground(Color.black);
-        WarningLengthLabel.setText("Warning Length ( " + warningLengthField.getValue() + " seconds )");
+//        WarningLengthLabel.setText("Warning Length ( " + warningLengthField.getValue() + " seconds )");
                 
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 0;
         gridBagConstraints1.gridy = 8;
         gridBagConstraints1.anchor = GridBagConstraints.WEST;
-        getContentPane().add(WarningLengthLabel, gridBagConstraints1);
+//        getContentPane().add(WarningLengthLabel, gridBagConstraints1);
 
 
         //okButton.setText("OK");
@@ -220,14 +220,14 @@ public class Secondscreen extends JFrame
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 1;
         gridBagConstraints1.gridy = 6;
-        getContentPane().add(turnLengthField, gridBagConstraints1);
+//        getContentPane().add(turnLengthField, gridBagConstraints1);
        
         warningLengthField.setName("textfield4");
         warningLengthField.addChangeListener( this );
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 1;
         gridBagConstraints1.gridy = 8;
-        getContentPane().add(warningLengthField, gridBagConstraints1);
+//        getContentPane().add(warningLengthField, gridBagConstraints1);
        
 	//determine what components should be disabled
 	//depending on the game mode

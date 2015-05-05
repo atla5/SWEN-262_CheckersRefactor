@@ -1,4 +1,6 @@
-package Controller; /**
+package Controller;
+
+/**
  * Controller.LocalPlayer.java
  *
  * Version:
