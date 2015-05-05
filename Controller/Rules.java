@@ -15,7 +15,6 @@ package Controller;
 
 import Game.Board;
 import Game.Piece;
-import Game.SinglePiece;
 
 import java.util.*;
 import java.awt.*;
@@ -318,7 +317,7 @@ public class Rules {
 
 		Player player = aPlayer; // The current player.
 		Player opp = theDriver.getOppositePlayer();
-			Piece aPiece = new SinglePiece( player.getColor());
+			Piece aPiece = new Piece( player.getColor());
 		int i = 0;
 			int loop = 0;
 

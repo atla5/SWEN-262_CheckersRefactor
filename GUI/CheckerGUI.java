@@ -224,7 +224,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 	    theFacade.showEndGame(" ");
 	}
 	//the board to read information from
-	Board board = theFacade.stateOfBoard();
+	Board board = theFacade.getBoard();
 
 	//a temp button to work with
 	Tile t;
@@ -325,7 +325,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 		int whitesGone = 0 , bluesGone = 0;
 		
 		//the board to work with
-		Board temp = theFacade.stateOfBoard();
+		Board temp = theFacade.getBoard();
 		
 		//go through all the spots on the board
 		for( int i=1; i<temp.sizeOf(); i++ ){

@@ -67,4 +67,11 @@ public class Piece {
     */
    public Player getPlayer(){ return this.player; }
 
+   /**
+    * change the type of the piece to king
+    */
+   public void kingMe(){
+      this.type = Board.KING;
+   }
+
 }// Game.Piece

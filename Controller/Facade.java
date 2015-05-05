@@ -289,7 +289,7 @@ public class Facade extends Component {
      * @return a Game.Board object which is the state of the board
      * 
      */
-    public Board stateOfBoard(){
+    public Board getBoard(){
 	// Return the board so GUI can go through and update itself
 	return theBoard;
     }

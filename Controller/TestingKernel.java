@@ -189,7 +189,7 @@ public class TestingKernel extends java.lang.Object{
         simpleWait();
                 
         // Get a copy of the board object to check its state.           
-        testBoard = testFacade.stateOfBoard();
+        testBoard = testFacade.getBoard();
 
         // Make the proper calls to make sure the pieces are now 
         // in the correct location and have been removed from their 
@@ -239,7 +239,7 @@ public class TestingKernel extends java.lang.Object{
         // Get a copy of the board object to check its state.           
         simpleWait();
         
-        testBoard = testFacade.stateOfBoard();
+        testBoard = testFacade.getBoard();
                 
         // Game.Piece should not have moved.  Control of the board should be
         // retained.  Check for those conditions.
@@ -285,7 +285,7 @@ public class TestingKernel extends java.lang.Object{
         // Game.Piece should not have moved and control should be retained.
         simpleWait();
             
-        testBoard = testFacade.stateOfBoard();
+        testBoard = testFacade.getBoard();
         
         if(!testBoard.occupied( 26 ) ){
             System.out.println( "Incorrectly removed piece from 26." );
@@ -302,7 +302,7 @@ public class TestingKernel extends java.lang.Object{
         
         simpleWait();
               
-        testBoard = testFacade.stateOfBoard();
+        testBoard = testFacade.getBoard();
         
         if( testBoard.occupied( 26 ) ){
             System.out.println( "Did not move piece from 26." );
@@ -391,7 +391,7 @@ public class TestingKernel extends java.lang.Object{
         testFacade.selectSpace( 21 );
         
         simpleWait();
-        testBoard = testFacade.stateOfBoard();
+        testBoard = testFacade.getBoard();
         
         if( testBoard.occupied( 28 ) ){
             System.out.println( "Did not remove piece from 28" );
@@ -415,7 +415,7 @@ public class TestingKernel extends java.lang.Object{
         // Check that the pieces have been moved/removed
         // and that control has changed hands.
         simpleWait();
-        testBoard = testFacade.stateOfBoard();
+        testBoard = testFacade.getBoard();
         
         if( testBoard.occupied( 14 ) ){
             System.out.println( "Did not remove piece from 14." );
@@ -453,7 +453,7 @@ public class TestingKernel extends java.lang.Object{
         testFacade.selectSpace( 23 );
         
         simpleWait();
-        testBoard = testFacade.stateOfBoard();
+        testBoard = testFacade.getBoard();
         
         if( !testBoard.occupied( 23 ) ){
             System.out.println( "Incorrectly removed piece from 23." );
@@ -472,7 +472,7 @@ public class TestingKernel extends java.lang.Object{
         testFacade.selectSpace( 17 );
         
         simpleWait();
-        testBoard = testFacade.stateOfBoard();
+        testBoard = testFacade.getBoard();
         
         if( !testBoard.occupied( 8 ) ){
             System.out.println( "Incorrectly removed piece from 8" );
@@ -491,7 +491,7 @@ public class TestingKernel extends java.lang.Object{
         testFacade.selectSpace( 19 );
         
         simpleWait();
-        testBoard = testFacade.stateOfBoard();
+        testBoard = testFacade.getBoard();
         
         if( !testBoard.occupied( 1 ) ){
             System.out.println( "Incorrectly moved piece from 1" );
@@ -518,7 +518,7 @@ public class TestingKernel extends java.lang.Object{
         testFacade.selectSpace( 37 );
         
         simpleWait();
-        testBoard = testFacade.stateOfBoard();
+        testBoard = testFacade.getBoard();
         
         if( !testBoard.occupied( 5 ) ){
             System.out.println( "Incorrectly moved piece from 5." );
@@ -542,7 +542,7 @@ public class TestingKernel extends java.lang.Object{
         testFacade.selectSpace( 33 );
         
         simpleWait();
-        testBoard = testFacade.stateOfBoard();
+        testBoard = testFacade.getBoard();
        
         if( !testBoard.occupied( 40 ) ){
             System.out.println( "Incorrectly moved piece from 40." );
@@ -567,7 +567,7 @@ public class TestingKernel extends java.lang.Object{
         testFacade.selectSpace( 19 );
         
         simpleWait();
-        testBoard = testFacade.stateOfBoard();
+        testBoard = testFacade.getBoard();
       
         if( !testBoard.occupied( 19 ) ){
             System.out.println( "Did not move piece to 19." );
