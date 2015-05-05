@@ -18,7 +18,6 @@ package GUI;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import Controller.Facade;
 import Game.Board;
 
 /**
@@ -40,7 +39,6 @@ public class CheckerGUI extends JFrame implements ActionListener{
      *
      * Constructor, creates the GUI and all its components
      *
-     * @param facade the facade for the GUI to interact with
      * @param name1 the first players name
      * @param name2 the second players name
      *

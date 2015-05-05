@@ -50,8 +50,7 @@ public class Secondscreen extends JFrame
      * 
      * Creates new GUI.Secondscreen
      *
-     *@param f the facade getting passed to to set options
-     *@param first the GUI.Firstscreen object that ceated this window
+     *@param med GUIMediator instance
      *@param type the type of game 
      * 
      */

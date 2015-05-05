@@ -1,7 +1,6 @@
 package GUI;
 
 import Controller.Driver;
-import Controller.Facade;
 import Controller.Player;
 import GUI.Secondscreen.BtnSSOk;
 import GUI.Firstscreen.BtnFSOk;
@@ -9,13 +8,11 @@ import GUI.Firstscreen.BtnFCancel;
 import GUI.Secondscreen.BtnSCancel;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by Aaron on 5/2/2015.
+ * Mediates the interaction between GUI components and the Driver
  */
 public class GUIMediator implements Mediator{
 
@@ -25,7 +22,8 @@ public class GUIMediator implements Mediator{
 
     private Driver theDriver;
     private Firstscreen first;
-    private  Secondscreen second;
+    private Secondscreen second;
+    private CheckerGUI checkerGUI;
     BtnSSOk btnSSOk;
     BtnFSOk btnFSOk;
     BtnFCancel btnFCancel;
@@ -46,7 +44,7 @@ public class GUIMediator implements Mediator{
      */
     public void createPlayer( int num, int type ) {
 
-        if ( type == HOSTGAME || type == CLIENTGAME ) {
+        if ( type == theDriver.HOSTGAME || type == theDriver.CLIENTGAME ) {
             theDriver.createPlayer( num, Player.NETWORKPLAYER, "UnNamedPlayer" );
         } else {
             theDriver.createPlayer( num, Player.LOCALPLAYER, "UnNamedPlayer" );
@@ -66,16 +64,16 @@ public class GUIMediator implements Mediator{
                if (tempButton.getActionCommand().equals("local")) {
 
                    //set up a local game
-                   theDriver.setGameMode(LOCALGAME);
-                   second.changeGameType(LOCALGAME);
+                   theDriver.setGameMode(theDriver.LOCALGAME);
+                   second.changeGameType(theDriver.LOCALGAME);
                    theDriver.createPlayer(1, Player.LOCALPLAYER, "UnNamedPlayer" );
                    theDriver.createPlayer(2, Player.LOCALPLAYER, "UnNamedPlayer" );
 
 
                }
                 else if(tempButton.getActionCommand().equals("host")){
-                   theDriver.setGameMode(HOSTGAME);
-                   second.changeGameType(HOSTGAME);
+                   theDriver.setGameMode(theDriver.HOSTGAME);
+                   second.changeGameType(theDriver.HOSTGAME);
                    theDriver.createPlayer(1, Player.NETWORKPLAYER, "UnNamedPlayer" );
                    theDriver.createPlayer(2, Player.NETWORKPLAYER, "UnNamedPlayer" );
 
@@ -83,7 +81,7 @@ public class GUIMediator implements Mediator{
                else if( tempButton.getActionCommand().equals( "join" ) ){
 
                    //set up to join a game
-                   theDriver.setGameMode(CLIENTGAME);
+                   theDriver.setGameMode(theDriver.CLIENTGAME);
 
                    theDriver.createPlayer(1, Player.NETWORKPLAYER, "UnNamedPlayer" );
                    theDriver.createPlayer(2, Player.NETWORKPLAYER, "UnNamedPlayer" );
@@ -200,4 +198,6 @@ public class GUIMediator implements Mediator{
     public int whosTurn(){
         return theDriver.activePlayer.getNumber();
     }
+
+    public Driver getDriver(){ return this.theDriver; }
 }

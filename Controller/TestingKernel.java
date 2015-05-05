@@ -1,4 +1,6 @@
-package Controller; /**
+package Controller;
+
+/**
  * Controller.TestingKernel.java
  *
  * Created on February 8, 2002, 1:09 PM
@@ -12,8 +14,6 @@ package Controller; /**
  *   Initial creation of case study
  *
  */
-                                      
-// Not all of these are probably necessary.
 
 import GUI.GUIMediator;
 import Game.Board;

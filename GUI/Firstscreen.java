@@ -10,9 +10,7 @@ package GUI;/*
  *   Initial creation of case study
  *
  */
-import Controller.Facade;
 
-import java.net.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;

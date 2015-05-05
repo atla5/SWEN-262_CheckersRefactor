@@ -32,14 +32,19 @@ import javax.swing.*;
  *
  */
 public class Driver {
+
+	public static int LOCALGAME  = 10000;
+	public static int HOSTGAME   = 20000;
+	public static int CLIENTGAME = 30000;
     
     private Player playerOne;
     private Player playerTwo;
     private int    gameType;
     public Player activePlayer;
     private Player passivePlayer;
-    private Facade theFacade;
+	private Facade theFacade;
     private Rules  theRules;
+	private Board  theBoard;
     
     /**
      * Constructor
@@ -50,22 +55,14 @@ public class Driver {
     public Driver(){
 
 		// Create the board
-		Board theBoard = new Board();
+		theBoard = new Board();
 
 		// Create the rules passing in the board
 		theRules = new Rules( theBoard, this );
 
 		// Create the facade and GUI
-		theFacade = new Facade( theBoard, this );
-    }
-    
-    /**
-     * Return the facade the GUI will talk to.
-     *
-     * @return A facade to talk to the GUI.
-     */
-    public Facade getFacade(){
-	return theFacade;
+		theFacade = new Facade(theBoard, this);
+//		theMediator = new GUIMediator(this);
     }
     
     /**
@@ -101,19 +98,19 @@ public class Driver {
 		       JOptionPane.INFORMATION_MESSAGE );
 		
 		// Get the GUI to update
-		theFacade.setPlayerModes( activePlayer, passivePlayer );
+		theFacade.setPlayerModes(activePlayer, passivePlayer);
 		
 		// If game is networked tell networked player to send 
 		// the move
-		if ( gameType == theFacade.HOSTGAME 
-		     || gameType == theFacade.CLIENTGAME ) {
+		if ( gameType == HOSTGAME
+		     || gameType == CLIENTGAME ) {
 		    ( (NetworkPlayer) activePlayer ).sendMove();
 		}
 	    }
 	} else if ( passivePlayer == player ) {
 	    // If game is networked, tell networked player to send move
-	    if ( gameType == theFacade.HOSTGAME 
-		 || gameType == theFacade.CLIENTGAME ) {
+	    if ( gameType == HOSTGAME
+		 || gameType == CLIENTGAME ) {
 			((NetworkPlayer)activePlayer).sendMove();
 			((NetworkPlayer)activePlayer).waitForPlayer();
 	    }
@@ -247,7 +244,7 @@ public class Driver {
      * @param player The player declining the draw.
      */
     public void declineDraw( Player player ){
-	if ( gameType == theFacade.LOCALGAME ) {
+	if ( gameType == LOCALGAME ) {
 	    player.endInDeclineDraw( player );
 	} else {
 	    playerOne.endInDeclineDraw( player );
@@ -296,10 +293,10 @@ public class Driver {
     public void startGame(){
 	selectColors();
        
-	if ( gameType == theFacade.HOSTGAME ) {
+	if ( gameType == HOSTGAME ) {
 	    ( (NetworkPlayer)playerTwo).waitForConnect();
 	    //( (Controller.NetworkPlayer)playerTwo).waitForConnect();
-	} else if ( gameType == theFacade.CLIENTGAME ) {
+	} else if ( gameType == CLIENTGAME ) {
 	    //( (Controller.NetworkPlayer)playerOne).connectToHost();
 	    ( (NetworkPlayer)playerOne).connectToHost();
 	}
@@ -378,6 +375,8 @@ public class Driver {
     public int getGameMode(){
    	return gameType;
     }
+
+	public Board getBoard(){ return this.theBoard; }
 
 
 	/**
