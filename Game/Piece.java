@@ -25,7 +25,6 @@ import java.awt.*;
 
 public class Piece {
 
-   private Player player;
    private Color color; // the color of the piece
    private int type;
       
@@ -43,11 +42,6 @@ public class Piece {
     * @return the type of the piece
     */
    public int getType(){ return type; }
-
-   /**
-    * returns the player to whom the piece belongs
-    */
-   public Player getPlayer(){ return this.player; }
 
 
    /**

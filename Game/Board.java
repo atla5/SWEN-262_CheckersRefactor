@@ -169,7 +169,6 @@ public class Board {
 	   
    }
    
-   
    /**
     * This method returns the color of the piece at a certain space
     * 
@@ -194,7 +193,6 @@ public class Board {
        return returnValue;
 	   
    }
-   
 
    /**
     * This method returns the piece at the certain position
@@ -206,31 +204,29 @@ public class Board {
    public Piece getPieceAt(int space) {
 
 	   Piece returnValue = new Piece(Color.red);
-	   
-	   try{
-	   	   // check if there is piece at space position
-	   	   // if there is none, return null
-	   	   // else return the piece at that position
-	   
-	      if( occupied(  space ) ) {
-		   
-	   	   	   returnValue = pieces[space];
-                           
-	   	   }
-	   
-	   } catch( ArrayIndexOutOfBoundsException e ) {
-	   
-                          
-	   } catch( NullPointerException e ) {
-	   	
-           
+
+	   try {
+		   // check if there is piece at space position
+		   // if there is none, return null
+		   // else return the piece at that position
+
+		   if (occupied(space)) {
+
+			   returnValue = pieces[space];
+
+		   }
+
+	   } catch (ArrayIndexOutOfBoundsException e) {
+
+
+	   } catch (NullPointerException e) {
+
+
 	   }
-	   
-      return returnValue;
-	   
+
+	   return returnValue;
+
    }
-   
-   
    
    /**
     * This method returns if there is a piece of color on the board
@@ -257,7 +253,6 @@ public class Board {
 	   	   	   	   i = pieces.length;
 	   	   	   }
 	   }
-
            
       return returnValue;
 	   
@@ -272,9 +267,8 @@ public class Board {
    public int sizeOf() {
        return 64;
    }
-   
-   
-   
+
+	
    /**
     * This method returns a vector containing all blue Pieces
     * 
