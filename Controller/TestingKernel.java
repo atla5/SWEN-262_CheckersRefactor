@@ -15,6 +15,7 @@ package Controller; /**
                                       
 // Not all of these are probably necessary.
 
+import GUI.GUIMediator;
 import Game.Board;
 
 /**
@@ -30,8 +31,9 @@ import Game.Board;
  * @version
  */
 public class TestingKernel extends java.lang.Object{
+
     // The facade that we will manipulate and interact with.
-    public Facade testFacade;
+    public GUIMediator mediator;
 
     // The driver that this program needs to call
     public Driver theDriver;
@@ -40,7 +42,6 @@ public class TestingKernel extends java.lang.Object{
     public Board testBoard;
     
     // Initial values that will be used in this program.
-    public int    testTime  = 250;
     public String playerOne = "Joe";
     public String playerTwo = "Bob";
      
@@ -59,19 +60,18 @@ public class TestingKernel extends java.lang.Object{
         // Create the instance of the testing kernel.
         // Pass to it as a parameter the driver you just made.
         // This is turn should begin execution of the program.
-        TestingKernel tester = new TestingKernel( sampleDriver );
+        TestingKernel tester = new TestingKernel( new GUIMediator(sampleDriver) );
     }
     
     /**
      * The constructor for this kernel which calls the other methods.
      *
-     * @param aDriver The driver to manipulate in this program.
      */
-    public TestingKernel( Driver aDriver ){
-        //testFacade = aFacade;
-        theDriver  = aDriver;
-        testFacade = theDriver.getFacade();
-                
+    public TestingKernel( GUIMediator m){
+
+        this.mediator = m;
+        theDriver  = m.getDriver();
+
         // Call the needed methods.
         setBegin();
         beginTests();
@@ -86,7 +86,7 @@ public class TestingKernel extends java.lang.Object{
         
         try{
             // Set this game to be a local game.
-            testFacade.setGameMode( testFacade.LOCALGAME );
+            theDriver.setGameMode( mediator.LOCALGAME );
         
             // Create players
             // createPlayer(int num, int type, String name)
@@ -94,8 +94,8 @@ public class TestingKernel extends java.lang.Object{
             theDriver.createPlayer( 2, Player.LOCALPLAYER, playerTwo );
             
             // Set the names for the players.
-            testFacade.setPlayerName( 1, playerOne );
-            testFacade.setPlayerName( 2, playerTwo );
+            theDriver.setPlayerName( 1, playerOne );
+            theDriver.setPlayerName(2, playerTwo);
         
             // Give a generous time.  At this point, it will allow 
             // adequate time for this program to run, but perform a 
@@ -103,7 +103,7 @@ public class TestingKernel extends java.lang.Object{
 //            testFacade.setTimer( testTime, ( testTime/2 ) );
         
             //Start the game.
-            testFacade.startGame();
+            theDriver.startGame();
             
         }catch( Exception e ){
             System.err.println( e.getMessage() );
@@ -120,13 +120,13 @@ public class TestingKernel extends java.lang.Object{
         boolean passedTest = false;
         
         // Test that it correctly set the initial values correctly.
-        // Controller.Player One's Name
-        passedTest = playerOne.equals( testFacade.getPlayerName( 1 ) );
-        report( passedTest, "Sets Controller.Player One name", 3 );
+        // Player One's Name
+        passedTest = playerOne.equals( theDriver.getPlayerOne().getName() );
+        report( passedTest, "Sets Player One name", 3 );
   
-        // Controller.Player Two's Name
-        passedTest = playerTwo.equals( testFacade.getPlayerName( 2 ) );
-        report( passedTest, "Sets Controller.Player Two name", 3 );
+        // Player Two's Name
+        passedTest = playerTwo.equals(theDriver.getPlayerTwo().getName());
+        report( passedTest, "Sets Player Two name", 3 );
                
         // These are intended to run in succession.  So pieces are assumed
         // to be positioned based on previous tests.  You must take note
@@ -176,20 +176,19 @@ public class TestingKernel extends java.lang.Object{
         boolean basMoveTest = true;        
    
         //Find out who has control of the board.
-        int turn = testFacade.whosTurn();
+        int turn = mediator.whosTurn();
         
         // Since game should be in initial state, make a valid, simple 
         // move.  Red goes first, so move one of their pieces.
         System.out.println( "Attempting move: 19 to 26" );
-        testFacade.selectSpace( 19 );
-        testFacade.selectSpace( 26 );
+        theDriver.activePlayer.makeMove( 19, 26 );
         
         // Stick in a manual wait to allow for enough time for the board
         // to be updated before calling it.  
         simpleWait();
                 
         // Get a copy of the board object to check its state.           
-        testBoard = testFacade.getBoard();
+        testBoard = theDriver.getBoard();
 
         // Make the proper calls to make sure the pieces are now 
         // in the correct location and have been removed from their 
@@ -205,7 +204,7 @@ public class TestingKernel extends java.lang.Object{
         }
                        
         // Make sure it is now the other player's turn.
-        if( turn == testFacade.whosTurn() ){
+        if( turn == mediator.whosTurn() ){
             System.out.println( "Did not end turn correctly." );
             basMoveTest = false;
         }
@@ -228,18 +227,17 @@ public class TestingKernel extends java.lang.Object{
         boolean boundaryTest = true;          
         
         //Find out who has control of the board.
-        int turn = testFacade.whosTurn();
+        int turn = mediator.whosTurn();
         
         // The pieces should be in these locations.
         // Attempt to make a move with an out of bounds end location.
         System.out.println( "Attempting move: 46 to 112" );
-        testFacade.selectSpace( 46 );
-        testFacade.selectSpace( 112 );
+        theDriver.activePlayer.makeMove( 46, 112 );
         
         // Get a copy of the board object to check its state.           
         simpleWait();
         
-        testBoard = testFacade.getBoard();
+        testBoard = theDriver.getBoard();
                 
         // Game.Piece should not have moved.  Control of the board should be
         // retained.  Check for those conditions.
@@ -248,7 +246,7 @@ public class TestingKernel extends java.lang.Object{
             boundaryTest = false; 
         }
                 
-        if( turn != testFacade.whosTurn() ){ 
+        if( turn != mediator.whosTurn() ){
             System.out.println( "Prematurely ended turn." );
             boundaryTest = false; 
         }
@@ -269,40 +267,37 @@ public class TestingKernel extends java.lang.Object{
         
         // Find out who has control of the board.
         // Should be the same as the last test.
-        int turn = testFacade.whosTurn();
+        int turn = mediator.whosTurn();
         
         // Position the pieces to where necessary.
         System.out.println( "Attempting move: 40 to 33" );
-        testFacade.selectSpace( 40 );
-        testFacade.selectSpace( 33 );
+        theDriver.activePlayer.makeMove( 40, 33 );
                
         //Attempt to make a move which is not the forced jump.
-        turn = testFacade.whosTurn();
+        turn = mediator.whosTurn();
         System.out.println( "Attempting move: 26 to 35" );
-        testFacade.selectSpace( 26 );
-        testFacade.selectSpace( 35 );
+        theDriver.activePlayer.makeMove( 26, 35 );
         
         // Game.Piece should not have moved and control should be retained.
         simpleWait();
             
-        testBoard = testFacade.getBoard();
+        testBoard = theDriver.getBoard();
         
         if(!testBoard.occupied( 26 ) ){
             System.out.println( "Incorrectly removed piece from 26." );
             forceJumpTest = false;
         }
         
-        if( turn != testFacade.whosTurn() ){ forceJumpTest = false; }
+        if( turn != mediator.whosTurn() ){ forceJumpTest = false; }
                 
         // Now make the jump and check that the pieces have been 
         // moved/removed correctly.
         System.out.println( "Attempting move: 26 to 40" );
-        testFacade.selectSpace( 26 );
-        testFacade.selectSpace( 40 );
+        theDriver.activePlayer.makeMove( 26, 40 );
         
         simpleWait();
               
-        testBoard = testFacade.getBoard();
+        testBoard = theDriver.getBoard();
         
         if( testBoard.occupied( 26 ) ){
             System.out.println( "Did not move piece from 26." );
@@ -316,7 +311,7 @@ public class TestingKernel extends java.lang.Object{
         }
         
         // Control should be turned over.  Check for that.
-        if( turn == testFacade.whosTurn() ){ 
+        if( turn == mediator.whosTurn() ){
             System.out.println( "Did not end turn correctly." );
             forceJumpTest = false; 
         }
@@ -342,56 +337,48 @@ public class TestingKernel extends java.lang.Object{
          */
         System.out.println( "Setting pieces to attempt mult. jump" );
         System.out.println( "Attempting move: 46 to 39" );
-        testFacade.selectSpace( 46 );
-        testFacade.selectSpace( 39 );
+        theDriver.activePlayer.makeMove( 46, 39 );
         simpleWait();
             
         System.out.println( "Attempting move: 23 to 30" );
-        testFacade.selectSpace( 23 );
-        testFacade.selectSpace( 30 );
+        theDriver.activePlayer.makeMove( 23, 30 );
         simpleWait();
             
         System.out.println( "Attempting move: 42 to 35" );
-        testFacade.selectSpace( 42 );
-        testFacade.selectSpace( 35 );
+        theDriver.activePlayer.makeMove(42, 35);
         simpleWait();
             
         System.out.println( "Attempting move: 14 to 23" );
-        testFacade.selectSpace( 14 );
-        testFacade.selectSpace( 23 );
+        theDriver.activePlayer.makeMove( 14, 23 );
         simpleWait();
             
         System.out.println( "Attempting move: 51 to 42" );
-        testFacade.selectSpace( 51 );
-        testFacade.selectSpace( 42 );
+        theDriver.activePlayer.makeMove(51, 42);
+
         simpleWait();
             
-        System.out.println( "Attempting move:  7 to 14 " );
-        testFacade.selectSpace( 7 );
-        testFacade.selectSpace( 14 );
+        System.out.println("Attempting move:  7 to 14 ");
+        theDriver.activePlayer.makeMove(7, 14);
         simpleWait();
             
         System.out.println( "Attempting move: 60 to 51" );
-        testFacade.selectSpace( 60 );
-        testFacade.selectSpace( 51 );
+        theDriver.activePlayer.makeMove( 60, 51 );
         simpleWait();
             
         System.out.println( "Attempting move: 21 to 28" );
-        testFacade.selectSpace( 21 );
-        testFacade.selectSpace( 28 );
+        theDriver.activePlayer.makeMove(21, 28);
         simpleWait();
             
         // All of that should set the stage for a multiple jump.
         // Make the first jump and then check for control of the board.
         // And location of pieces.  Control should not have changed.
-        int turn = testFacade.whosTurn();
+        int turn = mediator.whosTurn();
         
-        System.out.println( "Attempting move: 35 to 21" );
-        testFacade.selectSpace( 35 );
-        testFacade.selectSpace( 21 );
-        
+        System.out.println("Attempting move: 35 to 21");
+        theDriver.activePlayer.makeMove(35, 21);
         simpleWait();
-        testBoard = testFacade.getBoard();
+
+        testBoard = theDriver.getBoard();
         
         if( testBoard.occupied( 28 ) ){
             System.out.println( "Did not remove piece from 28" );
@@ -401,21 +388,20 @@ public class TestingKernel extends java.lang.Object{
             multJumpTest = false;
         }
         
-        if( turn != testFacade.whosTurn() ){
+        if( turn != mediator.whosTurn() ){
             System.out.println( "Prematurely ended turn." );
             multJumpTest = false;
         }
         
         // At this point, player should still have control.
         // Make that second jump.
-        System.out.println( "Attempting move: 21 to 7" );
-        testFacade.selectSpace( 21 );
-        testFacade.selectSpace( 7  );
+        System.out.println("Attempting move: 21 to 7");
+        theDriver.activePlayer.makeMove(21, 7);
         
         // Check that the pieces have been moved/removed
         // and that control has changed hands.
         simpleWait();
-        testBoard = testFacade.getBoard();
+        testBoard = theDriver.getBoard();
         
         if( testBoard.occupied( 14 ) ){
             System.out.println( "Did not remove piece from 14." );
@@ -425,7 +411,7 @@ public class TestingKernel extends java.lang.Object{
             multJumpTest = false;
         }
         
-        if( turn == testFacade.whosTurn() ){
+        if( turn == mediator.whosTurn() ){
             System.out.println( "Did not end turn correctly." );
             multJumpTest = false;
         }
@@ -442,24 +428,23 @@ public class TestingKernel extends java.lang.Object{
         // Boolean for whether or not it passed the test.
         boolean invMoveTest = true;        
         
-        int turn = testFacade.whosTurn();
+        int turn = mediator.whosTurn();
         
         // Test that it doesn't allow you to make a move with
         // the same starting and endling location.
         System.out.println( "Try move with " +
             "same start and end location." );
-        System.out.println( "Attempting move: 23 to 23" );
-        testFacade.selectSpace( 23 );
-        testFacade.selectSpace( 23 );
+        System.out.println("Attempting move: 23 to 23");
+        theDriver.activePlayer.makeMove(23, 23);
         
         simpleWait();
-        testBoard = testFacade.getBoard();
+        testBoard = theDriver.getBoard();
         
         if( !testBoard.occupied( 23 ) ){
             System.out.println( "Incorrectly removed piece from 23." );
             invMoveTest = false;
         }
-        if( turn != testFacade.whosTurn() ){
+        if( turn != mediator.whosTurn() ){
             System.out.println( "Prematurely ended turn." );
             invMoveTest = false;   
         }
@@ -467,18 +452,17 @@ public class TestingKernel extends java.lang.Object{
         // Test that it doesn't allow you to move to a space
         // occupied by another one of your pieces.
         System.out.println( "Trying to move to occupied spot." );
-        System.out.println( "Attempting move: 8 to 17" );
-        testFacade.selectSpace( 8 );
-        testFacade.selectSpace( 17 );
+        System.out.println("Attempting move: 8 to 17");
+        theDriver.activePlayer.makeMove(8, 17);
         
         simpleWait();
-        testBoard = testFacade.getBoard();
+        testBoard = theDriver.getBoard();
         
         if( !testBoard.occupied( 8 ) ){
             System.out.println( "Incorrectly removed piece from 8" );
             invMoveTest = false;
         }
-        if( turn != testFacade.whosTurn() ){
+        if( turn != mediator.whosTurn() ){
             System.out.println( "Prematurely ended turn." );
             invMoveTest = false;   
         }   
@@ -487,11 +471,10 @@ public class TestingKernel extends java.lang.Object{
         // of your own pieces.
         System.out.println( "Trying to jump one of your own pieces." );
         System.out.println( "Attempting move: 1 to 19" );
-        testFacade.selectSpace( 1 );
-        testFacade.selectSpace( 19 );
+        theDriver.activePlayer.makeMove( 1, 19 );
         
         simpleWait();
-        testBoard = testFacade.getBoard();
+        testBoard = theDriver.getBoard();
         
         if( !testBoard.occupied( 1 ) ){
             System.out.println( "Incorrectly moved piece from 1" );
@@ -505,7 +488,7 @@ public class TestingKernel extends java.lang.Object{
         }
         
         // Control of the board should not have changed.
-        if( turn != testFacade.whosTurn() ){
+        if( turn != mediator.whosTurn() ){
             System.out.println( "Ended turn prematurely." );
             invMoveTest = false;   
         }
@@ -513,12 +496,11 @@ public class TestingKernel extends java.lang.Object{
         // Test that it doesn't allow any invalid moves to a 
         // "random" spot on the board.
         System.out.println( "Trying to move to random location. " );
-        System.out.println( "Attempting move: 5 to 37" );
-        testFacade.selectSpace( 5 );
-        testFacade.selectSpace( 37 );
+        System.out.println("Attempting move: 5 to 37");
+        theDriver.activePlayer.makeMove(5, 37);
         
         simpleWait();
-        testBoard = testFacade.getBoard();
+        testBoard = theDriver.getBoard();
         
         if( !testBoard.occupied( 5 ) ){
             System.out.println( "Incorrectly moved piece from 5." );
@@ -530,7 +512,7 @@ public class TestingKernel extends java.lang.Object{
         
         // Control of the board should not have changed.
         System.out.println( "Prematurely ended turn." );
-        if( turn != testFacade.whosTurn() ){
+        if( turn != mediator.whosTurn() ){
             invMoveTest = false;   
         }
         
@@ -538,11 +520,10 @@ public class TestingKernel extends java.lang.Object{
         // in the wrong direction.
         System.out.println( "Trying to move backwards." );
         System.out.println( "Attempting move: 40 to 33" );
-        testFacade.selectSpace( 40 );
-        testFacade.selectSpace( 33 );
+        theDriver.activePlayer.makeMove( 40, 33 );
         
         simpleWait();
-        testBoard = testFacade.getBoard();
+        testBoard = theDriver.getBoard();
        
         if( !testBoard.occupied( 40 ) ){
             System.out.println( "Incorrectly moved piece from 40." );
@@ -553,7 +534,7 @@ public class TestingKernel extends java.lang.Object{
         }
         
         // Control of the board should not have changed.
-        if( turn != testFacade.whosTurn() ){
+        if( turn != mediator.whosTurn() ){
             System.out.println( "Ended turn prematurely" );
             invMoveTest = false;   
         }
@@ -563,11 +544,10 @@ public class TestingKernel extends java.lang.Object{
         System.out.println( "Now attempt to make a simple" +
             ", valid move." );
         System.out.println( "Attempting move: 10 to 19" );
-        testFacade.selectSpace( 10 );
-        testFacade.selectSpace( 19 );
+        theDriver.activePlayer.makeMove( 10, 19 );
         
         simpleWait();
-        testBoard = testFacade.getBoard();
+        testBoard = theDriver.getBoard();
       
         if( !testBoard.occupied( 19 ) ){
             System.out.println( "Did not move piece to 19." );
@@ -578,7 +558,7 @@ public class TestingKernel extends java.lang.Object{
         }
             
         // Control of the board should have changed.
-        if( turn == testFacade.whosTurn() ){
+        if( turn == mediator.whosTurn() ){
             System.out.println( "Did not end turn correctly. " );
             invMoveTest = false;   
         }   
