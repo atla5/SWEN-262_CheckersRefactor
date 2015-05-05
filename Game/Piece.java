@@ -17,17 +17,26 @@ package Game;
  * This is an abstract class representing any piece that
  * know about it's color and possible moves and captures
  *
- * @author
- *
  */
+
+import Controller.Player;
 
 import java.awt.*;
 
-public abstract class Piece {
+public class Piece {
+
+   private Player player;
 	
    private Color color; // the color of the piece
    private int type;
 
+   /**
+    * constructor for an empty piece
+    */
+   public Piece(){
+      this.color = null;
+      this.type = -1;
+   }
       
    /**
     * The constructor for this piece
@@ -37,6 +46,8 @@ public abstract class Piece {
    public Piece( Color c ) {
 	   color = c;
    }
+
+   public Piece( Player p) { player = p; }
 
    /**
     *
@@ -50,5 +61,10 @@ public abstract class Piece {
     * @return the color for this piece
     */
    public Color getColor() { return color; }
+
+   /**
+    * returns the player to whom the piece belongs
+    */
+   public Player getPlayer(){ return this.player; }
 
 }// Game.Piece

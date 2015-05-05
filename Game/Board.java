@@ -1,4 +1,6 @@
-package Game; /**
+package Game;
+
+/**
  * Game.Board.java
  *
  * Version:
@@ -10,8 +12,8 @@ package Game; /**
  *     Initial creation of case study
  *
  */
-import Game.KingPiece;
-import Game.Piece;
+
+import Controller.Player;
 
 import java.util.*;
 import java.awt.*;
@@ -42,8 +44,10 @@ public class Board {
 	   // Set the values of numWhites and numBlues to 12 each
 	   pieces = new Piece[64];
 
+	   //create an empty "piece" object
+//	   for(int i= 0; i < 64; i++){ pieces[i] = null; }
+
 	   // create blue pieces
-       /**
 	   pieces[1] = new SinglePiece( Color.blue );
 	   pieces[3] = new SinglePiece( Color.blue );
 	   pieces[5] = new SinglePiece( Color.blue );
@@ -56,10 +60,8 @@ public class Board {
 	   pieces[19] = new SinglePiece( Color.blue );
 	   pieces[21] = new SinglePiece( Color.blue );
 	   pieces[23] = new SinglePiece( Color.blue );
-        */
 
 	   // create the white pieces
-       /**
 	   pieces[40] = new SinglePiece( Color.white );
 	   pieces[42] = new SinglePiece( Color.white );
 	   pieces[44] = new SinglePiece( Color.white );
@@ -72,11 +74,48 @@ public class Board {
 	   pieces[58] = new SinglePiece( Color.white );
 	   pieces[60] = new SinglePiece( Color.white );
 	   pieces[62] = new SinglePiece( Color.white );
-        */
 
    }
 
-   
+   public Board(Player p1, Player p2){
+
+	   // create a array of size 64, generate piece objects and
+	   // put them in the correct location in the array
+	   // Set the values of numWhites and numBlues to 12 each
+	   pieces = new Piece[64];
+
+	   //create an empty "piece" object
+	   for(int i= 0; i < 64; i++){ pieces[i] = null; }
+
+	   // create blue pieces
+	   pieces[1] = new Piece( p1 );
+	   pieces[3] = new Piece( p1 );
+	   pieces[5] = new Piece( p1 );
+	   pieces[7] = new Piece( p1 );
+	   pieces[8] = new Piece( p1 );
+	   pieces[10] = new Piece( p1 );
+	   pieces[12] = new Piece( p1 );
+	   pieces[14] = new Piece( p1 );
+	   pieces[17] = new Piece( p1 );
+	   pieces[19] = new Piece( p1 );
+	   pieces[21] = new Piece( p1 );
+	   pieces[23] = new Piece( p1 );
+
+	   // create the white pieces
+	   pieces[40] = new Piece( p2 );
+	   pieces[42] = new Piece( p2 );
+	   pieces[44] = new Piece( p2 );
+	   pieces[46] = new Piece( p2 );
+	   pieces[49] = new Piece( p2 );
+	   pieces[51] = new Piece( p2 );
+	   pieces[53] = new Piece( p2 );
+	   pieces[55] = new Piece( p2 );
+	   pieces[56] = new Piece( p2 );
+	   pieces[58] = new Piece( p2 );
+	   pieces[60] = new Piece( p2 );
+	   pieces[62] = new Piece( p2 );
+
+   }
 
    /**
     * Controller.Move the piece at the start position to the end position
@@ -112,8 +151,6 @@ public class Board {
 	   return returnValue;
 
    }
-
-   
 
    /**
     * This method checks if the space on the board contains a piece
@@ -197,6 +234,22 @@ public class Board {
        return returnValue;
 	   
    }
+
+	/**
+	 * return the owner of a specific piece
+	 * @param space
+	 * @return
+	 */
+	public Player getPlayerAt(int space ){
+
+		Player player = null;
+
+		if(occupied( space )){
+			player = pieces[space].getPlayer();
+		}
+
+		return player;
+	}
    
 
    /**
@@ -208,7 +261,7 @@ public class Board {
     */
    public Piece getPieceAt(int space) {
 
-	   Piece returnValue = new SinglePiece(Color.red);
+	   Piece returnValue = new Piece(Color.red);
 	   
 	   try{
 	   	   // check if there is piece at space position

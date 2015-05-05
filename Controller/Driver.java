@@ -31,7 +31,6 @@ import javax.swing.*;
  * jumps, relaying end of game conditions and ending the game.
  *
  */
-
 public class Driver {
     
     private Player playerOne;
@@ -49,8 +48,10 @@ public class Driver {
      * the system.
      */
     public Driver(){
+
 		// Create the board
 		Board theBoard = new Board();
+//		theBoard = new Board(playerOne, playerTwo);
 
 		// Create the rules passing in the board
 		theRules = new Rules( theBoard, this );
