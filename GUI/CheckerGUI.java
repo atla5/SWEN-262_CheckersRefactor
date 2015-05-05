@@ -157,7 +157,6 @@ public class CheckerGUI extends JFrame implements ActionListener{
 				tile.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent actionEvent) {
-//						JOptionPane.showMessageDialog(null,"tile " + tile.getID() + "pressed.");
 						theFacade.selectSpace(tile.getID());
 						update();
 
@@ -182,8 +181,6 @@ public class CheckerGUI extends JFrame implements ActionListener{
         
 	try{
 
-		update();
-		
 		//if the source came from the facade
 	    if( e.getSource().equals( theFacade ) ) {
 		
@@ -251,8 +248,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 
 						//get the picture from the web
 						try {
-							t.setIcon(
-									new ImageIcon("BlueSingle.gif"));
+							t.setIcon(new ImageIcon("BlueSingle.gif"));
 						} catch (Exception e) {
 							System.out.println(e.getMessage());
 						}
@@ -294,6 +290,7 @@ public class CheckerGUI extends JFrame implements ActionListener{
 				//if there isnt a piece there
 			} else {
 				//show no picture
+				t.setIcon(null);
 			}
 		}
 	}
