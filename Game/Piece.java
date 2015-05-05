@@ -25,16 +25,9 @@ import java.awt.*;
 
 public class Piece {
 
+   private Player player;
    private Color color; // the color of the piece
    private int type;
-
-   /**
-    * constructor for an empty piece
-    */
-   public Piece(){
-      this.color = null;
-      this.type = -1;
-   }
       
    /**
     * The constructor for this piece
@@ -50,6 +43,12 @@ public class Piece {
     * @return the type of the piece
     */
    public int getType(){ return type; }
+
+   /**
+    * returns the player to whom the piece belongs
+    */
+   public Player getPlayer(){ return this.player; }
+
 
    /**
     * This method returns the color of this piece
