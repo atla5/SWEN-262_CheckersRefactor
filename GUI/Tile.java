@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 /**
  * Representation for a checkerboard tile.
  */
-public class Tile extends JButton implements ActionListener{
+public class Tile extends JButton{
 
     // location on board
     private int id;
@@ -24,16 +24,9 @@ public class Tile extends JButton implements ActionListener{
      */
     public Tile(int newId){
         this.id = newId;
-        this.addActionListener(this);
         this.setPreferredSize(size);
         this.setTileColor(id);
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        //getID();
-    }
-
     /**
      * set Tile's background color given the int
      * @param id
